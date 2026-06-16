@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# GAIA — Grafo de coñecemento navegable
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+GAIA é unha plataforma educativa construída sobre un **grafo de coñecemento**: todo son nodos
+conectados e o nivel de detalle adáptase ao usuario (`primary` / `secondary` / `expert`), non ao
+nodo. Entre dous conceptos pode haber múltiples rutas válidas, cada unha cun modelo mental ou nivel
+de profundidade distinto.
 
-## Available Scripts
+Este repositorio contén o **frontend**. O backend (Node.js + Neo4j) vive nun repositorio separado.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React 19** + Create React App (`react-scripts`)
+- Visualización do grafo: `force-graph`, `react-force-graph-2d` / `-3d`, `three-spritetext`
+- Internacionalización: sistema propio (`src/i18n.js`), idiomas `gl` / `es` / `en`
+- Backend: Node.js + **Neo4j** (repo aparte)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Requisitos
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Node.js 18+ (recomendado 20/22)
+- npm
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Arrincar en local
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+# 1. Instalar dependencias
+npm install
+#    (React 19 é punteiro; se hai conflito de peer-deps: npm install --legacy-peer-deps)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# 2. Configurar o entorno
+cp .env.example .env
+#    e edita .env coa URL do teu backend
 
-### `npm run eject`
+# 3. Arrincar
+npm start
+#    abre http://localhost:3000
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Variables de entorno
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Defínense en `.env` (nunca se commitea; ver `.env.example`).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| Variable | Descrición | Exemplo |
+|----------|------------|---------|
+| `REACT_APP_API` | URL base do backend (sen barra final) | `http://localhost:4000` |
 
-## Learn More
+> ⚠️ En Create React App, todo o que empeza por `REACT_APP_` **compílase no bundle público**.
+> Non poñas segredos aquí — só configuración non sensible. As claves viven no backend.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Estrutura (resumo)
 
-### Code Splitting
+```
+src/
+├── config/        configuración centralizada (api.js — URL única do backend)
+├── i18n.js        textos e función de tradución t(idioma, clave)
+├── contexts/      estado global (usuario, UI, mapa)
+├── components/    compoñentes reutilizables
+├── Oberon/        subsistema de profesións / skill tree  (→ moverase ao backend)
+└── *.js           pantallas e módulos do dominio
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Documentación de arquitectura completa en [`docs/architecture/MASTER.md`](docs/architecture/MASTER.md).
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Internacionalización (engadir un idioma)
 
-### Making a Progressive Web App
+Os textos están en `src/i18n.js`. Para engadir un idioma novo emprégase o sistema de idiomas
+da app (botón **«+ Engadir idioma»**) ou engádense as traducións ao diccionario.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+> Roadmap: migrar a ficheiros por idioma (`locales/gl.json`, `locales/es.json`, …) para que engadir
+> un idioma sexa só crear un ficheiro. Ver `MASTER.md` §5.
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Scripts dispoñibles
 
-### Deployment
+| Comando | Que fai |
+|---------|---------|
+| `npm start` | Desenvolvemento en `http://localhost:3000` |
+| `npm run build` | Compila para produción en `build/` |
+| `npm test` | Lanza os tests |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## Documentación
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **[`docs/architecture/MASTER.md`](docs/architecture/MASTER.md)** — documento-guía único: arquitectura,
+  auditoría, plan de traballo, estratexia i18n e roadmap.
+- `docs/architecture/decisions/` — rexistro de decisións (ADRs).
+
+---
+
+## Licenza
+
+_(Por definir.)_
