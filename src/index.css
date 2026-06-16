@@ -1,0 +1,198 @@
+/*
+  ═══════════════════════════════════════════════════════════
+  GAIA · index.css
+  ═══════════════════════════════════════════════════════════
+  CSS global do proxecto. Importa o sistema de tokens e
+  establece os estilos base de html/body.
+
+  Non engadir estilos de compoñentes específicos aquí —
+  cada compoñente debe ter o seu propio .css.
+  ═══════════════════════════════════════════════════════════
+*/
+
+@import './tokens.css';
+
+/* ─────────────────────────────────────────────
+   Reset moderno e accesible
+   ───────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Respectar safe-area en iPhones con notch */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+  padding: 0; /* Fallback — o safe-area xestiónase por compoñente */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh; /* 100dvh en navegadores modernos */
+
+  font-family: var(--gaia-font-body);
+  font-size: var(--gaia-text-base);
+  line-height: var(--gaia-leading-normal);
+  font-weight: var(--gaia-weight-normal);
+
+  color: var(--gaia-text-primary);
+  background-color: var(--gaia-cosmos-900);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  /* Evitar scroll horizontal accidental */
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  isolation: isolate; /* Crea stacking context para z-index interno */
+}
+
+/* ─────────────────────────────────────────────
+   Elementos base
+   ───────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--gaia-font-display);
+  font-weight: var(--gaia-weight-bold);
+  line-height: var(--gaia-leading-tight);
+  letter-spacing: var(--gaia-tracking-tight);
+  color: var(--gaia-text-primary);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  line-height: var(--gaia-leading-relaxed);
+}
+
+a {
+  color: var(--gaia-accent);
+  text-decoration: none;
+  transition: color var(--gaia-duration-fast) var(--gaia-ease-out);
+}
+
+a:hover {
+  color: var(--gaia-accent-hover);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--gaia-accent);
+  outline-offset: 2px;
+  border-radius: var(--gaia-radius-sm);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--gaia-accent);
+  outline-offset: 2px;
+  border-radius: var(--gaia-radius-sm);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--gaia-accent);
+  outline-offset: 1px;
+}
+
+code, pre, kbd, samp {
+  font-family: var(--gaia-font-mono);
+  font-size: 0.9em;
+}
+
+code {
+  padding: 2px 6px;
+  background: var(--gaia-cosmos-700);
+  border-radius: var(--gaia-radius-sm);
+  color: var(--gaia-text-primary);
+}
+
+img, svg, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* ─────────────────────────────────────────────
+   Scrollbars (dark-mode consistente)
+   ───────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gaia-cosmos-800);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gaia-cosmos-500);
+  border-radius: var(--gaia-radius-full);
+  border: 2px solid var(--gaia-cosmos-800);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gaia-cosmos-400);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gaia-cosmos-500) var(--gaia-cosmos-800);
+}
+
+/* ─────────────────────────────────────────────
+   Selección de texto
+   ───────────────────────────────────────────── */
+
+::selection {
+  background: var(--gaia-accent);
+  color: var(--gaia-cosmos-900);
+}
+
+/* ─────────────────────────────────────────────
+   Respecto de prefers-reduced-motion
+   ───────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

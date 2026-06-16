@@ -1,0 +1,414 @@
+/* ============================================================
+   GAIA · Design Tokens v1.0
+   Arquivo do Coñecemento Humano · Plataforma educativa galega
+   ============================================================
+   Importar en global.css ou App.css
+   Todas as variables comezan con --gaia- para evitar colisións.
+   Ver: 01-sistema-deseño.md para documentación completa.
+   ============================================================ */
+
+/* --- Fonts (cargar en index.html ou via @import) --- */
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+:root {
+  /* ============================================================
+     1. COSMOS (fondos e superficies)
+     ============================================================ */
+  --gaia-cosmos-900: #050810;
+  --gaia-cosmos-800: #0a1020;
+  --gaia-cosmos-700: #0f1729;
+  --gaia-cosmos-600: #151e36;
+  --gaia-cosmos-500: #1c2842;
+  --gaia-cosmos-400: #2a3754;
+  --gaia-cosmos-300: #3d4a6b;
+
+  /* ============================================================
+     2. TIPOS DE NODO (semánticas, sagradas)
+     ============================================================ */
+  /* Galaxy — amarelo-mel (v1.1: máis puro, separado do accent ámbar) */
+  --gaia-galaxy: #ffd966;
+  --gaia-galaxy-glow: rgba(255, 217, 102, 0.35);
+  --gaia-galaxy-bg: rgba(255, 217, 102, 0.10);
+  --gaia-galaxy-border: rgba(255, 217, 102, 0.30);
+  --gaia-galaxy-dim: #8a7330;
+
+  /* Constellation — verde xade */
+  --gaia-constellation: #5dd4a8;
+  --gaia-constellation-glow: rgba(93, 212, 168, 0.30);
+  --gaia-constellation-bg: rgba(93, 212, 168, 0.10);
+  --gaia-constellation-border: rgba(93, 212, 168, 0.30);
+  --gaia-constellation-dim: #2a7358;
+
+  /* System — azul-xeo (v1.1: máis luminoso, mellor contraste sobre cosmos) */
+  --gaia-system: #7dd3fc;
+  --gaia-system-glow: rgba(125, 211, 252, 0.32);
+  --gaia-system-bg: rgba(125, 211, 252, 0.10);
+  --gaia-system-border: rgba(125, 211, 252, 0.32);
+  --gaia-system-dim: #3e7694;
+
+  /* Concept — azul lavanda */
+  --gaia-concept: #9bb3ff;
+  --gaia-concept-glow: rgba(155, 179, 255, 0.28);
+  --gaia-concept-bg: rgba(155, 179, 255, 0.10);
+  --gaia-concept-border: rgba(155, 179, 255, 0.30);
+  --gaia-concept-dim: #4a5980;
+
+  /* Process — coral-rosa (v1.1: separado de Concept, calor de transformación) */
+  --gaia-process: #ff9fb8;
+  --gaia-process-glow: rgba(255, 159, 184, 0.30);
+  --gaia-process-bg: rgba(255, 159, 184, 0.10);
+  --gaia-process-border: rgba(255, 159, 184, 0.30);
+  --gaia-process-dim: #854a5d;
+
+  /* Origin (GAIA) — branco luminoso */
+  --gaia-origin: #f5f7ff;
+  --gaia-origin-glow: rgba(245, 247, 255, 0.45);
+
+  /* ============================================================
+     3. ACENTO DE MARCA (úsase con escaseza)
+     ============================================================ */
+  --gaia-accent: #e8a547;
+  --gaia-accent-hover: #f2b558;
+  --gaia-accent-pressed: #d09238;
+  --gaia-accent-glow: rgba(232, 165, 71, 0.25);
+  --gaia-accent-bg: rgba(232, 165, 71, 0.12);
+  --gaia-accent-border: rgba(232, 165, 71, 0.35);
+
+  /* ============================================================
+     4. ESTADOS SEMÁNTICOS
+     ============================================================ */
+  --gaia-success: #4ade80;
+  --gaia-success-bg: rgba(74, 222, 128, 0.10);
+  --gaia-success-border: rgba(74, 222, 128, 0.30);
+
+  --gaia-warning: #fbbf24;
+  --gaia-warning-bg: rgba(251, 191, 36, 0.10);
+  --gaia-warning-border: rgba(251, 191, 36, 0.30);
+
+  --gaia-danger: #f87171;
+  --gaia-danger-bg: rgba(248, 113, 113, 0.10);
+  --gaia-danger-border: rgba(248, 113, 113, 0.30);
+
+  --gaia-info: #60a5fa;
+  --gaia-info-bg: rgba(96, 165, 250, 0.10);
+  --gaia-info-border: rgba(96, 165, 250, 0.30);
+
+  /* ============================================================
+     5. TEXTO
+     ============================================================ */
+  --gaia-text-primary: #e8ecf5;
+  --gaia-text-secondary: #a8b1c7;
+  --gaia-text-tertiary: #6b7590;
+  --gaia-text-disabled: #424b64;
+  --gaia-text-inverse: #0a1020;
+
+  /* ============================================================
+     6. TIPOGRAFÍA
+     ============================================================ */
+  --gaia-font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --gaia-font-body: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --gaia-font-mono: 'JetBrains Mono', 'SF Mono', Consolas, 'Liberation Mono', monospace;
+
+  --gaia-text-xs: 0.75rem;
+  --gaia-text-sm: 0.875rem;
+  --gaia-text-base: 1rem;
+  --gaia-text-lg: 1.125rem;
+  --gaia-text-xl: 1.25rem;
+  --gaia-text-2xl: 1.5rem;
+  --gaia-text-3xl: 1.875rem;
+  --gaia-text-4xl: 2.25rem;
+  --gaia-text-5xl: 3rem;
+  --gaia-text-6xl: 4rem;
+  --gaia-text-display: 6rem;
+
+  --gaia-weight-normal: 400;
+  --gaia-weight-medium: 500;
+  --gaia-weight-semibold: 600;
+  --gaia-weight-bold: 700;
+  --gaia-weight-black: 900;
+
+  --gaia-leading-tight: 1.15;
+  --gaia-leading-snug: 1.3;
+  --gaia-leading-normal: 1.5;
+  --gaia-leading-relaxed: 1.7;
+
+  --gaia-tracking-tight: -0.02em;
+  --gaia-tracking-normal: 0;
+  --gaia-tracking-wide: 0.05em;
+  --gaia-tracking-wider: 0.1em;
+  --gaia-tracking-widest: 0.2em;
+
+  /* ============================================================
+     7. ESPAZAMENTO
+     ============================================================ */
+  --gaia-space-0: 0;
+  --gaia-space-1: 0.25rem;
+  --gaia-space-2: 0.5rem;
+  --gaia-space-3: 0.75rem;
+  --gaia-space-4: 1rem;
+  --gaia-space-5: 1.25rem;
+  --gaia-space-6: 1.5rem;
+  --gaia-space-8: 2rem;
+  --gaia-space-10: 2.5rem;
+  --gaia-space-12: 3rem;
+  --gaia-space-16: 4rem;
+  --gaia-space-20: 5rem;
+  --gaia-space-24: 6rem;
+  --gaia-space-32: 8rem;
+
+  /* ============================================================
+     8. RADIOS
+     ============================================================ */
+  --gaia-radius-none: 0;
+  --gaia-radius-sm: 0.25rem;
+  --gaia-radius-md: 0.5rem;
+  --gaia-radius-lg: 0.75rem;
+  --gaia-radius-xl: 1rem;
+  --gaia-radius-2xl: 1.5rem;
+  --gaia-radius-full: 9999px;
+
+  /* ============================================================
+     9. SOMBRAS
+     ============================================================ */
+  --gaia-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --gaia-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --gaia-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+  --gaia-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+  --gaia-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+
+  --gaia-shadow-glow-accent: 0 0 40px rgba(232, 165, 71, 0.15), 0 0 80px rgba(232, 165, 71, 0.08);
+  --gaia-shadow-glow-galaxy: 0 0 30px rgba(255, 217, 102, 0.20);
+  --gaia-shadow-glow-constellation: 0 0 30px rgba(93, 212, 168, 0.20);
+  --gaia-shadow-glow-system: 0 0 30px rgba(125, 211, 252, 0.22);
+  --gaia-shadow-glow-concept: 0 0 30px rgba(155, 179, 255, 0.20);
+  --gaia-shadow-glow-process: 0 0 30px rgba(255, 159, 184, 0.22);
+
+  /* ============================================================
+     10. MOVEMENTO
+     ============================================================ */
+  --gaia-duration-instant: 50ms;
+  --gaia-duration-fast: 150ms;
+  --gaia-duration-normal: 250ms;
+  --gaia-duration-slow: 400ms;
+  --gaia-duration-slower: 600ms;
+  --gaia-duration-ambient: 3000ms;
+
+  --gaia-ease-linear: linear;
+  --gaia-ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --gaia-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --gaia-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --gaia-ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --gaia-ease-organic: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ============================================================
+     11. Z-INDEX
+     ============================================================ */
+  --gaia-z-below: -1;
+  --gaia-z-base: 0;
+  --gaia-z-raised: 10;
+  --gaia-z-sticky: 100;
+  --gaia-z-overlay: 1000;
+  --gaia-z-modal: 2000;
+  --gaia-z-popover: 3000;
+  --gaia-z-tooltip: 4000;
+  --gaia-z-notification: 5000;
+  --gaia-z-lua: 9000;
+
+  /* ============================================================
+     12. CONTEDORES
+     ============================================================ */
+  --gaia-container-sm: 640px;
+  --gaia-container-md: 768px;
+  --gaia-container-lg: 1024px;
+  --gaia-container-xl: 1280px;
+  --gaia-container-2xl: 1536px;
+  --gaia-container-content: 72ch;
+
+  /* ============================================================
+     13. BREAKPOINTS (para referencia en JS)
+     ============================================================ */
+  --gaia-bp-tablet: 641px;
+  --gaia-bp-desktop: 1025px;
+  --gaia-bp-wide: 1440px;
+}
+
+/* ============================================================
+   RESET + BASE
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--gaia-font-body);
+  font-size: var(--gaia-text-base);
+  line-height: var(--gaia-leading-normal);
+  color: var(--gaia-text-primary);
+  background-color: var(--gaia-cosmos-800);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--gaia-font-display);
+  font-weight: var(--gaia-weight-bold);
+  line-height: var(--gaia-leading-tight);
+  letter-spacing: var(--gaia-tracking-tight);
+  margin: 0;
+}
+
+code, pre, kbd, samp {
+  font-family: var(--gaia-font-mono);
+}
+
+/* ============================================================
+   UTILITARIAS — TIPOS DE NODO
+   Aplicar .gaia-node-{type} a calquera chip, tarxeta ou elemento
+   ============================================================ */
+.gaia-node-galaxy {
+  color: var(--gaia-galaxy);
+  background-color: var(--gaia-galaxy-bg);
+  border-color: var(--gaia-galaxy-border);
+}
+.gaia-node-constellation {
+  color: var(--gaia-constellation);
+  background-color: var(--gaia-constellation-bg);
+  border-color: var(--gaia-constellation-border);
+}
+.gaia-node-system {
+  color: var(--gaia-system);
+  background-color: var(--gaia-system-bg);
+  border-color: var(--gaia-system-border);
+}
+.gaia-node-concept {
+  color: var(--gaia-concept);
+  background-color: var(--gaia-concept-bg);
+  border-color: var(--gaia-concept-border);
+}
+.gaia-node-process {
+  color: var(--gaia-process);
+  background-color: var(--gaia-process-bg);
+  border-color: var(--gaia-process-border);
+}
+.gaia-node-origin {
+  color: var(--gaia-origin);
+  background-color: rgba(245, 247, 255, 0.08);
+  border-color: rgba(245, 247, 255, 0.25);
+}
+
+/* ============================================================
+   FOCUS VISIBLE (accesibilidade)
+   ============================================================ */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--gaia-accent);
+  outline-offset: 2px;
+  border-radius: var(--gaia-radius-sm);
+}
+
+/* ============================================================
+   SELECTION (cando o usuario selecciona texto)
+   ============================================================ */
+::selection {
+  background-color: var(--gaia-accent-bg);
+  color: var(--gaia-text-primary);
+}
+
+/* ============================================================
+   REDUCED MOTION (respectar preferencia do usuario)
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   MODO LIXEIRO (.gaia-lite no <body>)
+   ============================================================ */
+.gaia-lite .gaia-particles,
+.gaia-lite .gaia-halo-animated,
+.gaia-lite .gaia-nebula {
+  display: none !important;
+}
+
+.gaia-lite * {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ============================================================
+   KEYFRAMES oficiais GAIA
+   ============================================================ */
+@keyframes gaia-pulse-origin {
+  0%, 100% {
+    opacity: 0.95;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes gaia-breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+
+@keyframes gaia-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   SCROLLBARS customizadas
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gaia-cosmos-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gaia-cosmos-400);
+  border-radius: var(--gaia-radius-full);
+  border: 2px solid var(--gaia-cosmos-900);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gaia-cosmos-300);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gaia-cosmos-400) var(--gaia-cosmos-900);
+}
