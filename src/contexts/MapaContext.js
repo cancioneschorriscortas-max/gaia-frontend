@@ -1,10 +1,10 @@
 import { createContext, useContext, useState, useCallback, useRef } from 'react'
 import { useUser } from './UserContext'
+import { API } from '../config/api';
 //import { XP_ACCIONS } from '../niveis'
 import { calcularNivel } from '../niveis'
 
 // ── INICIO: config ───────────────────────────────────
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 // ── FIN: config ──────────────────────────────────────
 
 // ── INICIO: contexto ─────────────────────────────────

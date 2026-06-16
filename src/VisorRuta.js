@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // VisorRuta — Vista embebida dunha ruta pedagóxica
@@ -21,7 +22,6 @@ import { useUser } from './contexts/UserContext'
 //   5. Estado de carga coherente co resto da app.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cor_tipo_nodo ────────────────────────────
 const COR_TIPO = {

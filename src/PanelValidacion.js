@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // PanelValidacion — Cola de validación de envíos
@@ -27,7 +28,6 @@ import { useState, useEffect } from 'react'
 //   4. Tipografía coherente coa app.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cor_status ───────────────────────────────
 const COR_STATUS = {

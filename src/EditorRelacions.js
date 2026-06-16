@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { t } from './i18n'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // EditorRelacions — Editar / eliminar relacións existentes
@@ -23,7 +24,6 @@ import { useUser } from './contexts/UserContext'
 //   6. Cor semántica do nodo relacionado (según type).
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cor_tipo_nodo ────────────────────────────
 const COR_TIPO = {

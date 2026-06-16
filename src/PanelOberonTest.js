@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useUser } from './contexts/UserContext'
 import { t }       from './i18n'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // PanelOberonTest — Test vocacional de Oberón
@@ -18,7 +19,6 @@ import { t }       from './i18n'
 //           POST /test/gardar    → garda resultado
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 
 // ── INICIO: preguntas (multilingue) ──────────────────

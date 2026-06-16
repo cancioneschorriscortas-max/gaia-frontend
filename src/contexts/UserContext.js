@@ -2,8 +2,8 @@ import { createContext, useContext, useState, useCallback, useEffect } from 'rea
 import { calcularNivel, XP_ACCIONS } from '../niveis'
 import { getNivelDoCurso } from '../cursos'
 import { getRolById } from '../roles'
+import { API } from '../config/api';
 // ── INICIO: config ───────────────────────────────────
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 // ── FIN: config ──────────────────────────────────────
 
 // ── INICIO: contexto ─────────────────────────────────

@@ -40,6 +40,7 @@ import ModoArquitecto from './ModoArquitecto'
 import GaiaLogo from './components/GaiaLogo'
 import OberonProfesionVista from './OberonProfesionVista'
 import './App.css'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // App.js — Cerebro da aplicación
@@ -62,7 +63,6 @@ import './App.css'
 //      limpa e tipografía coherente.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 const NIVEIS = [
   { id: 'primary',   clave: 'primaria'   },

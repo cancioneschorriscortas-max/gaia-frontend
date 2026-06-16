@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // PanelHistorial — Historial de retos do usuario
@@ -20,7 +21,6 @@ import { useUser } from './contexts/UserContext'
 //   6. Escape pecha.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cores_nivel ──────────────────────────────
 const COR_NIVEL = {

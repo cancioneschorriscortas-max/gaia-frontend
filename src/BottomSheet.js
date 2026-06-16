@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { t } from './i18n'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // BottomSheet — Panel inferior deslizante (móbil)
@@ -25,7 +26,6 @@ import { useUser } from './contexts/UserContext'
 //      JetBrains Mono etiquetas).
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cor_tipo_nodo ────────────────────────────
 const COR_TIPO = {

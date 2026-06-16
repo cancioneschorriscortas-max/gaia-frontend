@@ -9,6 +9,7 @@ import EditorRelacions from './EditorRelacions'
 import ImportadorBulk from './ImportadorBulk'
 import PanelConfigMapa from './PanelConfigMapa'
 import ConstructorRutas from './ConstructorRutas'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // ModoArquitecto — Modo admin técnico do proxecto
@@ -28,7 +29,6 @@ import ConstructorRutas from './ConstructorRutas'
 // setConfigMapa.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cores_tab_semanticas ─────────────────────
 // Cada tab ten unha cor semántica da paleta GAIA v1.1

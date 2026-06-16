@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import PercorridoRuta from './PercorridoRuta'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // ArbolInstitucional — Arquivo institucional de rutas
@@ -13,7 +14,6 @@ import PercorridoRuta from './PercorridoRuta'
 // API pública sen cambios: idioma, onPechar, onSeleccionarRuta
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cores_e_constantes ───────────────────────
 const ACCENT_FB = '#e8a547'

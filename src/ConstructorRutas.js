@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { t } from './i18n'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // ConstructorRutas — Creación de rutas pedagóxicas (journeys)
@@ -23,7 +24,6 @@ import { useUser } from './contexts/UserContext'
 //   7. Emojis (↑↓✕) → SVGs.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cor_tipo_nodo ────────────────────────────
 const COR_TIPO = {

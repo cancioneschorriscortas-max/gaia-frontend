@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // RankingCentros — Páxina pública de ranking institucional
@@ -11,7 +12,6 @@ import { useState, useEffect } from 'react'
 // API: GET /ranking/centros → { centros: [...] }
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: config_puntos ────────────────────────────
 const PUNTOS = {

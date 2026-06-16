@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // PanelEnvio — Wizard 3 pasos para envío de contido
@@ -22,7 +23,6 @@ import { useUser } from './contexts/UserContext'
 //   5. Animación slide-in do panel.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 const TIPOS_RELACION = [
   'PERTENCE_A', 'PARTE_DE', 'E_UN', 'RELACIONADO_CON',

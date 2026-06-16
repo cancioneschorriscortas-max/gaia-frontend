@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // AsistenteLua — Panel de LÚA (copiloto de GAIA)
@@ -13,7 +14,6 @@ import { useUser } from './contexts/UserContext'
 // Compatibilidade total coa lóxica de backend /lua
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: mensaxes_proactivas ──────────────────────
 const MENSAXES_PROACTIVAS = [

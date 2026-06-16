@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // TabelaNodos — Administración de datos GAIA
@@ -9,7 +10,6 @@ import { useState, useEffect, useMemo } from 'react'
 // ═══════════════════════════════════════════════════════════
 
 // ── INICIO: config_api ───────────────────────────────
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 // ── FIN: config_api ──────────────────────────────────
 
 // ── INICIO: cores_tipo_semanticas ────────────────────

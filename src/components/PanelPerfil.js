@@ -3,6 +3,7 @@ import { useUser } from '../contexts/UserContext'
 import { useUI }   from '../contexts/UIContext'
 import { ROLES, getRolById } from '../roles'
 import { getLabelDoCurso } from '../cursos'
+import { API } from '../config/api';
 
 // ═══════════════════════════════════════════════════════════
 // PanelPerfil — Panel lateral deslizante co perfil do usuario
@@ -23,7 +24,6 @@ import { getLabelDoCurso } from '../cursos'
 //   - Estado vacío con CTA se o usuario non fixo o test aínda
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: iconos_svg ───────────────────────────────
 const IconoX = ({ size = 14 }) => (

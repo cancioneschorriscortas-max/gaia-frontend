@@ -5,8 +5,8 @@ import * as THREE from 'three'
 import MAPA_CONFIG from './mapaConfig'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import { sonClickNodo, sonZoom, sonHover } from './sistemaAudio'
+import { API } from './config/api';
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // Xeometrías fóra do compoñente — evita fugas de memoria
 const GEO = {

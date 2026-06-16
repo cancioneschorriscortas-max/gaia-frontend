@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // IntroGaia — Splash screen inicial
@@ -17,7 +18,6 @@ import { useEffect, useState } from 'react'
 // API pública sen cambios: prop onFin
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: configuración_nodos_constelacion ─────────
 // Posicións relativas (porcentaxe do contedor SVG 200×120)

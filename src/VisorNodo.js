@@ -5,6 +5,7 @@ import ContextoBreadcrumb from './ContextoBreadcrumb'
 import VisorRuta from './VisorRuta'
 import RetoInteractivo from './RetoInteractivo'
 import ModoExame from './ModoExame'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // VisorNodo — Páxina completa dun nodo
@@ -33,7 +34,6 @@ import ModoExame from './ModoExame'
 //      cabeceira non se amontoa.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: constantes_visuais ───────────────────────
 const NIVEL_COR = {

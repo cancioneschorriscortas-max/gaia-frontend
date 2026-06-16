@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // ContextoBreadcrumb — Ruta xerárquica dun nodo
@@ -27,7 +28,6 @@ import { useUser } from './contexts/UserContext'
 //   5. Pechase ao clicar fóra ou premer Escape.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 function ContextoBreadcrumb({ id, idioma = 'gl' }) {
 

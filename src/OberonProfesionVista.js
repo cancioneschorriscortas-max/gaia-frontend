@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import VisorMedio from './components/VisorMedio'
+import { API } from './config/api';
 
 
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ═══════════════════════════════════════════════════════════
 // OberonProfesionVista — v6 + iconos vectoriais nas microskills

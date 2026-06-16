@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import RetoInteractivo from './RetoInteractivo'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // PercorridoRuta — Pantalla completa para percorrer unha ruta
@@ -32,7 +33,6 @@ import { useUser } from './contexts/UserContext'
 //   6. Fin con tarxeta resumo máis polida.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: iconos_svg ───────────────────────────────
 const IconoX = ({ size = 14 }) => (

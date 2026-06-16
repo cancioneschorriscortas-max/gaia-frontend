@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // DashboardCentro — Páxina específica dun centro educativo
@@ -10,7 +11,6 @@ import { useState, useEffect } from 'react'
 // API: GET /centro/<nome>/dashboard → { alumnos, retos, totalNodos, totalRetos, mediaGlobal }
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cores_nivel_semanticas ───────────────────
 // Aliñado coa paleta semántica GAIA v1.1

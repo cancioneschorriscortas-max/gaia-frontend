@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useUser } from './contexts/UserContext'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // RetoInteractivo — Reto con avaliación LÚA
@@ -11,7 +12,6 @@ import { useUser } from './contexts/UserContext'
 // nivel, idioma, puntosTotais, onXP.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cores_nivel_semanticas ───────────────────
 // Aliñado coa paleta semántica GAIA v1.1

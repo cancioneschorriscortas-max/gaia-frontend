@@ -6,6 +6,7 @@ import Constructor from './Constructor'
 import TabelaNodos from './TabelaNodos'
 import ConstructorRutas from './ConstructorRutas'
 import ConstructorRelacions from './ConstructorRelacions'
+import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
 // ModoProfesor — Modo de xestión docente e validación
@@ -26,7 +27,6 @@ import ConstructorRelacions from './ConstructorRelacions'
 // setConfigMapa.
 // ═══════════════════════════════════════════════════════════
 
-const API = process.env.REACT_APP_API || 'http://localhost:4000'
 
 // ── INICIO: cores_tab_semanticas ─────────────────────
 const TAB_COR = {
