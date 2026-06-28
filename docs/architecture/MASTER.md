@@ -355,9 +355,10 @@ Wikipedia (texto)  (SPARQL / API)        relation{type,context,        (humano a
 ## 9. Backlog / decisións pendentes (ADRs)
 - [ ] ADR-001 — XP de Oberón vs XP de GAIA (¿unificados?)
 - [ ] ADR-002 — CTA de entrada a Oberón
-- [ ] ADR-003 — Estética do skill tree (v6 SVG / repintar / mestura)
+- [x] ADR-003 — Estética do skill tree → **resolto por ADR-006** (adoptar Yggdrasil Forge)
 - [ ] ADR-004 — Idioma do código e da documentación (gl/es/en)
 - [ ] ADR-005 — Fonte primaria de ingestión (Wikidata vs DBpedia vs Wikipedia)
+- [x] **ADR-006 — Adoptar Yggdrasil Forge para o render de Oberón** (aceptado; bloqueado en publicación de Yggdrasil). Ver `decisions/ADR-006-yggdrasil-oberon.md`.
 - [ ] Pendente de contido: `harina→fariña`; `epigrafe_gl → "Mestre da fariña e do tempo"`
 
 ---
