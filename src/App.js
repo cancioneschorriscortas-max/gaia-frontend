@@ -40,6 +40,7 @@ import ModoArquitecto from './ModoArquitecto'
 import GaiaLogo from './components/GaiaLogo'
 import OberonProfesionVista from './OberonProfesionVista'
 import './App.css'
+//import ProbaYggdrasil from './ProbaYggdrasil'
 import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
@@ -879,6 +880,7 @@ function App() {
   // ── FIN: render_menu_usuario ─────────────────────────
 
   // ── INICIO: render_modo_usuario ──────────────────────
+  
   const renderModoUsuario = () => {
     if (isMobile) return renderModoMovil()
     return (
@@ -894,6 +896,7 @@ function App() {
             transition: 'opacity 320ms ease, transform 320ms ease, filter 320ms ease',
             pointerEvents: voltandoAoMapa ? 'none' : 'all'
           }}>
+         
             <VisorNodo
               nodoId={nodoActivo.id}
               onVolver={volverAoMapaLocal}
@@ -960,7 +963,9 @@ function App() {
             lupaActiva={lupaActiva}
             centroFiltro={centroFiltro}
             pauseAnimation={paneis.arbol}
+            
           />
+           
         </div>
 
         {!lupaActiva && renderPanelLateral()}
@@ -1195,7 +1200,7 @@ function App() {
   return <OberonProfesionVista profesionId={profesionId} />
 }
   // ── FIN: rutas_especiais ─────────────────────────────
-
+//return <ProbaYggdrasil />
   // ── INICIO: render_principal ─────────────────────────
   return (
     <div style={{ display: 'flex', height: '100vh', background: 'var(--gaia-cosmos-900)', color: S.colorText, fontFamily: S.fontBody }}>
@@ -1295,7 +1300,6 @@ function App() {
           )}
         </>
       )}
-
     </div>
   )
   // ── FIN: render_principal ────────────────────────────
@@ -1369,6 +1373,7 @@ function MenuItemMovil({ href, onClick, Icono, label, color }) {
         : <button onClick={onClick} style={base}>{contido}</button>
       }
     </div>
+    
   )
 }
 
