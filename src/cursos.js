@@ -4,6 +4,14 @@
 // CEIP/CEP → primaria | CPI → primaria+secundaria | IES/IFP → secundaria | CIFP/CFR → fp
 
 // ── INICIO: cursos_gaia ──────────────────────────────
+// §10.1 Fase C — FONTE DE VERDADE: o backend (GET /cursos).
+// Lista local = arranque/fallback. Ao cargar, sincronízase co servidor
+// (mutación in place + recálculo de CURSOS_POR_ETAPA).
+// API pública INTACTA: CURSOS, getNivelDoCurso, getLabelDoCurso,
+// CURSOS_IDS, CURSOS_POR_ETAPA — os consumidores non cambian.
+// ─────────────────────────────────────────────────────
+import { API } from './config/api'
+
 export const CURSOS = [
   // ── Primaria ────────────────────────────────────────
   { id: '5prim',    label: '5º Primaria',      nivel: 'primary',   etapa: 'Primaria'      },
@@ -44,4 +52,24 @@ export const CURSOS_POR_ETAPA = CURSOS.reduce((acc, c) => {
   acc[c.etapa].push(c)
   return acc
 }, {})
-// ── FIN: helpers_cursos ──────────────────────────────
+// ── FIN: helpers_cursos ─────────────────────────────────
+
+// ── INICIO: sync_backend ─────────────────────────────
+// Sincronización co backend (unha vez, ao cargar o módulo).
+// Recalcula tamén CURSOS_IDS e CURSOS_POR_ETAPA in place, porque
+// se construíron coa lista de arranque.
+fetch(`${API}/cursos`)
+  .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
+  .then(d => {
+    if (Array.isArray(d.cursos) && d.cursos.length) {
+      CURSOS.splice(0, CURSOS.length, ...d.cursos)
+      CURSOS_IDS.splice(0, CURSOS_IDS.length, ...CURSOS.map(c => c.id))
+      Object.keys(CURSOS_POR_ETAPA).forEach(k => delete CURSOS_POR_ETAPA[k])
+      for (const c of CURSOS) {
+        if (!CURSOS_POR_ETAPA[c.etapa]) CURSOS_POR_ETAPA[c.etapa] = []
+        CURSOS_POR_ETAPA[c.etapa].push(c)
+      }
+    }
+  })
+  .catch(e => console.warn('[cursos] Backend non dispoñible, usando lista local:', e.message))
+// ── FIN: sync_backend ────────────────────────────────

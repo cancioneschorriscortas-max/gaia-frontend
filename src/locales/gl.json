@@ -191,5 +191,21 @@
   "contrasinelReq3": "✓ Polo menos unha minúscula",
   "contrasinelReq4": "✓ Polo menos un número",
   "contrasinaisCoinciden": "✓ Contrasinais coinciden",
-  "contrasinaisNonCoinciden": "Os contrasinais non coinciden"
+  "contrasinaisNonCoinciden": "Os contrasinais non coinciden",
+  "rolExploradorDesc": "Descubro,adáptome e sobrevivo.",
+"rolSabioDesc": "Comprendo, explico e conecto ideas.",
+"rolConstrutorDesc": "Fago, construo e transformo.",
+"rolCoidadorDesc": "Acompaño, coido e protexo.",
+"rolHabFisico": "Físico",
+"rolHabEstratexia": "Estratexia",
+"rolHabSupervivencia": "Supervivencia",
+"rolHabCientifico": "Científico",
+"rolHabLinguista": "Linguísta",
+"rolHabHistoriador": "Historiador",
+"rolHabTecnologo": "Tecnólogo",
+"rolHabArtesan": "Artesán",
+"rolHabCreador": "Creador",
+"rolHabEmpatia": "Empatía",
+"rolHabAcompanamento": "Acompañamento",
+"rolHabCoidado": "Coidado"
 }

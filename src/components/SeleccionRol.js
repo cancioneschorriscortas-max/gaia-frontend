@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ROLES }    from '../roles'
 import { useUser }  from '../contexts/UserContext'
-
+import { t } from '../i18n'
 // ═══════════════════════════════════════════════════════════
 // SeleccionRol — Escolla de camiño para alumnado
 // ═══════════════════════════════════════════════════════════
@@ -235,7 +235,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
                     lineHeight: 1.45,
                     minHeight: 38
                   }}>
-                    {r.descripcion}
+                    {t(idioma, r.descripcion)}
                   </p>
 
                   {/* Habilidades */}
@@ -245,7 +245,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
                     justifyContent: 'center'
                   }}>
                     {r.habilidades.map((h, i) => (
-                      <div key={h} style={{
+                      <div key={t(idioma, h)} style={{
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',

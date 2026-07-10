@@ -1,14 +1,15 @@
+import { API } from './config/api'
 // ── INICIO: roles_gaia ───────────────────────────────
 export const ROLES = [
   {
-    id:          'explorador',
+    id:          'explorador', 
     label:       'Explorador',
-    descripcion: 'Descubro, me adapto e sobrevivo.',
+    descripcion: 'rolExploradorDesc',
     cor:         '#6ee7b7',
     icono:       '🧭',
     image_m:     '/assets/rol-explorador-m.png',
     image_f:     '/assets/rol-explorador-f.png',
-    habilidades: ['Físico', 'Estratexia', 'Supervivencia'],
+    habilidades: ['rolHabFisico', 'rolHabEstratexia', 'rolHabSupervivencia'],
     iconosHab:   ['🏃', '🗺️', '🌿'],
     bloques: [
       {
@@ -61,12 +62,12 @@ export const ROLES = [
   {
     id:          'sabio',
     label:       'Sabio',
-    descripcion: 'Comprendo, explico e conecto ideas.',
+    descripcion: 'rolSabioDesc',
     cor:         '#93c5fd',
     icono:       '📚',
     image_m:     '/assets/rol-sabio-m.png',
     image_f:     '/assets/rol-sabio-f.png',
-    habilidades: ['Científico', 'Linguísta', 'Historiador'],
+    habilidades: ['rolHabCientifico', 'rolHabLinguista', 'rolHabHistoriador'],
     iconosHab:   ['🔬', '📝', '🏛️'],
     bloques: [
       {
@@ -115,12 +116,12 @@ export const ROLES = [
   {
     id:          'construtor',
     label:       'Construtor',
-    descripcion: 'Fago, construo e transformo.',
+    descripcion: 'rolConstrutorDesc',
     cor:         '#c4b5fd',
     icono:       '🛠️',
     image_m:     '/assets/rol-construtor-m.png',
     image_f:     '/assets/rol-construtor-f.png',
-    habilidades: ['Tecnólogo', 'Artesán', 'Creador'],
+    habilidades: ['rolHabTecnologo', 'rolHabArtesan', 'rolHabCreador'],
     iconosHab:   ['💻', '🪵', '🎨'],
     bloques: [
       {
@@ -167,12 +168,12 @@ export const ROLES = [
   {
     id:          'coidador',
     label:       'Coidador',
-    descripcion: 'Acompaño, coido e protexo.',
+    descripcion: 'rolCoidadorDesc',
     cor:         '#fda4af',
     icono:       '💗',
     image_m:     '/assets/rol-coidador-m.png',
     image_f:     '/assets/rol-coidador-f.png',
-    habilidades: ['Empatía', 'Acompañamento', 'Coidado'],
+    habilidades: ['rolHabEmpatia', 'rolHabAcompanamento', 'rolHabCoidado'],
     iconosHab:   ['💞', '🤝', '🩺'],
     bloques: [
       {
@@ -246,3 +247,19 @@ export const PROFESIONS_IDS = ROLES.flatMap(r =>
   r.bloques.flatMap(b => b.profesions.map(p => p.id))
 )
 // ── FIN: helpers_roles ───────────────────────────────
+// ── INICIO: validacion_backend ───────────────────────
+// §10.1 C2: os ids validanse contra o backend (GET /roles).
+// A presentación (cores, imaxes, textos vía i18n) é do frontend.
+
+
+fetch(`${API}/roles`)
+  .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
+  .then(d => {
+    const backend = (d.roles || []).slice().sort().join(',')
+    const local   = ROLES_IDS.slice().sort().join(',')
+    if (backend && backend !== local) {
+      console.error(`[roles] DESINCRONIZACIÓN de ids! backend=[${backend}] frontend=[${local}]`)
+    }
+  })
+  .catch(e => console.warn('[roles] Non se puido validar cos ids do backend:', e.message))
+// ── FIN: validacion_backend ──────────────────────────

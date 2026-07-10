@@ -191,5 +191,21 @@
   "contrasinelReq3": "✓ Al menos una minúscula",
   "contrasinelReq4": "✓ Al menos un número",
   "contrasinaisCoinciden": "✓ Contraseñas coinciden",
-  "contrasinaisNonCoinciden": "Las contraseñas no coinciden"
+  "contrasinaisNonCoinciden": "Las contraseñas no coinciden",
+"rolExploradorDesc": "Descubro, me adapto y sobrevivo.",
+"rolSabioDesc": "Comprendo, explico y conecto ideas.",
+"rolConstrutorDesc": "Hago, construyo y transformo.",
+"rolCoidadorDesc": "Acompaño, cuido y protejo.",
+"rolHabFisico": "Físico",
+"rolHabEstratexia": "Estrategia",
+"rolHabSupervivencia": "Supervivencia",
+"rolHabCientifico": "Científico",
+"rolHabLinguista": "Lingüista",
+"rolHabHistoriador": "Historiador",
+"rolHabTecnologo": "Tecnólogo",
+"rolHabArtesan": "Artesano",
+"rolHabCreador": "Creador",
+"rolHabEmpatia": "Empatía",
+"rolHabAcompanamento": "Acompañamiento",
+"rolHabCoidado": "Cuidado"
 }

@@ -191,5 +191,21 @@
   "contrasinelReq3": "✓ At least one lowercase",
   "contrasinelReq4": "✓ At least one number",
   "contrasinaisCoinciden": "✓ Passwords match",
-  "contrasinaisNonCoinciden": "Passwords do not match"
+  "contrasinaisNonCoinciden": "Passwords do not match",
+  "rolExploradorDesc": "I discover, adapt and survive.",
+"rolSabioDesc": "I understand, explain and connect ideas.",
+"rolConstrutorDesc": "I make, build and transform.",
+"rolCoidadorDesc": "I accompany, care and protect.",
+"rolHabFisico": "Physical",
+"rolHabEstratexia": "Strategy",
+"rolHabSupervivencia": "Survival",
+"rolHabCientifico": "Scientist",
+"rolHabLinguista": "Linguist",
+"rolHabHistoriador": "Historian",
+"rolHabTecnologo": "Technologist",
+"rolHabArtesan": "Artisan",
+"rolHabCreador": "Creator",
+"rolHabEmpatia": "Empathy",
+"rolHabAcompanamento": "Support",
+"rolHabCoidado": "Care"
 }

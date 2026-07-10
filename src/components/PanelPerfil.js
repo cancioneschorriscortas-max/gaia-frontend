@@ -3,6 +3,7 @@ import { useUser } from '../contexts/UserContext'
 import { useUI }   from '../contexts/UIContext'
 import { ROLES, getRolById } from '../roles'
 import { getLabelDoCurso } from '../cursos'
+import { t } from '../i18n'
 import { API } from '../config/api';
 
 // ═══════════════════════════════════════════════════════════
@@ -1041,7 +1042,7 @@ function PanelPerfil({ idioma = 'gl', onPechar }) {
                   marginTop: 3,
                   lineHeight: 1.4
                 }}>
-                  {r.descripcion}
+                  {t(idioma, r.descripcion)}
                 </div>
               </div>
               {sel && (
