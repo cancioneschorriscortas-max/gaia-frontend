@@ -1,4 +1,18 @@
 // ── INICIO: niveis_usuario ───────────────────────────
+// §10.1 Fase B — FONTE DE VERDADE: o backend (GET /niveis).
+//
+// Este módulo mantén a MESMA API pública de sempre
+// (NIVEIS_USUARIO, calcularNivel, XP_ACCIONS), así que os
+// consumidores (UserContext, MapaContext) non cambian.
+//
+// A lista local é un ARRANQUE/FALLBACK: ao cargar o módulo
+// pídese a lista real ao backend e MÚTASE in place, de xeito
+// que calcularNivel e calquera referencia viva pasan a usar
+// a versión do servidor. Se o backend cambia un limiar de XP,
+// aquí actualízase só — sen tocar código.
+// ─────────────────────────────────────────────────────
+import { API } from './config/api'
+
 export const NIVEIS_USUARIO = [
   { nivel: 1,  xp: 0,    titulo: 'Explorador',     cor: '#6ee7b7' },
   { nivel: 2,  xp: 100,  titulo: 'Viaxeiro',        cor: '#6ee7b7' },
@@ -11,6 +25,16 @@ export const NIVEIS_USUARIO = [
   { nivel: 9,  xp: 3800, titulo: 'Arquitecto',      cor: '#ff9f7f' },
   { nivel: 10, xp: 5000, titulo: 'Gardián de GAIA', cor: '#ffffff' },
 ]
+
+// Sincronización co backend (unha vez por sesión, ao cargar o módulo)
+fetch(`${API}/niveis`)
+  .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
+  .then(d => {
+    if (Array.isArray(d.niveis) && d.niveis.length) {
+      NIVEIS_USUARIO.splice(0, NIVEIS_USUARIO.length, ...d.niveis)  // mutación in place
+    }
+  })
+  .catch(e => console.warn('[niveis] Backend non dispoñible, usando lista local:', e.message))
 // ── FIN: niveis_usuario ──────────────────────────────
 
 // ── INICIO: calcular_nivel ───────────────────────────
@@ -41,9 +65,12 @@ export const calcularNivel = (xpTotal) => {
 }
 // ── FIN: calcular_nivel ──────────────────────────────
 
-// ── INICIO: xp_por_accion ────────────────────────────
+// ── INICIO: xp_accions ───────────────────────────────
 // Fonte única de verdade para cantidades de XP
 // Usada por sistemaXP.js e polo backend
+// NOTA §10.1: XP_ACCIONS só existe no frontend (non é duplicado).
+// Observación de integridade anotada: o valor do XP decídese no
+// cliente — candidato a moverse ao backend no futuro.
 export const XP_ACCIONS = {
   // Exploración
   NODO_NOVO:          { tipo: 'exploracion', base: 8,  motivo: 'Nodo novo descuberto'       },
