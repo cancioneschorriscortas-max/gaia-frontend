@@ -6,7 +6,9 @@
 > Última auditoría: 2026-06-16 · Frontend (`Gaia_To_public.zip`, 85 fich., ~31.900 liñas) + `package.json` + **backend `index.js` (2.902 liñas, 53 rutas)**.
 > Estado (fin sesión 2026-06-16): **2 repos públicos en GitHub e verificados sen segredos** —
 > `gaia-frontend` (commit inicial + API centralizada + i18n por locales + README) e `gaia-backend`
-> (commit inicial limpo). Próximo: duplicación de constantes front↔back (§3.4). Detalle en §10.
+> Estado (2ª sesión, peche): **§10.1 COMPLETA** (constantes de dominio: fonte única no backend) ·
+> **Yggdrasil integrado e funcionando** (Fases 1-2; 3 en curso) · Marble: conversor listo, piloto pendente ·
+> Decisión: **conxelar `D:\Gaia\frontend` (vella)** — a carpeta de traballo é a do repo. Detalle en §10.
 
 ---
 
@@ -357,13 +359,43 @@ Wikipedia (texto)  (SPARQL / API)        relation{type,context,        (humano a
 - [ ] ADR-002 — CTA de entrada a Oberón
 - [x] ADR-003 — Estética do skill tree → **resolto por ADR-006** (adoptar Yggdrasil Forge)
 - [ ] ADR-004 — Idioma do código e da documentación (gl/es/en)
-- [ ] ADR-005 — Fonte primaria de ingestión (Wikidata vs DBpedia vs Wikipedia)
-- [x] **ADR-006 — Adoptar Yggdrasil Forge para o render de Oberón** (aceptado; bloqueado en publicación de Yggdrasil). Ver `decisions/ADR-006-yggdrasil-oberon.md`.
+- [x] ADR-005 — Fonte primaria de ingestión → **resolto: Marble Skill Taxonomy** (curricular; Wikidata queda para dominios non curriculares no futuro). Modelo "multiverso": o contido de Marble como territorio propio, ligado por portais desde nodos normais.
+- [x] **ADR-006 — Adoptar Yggdrasil Forge para o render de Oberón** — **DESBLOQUEADO e INTEGRADO** (Fases 1-2 funcionando). Ver `decisions/ADR-006-yggdrasil-oberon.md`.
 - [ ] Pendente de contido: `harina→fariña`; `epigrafe_gl → "Mestre da fariña e do tempo"`
 
 ---
 
-## 10. Bitácora — sesión 2026-06-16
+## 10. Bitácora
+
+### Sesión 2 (peche) — Yggdrasil + Marble + §10.1
+
+**Feito:**
+- **Yggdrasil Forge (ADR-006) desbloqueado e integrado.** Paquetes en npm: core/react/common **0.4.0**, importers **0.2.0** (canal `@latest`, non `@next`). React subido a 19.2.7. **Fases 1-2 completas e commiteadas**: `ProbaYggdrasil.js` renderiza o panadeiro real (endpoint → `importGaiaProfession` → `TreeEngine` → `ClusterCardsView` + `NodeInspector` en galego, SUBIR NIVEL funcional). Nota API real: `ClusterCardsView` é presentacional (recibe `groups`, non `engine`).
+  - 🟡 **Fase 3 en curso:** entregados `oberonIcons.js` (coroa) + parche de fondo (`FASE3_parche.md`) — **pendente de aplicar/confirmar**. O estilo cosmos vén de serie nos compoñentes (non hai CSS que importar). Pendente decidir: iconset das microskills (pedir `bakerIcons` a Yggdrasil ou crear propio).
+  - 🔜 **Fase 4:** integrar en `OberonProfesionVista` + persistencia `toJSON`/`currentTier` ↔ Neo4j.
+  - Bug coñecido (aceptado): iframe de vídeo baleiro no inspector — xestionarase co editor en modo arquitecto; `renderVideo` é a porta para cablear `VisorMedio`.
+- **Marble Skill Taxonomy (ADR-005):** analizada cos datos reais (1.590 micro-topics primaria, 3.221 prerrequisitos con `reason`, ODbL+CC BY-SA). Mapeo case 1:1 ao modelo GAIA. **Conversor `marble2gaia.js` escrito e probado** (piloto Computing: 23 nodos + 58 relacións, validación limpa contra as regras do `/import`). Decisións: usar `ANTES_DE` para prerrequisitos (piloto reversible; migrable a `PRERREQUISITO_DE` despois), modelo **"multiverso"** (Marble como territorio propio ligado por portais). **Piloto pendente:** backup Neo4j → converter → POST /import con token de profe → atribución a Marble no README.
+- **§10.1 COMPLETA — constantes de dominio, fonte única no backend:**
+  - Fase A: hook `useTiposRelacion` (GET /relacions/tipos) → **bugfix**: PanelEnvio recuperou os 3 tipos que lle faltaban (INSTANCIA_DE, TRANSFORMA, INSPIRADO_EN). Constructor/Editor deduplicados.
+  - Fase B: `GET /niveis`; `niveis.js` degradado a fallback autoactualizable (mesma API, consumidores intactos).
+  - Fase C: `GET /cursos` (lista rica no backend) + `GET /roles` (modelo **C2**: ids validados, presentación no frontend); descricións e habilidades dos 4 roles **por fin no i18n** (16 claves novas × 3 idiomas).
+- **Decisión de fluxo:** a carpeta de traballo do frontend é **`D:\gaia-frontend`** (repo). **Conxelar `D:\Gaia\frontend`** (renomear a `frontend_OLD`) — causou un accidente real nesta sesión (Fase C aplicada na carpeta errada). O backend segue correndo desde `D:\Gaia\` (cambios van nos DOUS index.js ata unificar).
+
+**Achados novos anotados (futuro):**
+- `roles.js` contén o catálogo de **60+ profesións de Oberón** → duplicación cruzada con Neo4j ('panadeiro' está nos dous). Migrar á BD.
+- `XP_ACCIONS` só existe no frontend → o cliente decide o XP outorgado (integridade). Mover ao backend.
+- `FILTRO_DESTINO` (ontoloxía relación→destinos) só no frontend. Candidata a subir ao backend.
+- Backend: `PORT` hardcoded e fallback `NEO4J_PASS || 'gaia1234'` seguen pendentes.
+
+**Próximo (abrir por aquí):**
+1. Confirmar/rematar **Yggdrasil Fase 3** (coroa + fondo) e atacar a **Fase 4** (substituír a vista real + persistencia).
+2. **Piloto Marble** (backup → Computing → validar no mapa) + atribución no README.
+3. Conxelar a carpeta vella (renomear) e actualizar o `.bat`.
+4. Fíos: harina→fariña na BD, labels de profesións a BD/i18n, XP ao backend.
+
+---
+
+### Sesión 1 — Repos + refactors base
 
 **Feito:**
 - Auditoría completa (frontend + backend).
