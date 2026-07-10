@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useUser } from './contexts/UserContext'
+import { useTiposRelacion } from './hooks/useTiposRelacion'
 import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
@@ -24,10 +25,10 @@ import { API } from './config/api';
 // ═══════════════════════════════════════════════════════════
 
 
-const TIPOS_RELACION = [
-  'PERTENCE_A', 'PARTE_DE', 'E_UN', 'RELACIONADO_CON',
-  'SIMILAR_A', 'PRODUCE', 'USA', 'ANTES_DE', 'DESPOIS_DE'
-]
+//const TIPOS_RELACION = [
+//  'PERTENCE_A', 'PARTE_DE', 'E_UN', 'RELACIONADO_CON',
+// 'SIMILAR_A', 'PRODUCE', 'USA', 'ANTES_DE', 'DESPOIS_DE'
+//]
 
 // ── INICIO: iconos_svg ───────────────────────────────
 const IconoX = ({ size = 14 }) => (
@@ -112,7 +113,7 @@ function PanelEnvio({ nodos = [], idioma = 'gl', onPechar }) {
     return () => window.removeEventListener('keydown', handler)
   }, [onPechar])
   // ── FIN: escape_pecha ────────────────────────────────
-
+  const { tipos: tiposRelacion, nome: nomeRelacion } = useTiposRelacion()
   const set = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
   const nodosFiltrados = buscaNodo.length < 2 ? [] : nodos
@@ -552,7 +553,7 @@ function PanelEnvio({ nodos = [], idioma = 'gl', onPechar }) {
                   style={{ ...inp, flex: '0 0 140px', marginBottom: 0, cursor: 'pointer' }}
                   value={novaRelacion.tipo}
                   onChange={e => setNovaRelacion({ ...novaRelacion, tipo: e.target.value })}>
-                  {TIPOS_RELACION.map(t => <option key={t} value={t}>{t}</option>)}
+                  {tiposRelacion.map(t => <option key={t.id} value={t.id}>{nomeRelacion(t.id, idioma)}</option>)}
                 </select>
                 <input
                   style={{ ...inp, flex: 1, marginBottom: 0 }}

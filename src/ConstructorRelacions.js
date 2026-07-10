@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { t } from './i18n'
 import { useUser } from './contexts/UserContext'
+import { useTiposRelacion } from './hooks/useTiposRelacion'
 import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
@@ -104,7 +105,8 @@ function ConstructorRelacions({ idiomasActivos = ['gl', 'es', 'en'], idioma = 'g
 
   // ── INICIO: estados ──────────────────────────────────
   const [nodos, setNodos]                 = useState([])
-  const [tiposRelacion, setTiposRelacion] = useState([])
+  //const [tiposRelacion, setTiposRelacion] = useState([])
+  const { tipos: tiposRelacion } = useTiposRelacion()
   const [busca, setBusca]                 = useState('')
   const [buscaDestino, setBuscaDestino]   = useState('')
   const [orixe, setOrixe]                 = useState(null)
@@ -133,10 +135,10 @@ function ConstructorRelacions({ idiomasActivos = ['gl', 'es', 'en'], idioma = 'g
       .then(d => setNodos(d.nodos || []))
       .catch(e => console.error('[ConstructorRelacions] Erro cargando nodos:', e))
 
-    fetch(`${API}/relacions/tipos`, { headers: authHeaders() })
-      .then(r => r.json())
-      .then(d => setTiposRelacion(d.tipos || []))
-      .catch(e => console.error('[ConstructorRelacions] Erro cargando tipos:', e))
+    //fetch(`${API}/relacions/tipos`, { headers: authHeaders() })
+     // .then(r => r.json())
+      //.then(d => setTiposRelacion(d.tipos || []))
+      //.catch(e => console.error('[ConstructorRelacions] Erro cargando tipos:', e))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   // ── FIN: carga_inicial ───────────────────────────────
