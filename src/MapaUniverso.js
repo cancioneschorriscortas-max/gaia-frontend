@@ -26,6 +26,7 @@ const MapaUniverso = forwardRef(function MapaUniverso({
 }, ref) {
 
   const graphRef       = useRef(null)
+  const [universoActivo, setUniversoActivo] = useState('gaia')
   const engineStopRef  = useRef(false)
   const [datos,          setDatos]          = useState({ nodes: [], links: [] })
   const [nodoActivo,     setNodoActivo]     = useState(null)
@@ -136,14 +137,19 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
           fetch(`${API}/nodos`).then(r => r.json()),
           fetch(`${API}/relacions`).then(r => r.json())
         ]).then(([nodosRes, relaRes]) => {
-          const nodes = nodosRes.nodos.map(n => ({
+         const nodes = nodosRes.nodos
+          .filter(n => (n.universo || 'gaia') === universoActivo)
+          .map(n => ({
             id: n.id, label: n.label,
             type:   n.id === 'gaia' ? 'origin' : (n.type || 'concept'),
             status: n.status, centro: n.centro || '',
             fx: n.id === 'gaia' ? 0 : undefined,
             fy: n.id === 'gaia' ? 0 : undefined
           }))
-          const links = (relaRes.relacions || []).map(r => ({
+        const idsVisibles = new Set(nodes.map(n => n.id))
+        const links = (relaRes.relacions || [])
+          .filter(r => idsVisibles.has(r.source) && idsVisibles.has(r.target))
+          .map(r => ({
             source: r.source, target: r.target,
             tipo: r.tipo, strength: r.strength || 'medium'
           }))
@@ -200,17 +206,22 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
           fetch(`${API}/nodos`).then(r => r.json()),
           fetch(`${API}/relacions`).then(r => r.json())
         ])
-        const nodes = nodosRes.nodos.map(n => ({
-          id: n.id, label: n.label,
-          type:   n.id === 'gaia' ? 'origin' : (n.type || 'concept'),
-          status: n.status, centro: n.centro || '',
-          fx: n.id === 'gaia' ? 0 : undefined,
-          fy: n.id === 'gaia' ? 0 : undefined
-        }))
-        const links = (relaRes.relacions || []).map(r => ({
-          source: r.source, target: r.target,
-          tipo: r.tipo, strength: r.strength || 'medium'
-        }))
+        const nodes = nodosRes.nodos
+          .filter(n => (n.universo || 'gaia') === universoActivo)
+          .map(n => ({
+            id: n.id, label: n.label,
+            type:   n.id === 'gaia' ? 'origin' : (n.type || 'concept'),
+            status: n.status, centro: n.centro || '',
+            fx: n.id === 'gaia' ? 0 : undefined,
+            fy: n.id === 'gaia' ? 0 : undefined
+          }))
+        const idsVisibles = new Set(nodes.map(n => n.id))
+        const links = (relaRes.relacions || [])
+          .filter(r => idsVisibles.has(r.source) && idsVisibles.has(r.target))
+          .map(r => ({
+            source: r.source, target: r.target,
+            tipo: r.tipo, strength: r.strength || 'medium'
+          }))
         setDatos({ nodes, links })
       } catch (err) { console.error('Erro:', err) }
       finally { setCargando(false) }
@@ -275,17 +286,22 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
         fetch(`${API}/nodos`).then(r => r.json()),
         fetch(`${API}/relacions`).then(r => r.json())
       ])
-      const nodes = nodosRes.nodos.map(n => ({
-        id: n.id, label: n.label,
-        type:   n.id === 'gaia' ? 'origin' : (n.type || 'concept'),
-        status: n.status, centro: n.centro || '',
-        fx: n.id === 'gaia' ? 0 : undefined,
-        fy: n.id === 'gaia' ? 0 : undefined
-      }))
-      const links = (relaRes.relacions || []).map(r => ({
-        source: r.source, target: r.target,
-        tipo: r.tipo, strength: r.strength || 'medium'
-      }))
+      const nodes = nodosRes.nodos
+          .filter(n => (n.universo || 'gaia') === universoActivo)
+          .map(n => ({
+            id: n.id, label: n.label,
+            type:   n.id === 'gaia' ? 'origin' : (n.type || 'concept'),
+            status: n.status, centro: n.centro || '',
+            fx: n.id === 'gaia' ? 0 : undefined,
+            fy: n.id === 'gaia' ? 0 : undefined
+          }))
+        const idsVisibles = new Set(nodes.map(n => n.id))
+        const links = (relaRes.relacions || [])
+          .filter(r => idsVisibles.has(r.source) && idsVisibles.has(r.target))
+          .map(r => ({
+            source: r.source, target: r.target,
+            tipo: r.tipo, strength: r.strength || 'medium'
+          }))
       // Reset flag de engineStop para que o zoomToFit volva disparar
       engineStopRef.current = false
       setDatos({ nodes, links })
@@ -525,7 +541,17 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
           ? 'filter 380ms ease, transform 380ms ease'
           : 'opacity 300ms ease, filter 200ms ease, transform 200ms ease'
     }}>
-
+<button
+        onClick={() => setUniversoActivo(u => u === 'gaia' ? 'marble' : 'gaia')}
+        style={{
+          position: 'absolute', top: 60, left:12, zIndex: 50,
+          padding: '6px 14px', borderRadius: 20, border: '1px solid #e8a547',
+          background: 'rgba(10,16,32,.85)', color: '#e8a547', cursor: 'pointer',
+          fontWeight: 600, fontSize: 13
+        }}
+      >
+        🌌 {universoActivo === 'gaia' ? 'GAIA' : 'Marble'}
+      </button>
       {lupaActiva && !modo3D && (
         <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'rgba(4,3,2,0.18)', backdropFilter: 'blur(0.8px)', WebkitBackdropFilter: 'blur(0.8px)', transition: 'opacity 400ms ease' }} />
       )}
