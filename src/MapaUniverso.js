@@ -194,7 +194,7 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
       }
     }
     return resultado
-  }, [])
+ }, [universoActivo])
   // ── FIN: estrelas_fondo ──────────────────────────────
 
   // ── INICIO: carga_datos ──────────────────────────────
@@ -227,7 +227,7 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
       finally { setCargando(false) }
     }
     cargar()
-  }, [])
+ }, [universoActivo])
   // ── FIN: carga_datos ─────────────────────────────────
 
   // ── INICIO: centrar_nodo_foco ────────────────────────
@@ -316,7 +316,7 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
       console.warn('[MapaUniverso] refrescarForzas:', e.message)
       setRefrescando(false)
     }
-  }, [])
+  }, [universoActivo])
   // ── FIN: refrescar_forzas ────────────────────────────
 
   // ── INICIO: shortcut_R ───────────────────────────────
