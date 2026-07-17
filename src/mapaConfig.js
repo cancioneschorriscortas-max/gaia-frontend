@@ -1,7 +1,12 @@
 // ── INICIO: config_mapa ──────────────────────────────
+// ESTILO FLAT (dirección de arte "bocetos experiencia neno")
+// Cambios vs. cosmos anterior: fondo #0a1020, paleta plana
+// (dourado/verde/azul/rosa), glow a 0, bloom 3D a 0,
+// relacións máis visibles e sen partículas.
+// O resto (tamaños, lod, forzas, efectos, selección) INTACTO.
 const MAPA_CONFIG = {
 
-  fondo: '#03060f',
+  fondo: '#0a1020',
 
   // ── INICIO: config_nodos_tamaño ──────────────────
   tamaño: {
@@ -15,32 +20,32 @@ const MAPA_CONFIG = {
   // ── FIN: config_nodos_tamaño ─────────────────────
 
   // ── INICIO: config_nodos_cor ─────────────────────
-  // Cor do planeta/nodo
+  // Cor do planeta/nodo — paleta boceto
   cor: {
-    origin:        '#faf9f5',
-    galaxy:        '#d3bb71',
-    constellation: '#4baa7e',
-    system:        '#3b82f6',
-    concept:       '#4FC3F7',
-    process:       '#81C784'
+    origin:        '#e8f0ff',
+    galaxy:        '#e8a547',
+    constellation: '#9bb3ff',
+    system:        '#c4b5fd',
+    concept:       '#5dd4a8',
+    process:       '#ff9fb8'
   },
   // ── FIN: config_nodos_cor ────────────────────────
 
   // ── INICIO: config_labels_cor ────────────────────
   // Cor do texto/label de cada tipo de nodo
  label: {
-  origin:        '#ffffff',
-  galaxy:        '#ffffff',
-  constellation: '#ffffff',
-  system:        '#ffffff',
-  concept:       '#ffffff',
-  process:       '#ffffff'
+  origin:        '#f5f7ff',
+  galaxy:        '#f5f7ff',
+  constellation: '#f5f7ff',
+  system:        '#f5f7ff',
+  concept:       '#f5f7ff',
+  process:       '#f5f7ff'
 },
   // ── FIN: config_labels_cor ───────────────────────
 
   glow: {
     activo:      true,
-    intensidade: 14
+    intensidade: 0
   },
 
   relacions: {
@@ -49,8 +54,8 @@ const MAPA_CONFIG = {
       medium: 1.2,
       low:    0.4
     },
-    opacidade:             0.03,
-    particulas:            true,
+    opacidade:             0.12,
+    particulas:            false,
     particulas_velocidade: 5,
     particulas_tamaño:     1.5
   },
@@ -79,7 +84,7 @@ const MAPA_CONFIG = {
 
   rendemento: {
   warmup_ticks:    50,
-  bloom_strength:  1.8,
+  bloom_strength:  0,
   bloom_radius:    0.8,
   bloom_threshold: 0.1
 },
