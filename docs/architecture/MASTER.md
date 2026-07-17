@@ -9,6 +9,9 @@
 > Estado (2ª sesión, peche): **§10.1 COMPLETA** (constantes de dominio: fonte única no backend) ·
 > **Yggdrasil integrado e funcionando** (Fases 1-2; 3 en curso) · Marble: conversor listo, piloto pendente ·
 > Decisión: **conxelar `D:\Gaia\frontend` (vella)** — a carpeta de traballo é a do repo. Detalle en §10.
+> **Estado (3ª sesión, peche): MULTIVERSO + LOD OPERATIVOS · Marble COMPLETO dentro (1.653 nodos / 4.873 rel.)**
+> — dous universos co botón 🌌, mapa escalonado (esqueleto por defecto, expandir ao picar),
+> `/nodo` e `/import` gravando `universo`. Detalle en §10, Sesión 3.
 
 ---
 
@@ -366,6 +369,33 @@ Wikipedia (texto)  (SPARQL / API)        relation{type,context,        (humano a
 ---
 
 ## 10. Bitácora
+
+### Sesión 3 (peche) — Multiverso + LOD + Marble completo
+
+**Feito:**
+- **MULTIVERSO implementado e operativo.** Cada nodo leva campo `universo` (`'gaia'` | `'marble'`; fallback `'gaia'` para todo o existente). Mapa cun botón **🌌** que alterna universo activo; o filtro aplica a nodos E relacións (links a nodos filtrados romperían force-graph). Nodo `origin` "Marble Curriculum" como segundo sol.
+- **LOD (mapa escalonado).** Por defecto píntase só o esqueleto (`origin`+`galaxy`+`constellation`); **picar nunha galaxia/constelación ábrea/péchaa** (fillos vía `PERTENCE_A`). Regra defensiva: nodo sen pai móstrase sempre. Implementación: función única `filtrarDatos()` (universo+LOD+links) usada polos 3 puntos de carga; estado `nodosAbertos` (Set); `toggleAberto` nos dous onNodeClick (2D e 3D). O 3D con dataset completo xa é usable.
+- **Marble COMPLETO importado:** `--all` → 1.653 nodos (1 origin, 8 galaxy, 54 constellation, 1.590 concept) + 4.873 relacións, no universo marble.
+- **Backend — as dúas portas gravan `universo`:** `POST /import` (`nodo.universo || 'gaia'`) e `POST /nodo` (`req.body.universo || 'gaia'`). ⚠️ Bug cazado e arranxado: no `/nodo` puxérase `nodo.universo` (variable inexistente nese handler → ReferenceError ao crear nodos desde o editor). Probado: crear/borrar nodo OK. `GET /nodos` devolve o campo.
+- **Conversor v2 (`marble2gaia.js`):** sen flags só axuda; `--all` explícito para o total; engade `universo` + origin. Footgun do "todo de golpe" desactivado.
+- Atribución a Marble no README ✓ (via outro chat, merxeado).
+- **Primeiro merge entre chats** resolto (README + LOD): fluxo multi-chat vía git funciona. Regra: `git pull` antes de traballar en calquera chat.
+
+**Incidencias e leccións:**
+- 1º import (`--all` sen multiverso) mesturou 1.652 nodos co universo GAIA → limpeza por `autor CONTAINS 'Marble'` (o deseño reversible funcionou). Diagnóstico raíz: o mapa non tiña mecanismo de escala nin de separación — de aí multiverso+LOD.
+- Nodos importados antes do parche backend etiquetáronse a posteriori con `SET n.universo='marble'`.
+- Placeholder `...` nun parche pegouse literal e rompeu o map → política nova: parches con código completo copiable.
+- Os parches a man en DOUS index.js son fráxiles (o bug do /nodo naceu aí) → **sobe prioridade a unificación do backend** (que a carpeta que corre sexa o repo, como no frontend).
+
+**Próximo (abrir por aquí):**
+1. **Unificar backend**: `D:\gaia-backend` como carpeta de traballo real (actualizar `.bat`), conxelar copia de `D:\Gaia\index.js`. E renomear `D:\Gaia\frontend` → `frontend_OLD` (pendente da S2).
+2. **Tradución EN→GL/ES** do contido Marble (pipeline por lotes co backend de Lúa).
+3. **Portais GAIA↔Marble**: relacións entre universos mostradas como portas (hoxe o filtro ocúltaas).
+4. Mellora rendemento LOD se molesta o refetch por clic: gardar resposta crúa en estado + useMemo (anotado no PARCHE_LOD).
+5. Oberón/Yggdrasil: confirmar Fase 3 (coroa+fondo) e Fase 4 (vista real + persistencia) — en curso noutros chats.
+6. Fíos: harina→fariña na BD, labels de profesións a BD/i18n, XP ao backend, PORT/NEO4J_PASS.
+
+---
 
 ### Sesión 2 (peche) — Yggdrasil + Marble + §10.1
 
