@@ -27,6 +27,7 @@ const MapaUniverso = forwardRef(function MapaUniverso({
 
   const graphRef       = useRef(null)
   const [universoActivo, setUniversoActivo] = useState('gaia')
+  const [nodosAbertos, setNodosAbertos] = useState(new Set())
   const engineStopRef  = useRef(false)
   const [datos,          setDatos]          = useState({ nodes: [], links: [] })
   const [nodoActivo,     setNodoActivo]     = useState(null)
@@ -52,6 +53,54 @@ const MapaUniverso = forwardRef(function MapaUniverso({
 
   const animFrameRef = useRef(null)
   const cfg = config || MAPA_CONFIG
+
+  // ── INICIO: lod_multiverso ───────────────────────────
+  // LOD: abrir/pechar galaxia ou constelación
+  const toggleAberto = (node) => {
+    if (node.type !== 'galaxy' && node.type !== 'constellation') return false
+    setNodosAbertos(prev => {
+      const s = new Set(prev)
+      if (s.has(node.id)) s.delete(node.id); else s.add(node.id)
+      return s
+    })
+    return true
+  }
+
+  // Filtro compartido: universo + LOD. Devolve { nodes, links } listos.
+  const filtrarDatos = useCallback((nodosRes, relaRes) => {
+    // pai de cada nodo (target da súa PERTENCE_A)
+    const paiDe = {}
+    for (const r of (relaRes.relacions || [])) {
+      if (r.tipo === 'PERTENCE_A') paiDe[r.source] = r.target
+    }
+    const SEMPRE = new Set(['origin', 'galaxy', 'constellation'])
+
+    const nodes = nodosRes.nodos
+      .filter(n => (n.universo || 'gaia') === universoActivo)
+      .filter(n => {
+        const type = n.id === 'gaia' ? 'origin' : (n.type || 'concept')
+        if (SEMPRE.has(type)) return true            // esqueleto: sempre
+        const pai = paiDe[n.id]
+        if (!pai) return true                        // sen pai: defensivo, mostrar
+        return nodosAbertos.has(pai)                 // fillo: só se o pai está aberto
+      })
+      .map(n => ({
+        id: n.id, label: n.label,
+        type:   n.id === 'gaia' ? 'origin' : (n.type || 'concept'),
+        status: n.status, centro: n.centro || '',
+        fx: n.id === 'gaia' ? 0 : undefined,
+        fy: n.id === 'gaia' ? 0 : undefined
+      }))
+    const idsVisibles = new Set(nodes.map(n => n.id))
+    const links = (relaRes.relacions || [])
+      .filter(r => idsVisibles.has(r.source) && idsVisibles.has(r.target))
+      .map(r => ({
+        source: r.source, target: r.target,
+        tipo: r.tipo, strength: r.strength || 'medium'
+      }))
+    return { nodes, links }
+  }, [universoActivo, nodosAbertos])
+  // ── FIN: lod_multiverso ──────────────────────────────
 
   useEffect(() => { setTimeout(() => setModoVisible(true), 100) }, [])
 
@@ -137,23 +186,7 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
           fetch(`${API}/nodos`).then(r => r.json()),
           fetch(`${API}/relacions`).then(r => r.json())
         ]).then(([nodosRes, relaRes]) => {
-         const nodes = nodosRes.nodos
-          .filter(n => (n.universo || 'gaia') === universoActivo)
-          .map(n => ({
-            id: n.id, label: n.label,
-            type:   n.id === 'gaia' ? 'origin' : (n.type || 'concept'),
-            status: n.status, centro: n.centro || '',
-            fx: n.id === 'gaia' ? 0 : undefined,
-            fy: n.id === 'gaia' ? 0 : undefined
-          }))
-        const idsVisibles = new Set(nodes.map(n => n.id))
-        const links = (relaRes.relacions || [])
-          .filter(r => idsVisibles.has(r.source) && idsVisibles.has(r.target))
-          .map(r => ({
-            source: r.source, target: r.target,
-            tipo: r.tipo, strength: r.strength || 'medium'
-          }))
-          setDatos({ nodes, links })
+          setDatos(filtrarDatos(nodosRes, relaRes))
         })
         setCambiandoModo(false)
         setTimeout(() => {
@@ -194,7 +227,7 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
       }
     }
     return resultado
- }, [universoActivo])
+ }, [])
   // ── FIN: estrelas_fondo ──────────────────────────────
 
   // ── INICIO: carga_datos ──────────────────────────────
@@ -206,28 +239,12 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
           fetch(`${API}/nodos`).then(r => r.json()),
           fetch(`${API}/relacions`).then(r => r.json())
         ])
-        const nodes = nodosRes.nodos
-          .filter(n => (n.universo || 'gaia') === universoActivo)
-          .map(n => ({
-            id: n.id, label: n.label,
-            type:   n.id === 'gaia' ? 'origin' : (n.type || 'concept'),
-            status: n.status, centro: n.centro || '',
-            fx: n.id === 'gaia' ? 0 : undefined,
-            fy: n.id === 'gaia' ? 0 : undefined
-          }))
-        const idsVisibles = new Set(nodes.map(n => n.id))
-        const links = (relaRes.relacions || [])
-          .filter(r => idsVisibles.has(r.source) && idsVisibles.has(r.target))
-          .map(r => ({
-            source: r.source, target: r.target,
-            tipo: r.tipo, strength: r.strength || 'medium'
-          }))
-        setDatos({ nodes, links })
+        setDatos(filtrarDatos(nodosRes, relaRes))
       } catch (err) { console.error('Erro:', err) }
       finally { setCargando(false) }
     }
     cargar()
- }, [universoActivo])
+}, [filtrarDatos])
   // ── FIN: carga_datos ─────────────────────────────────
 
   // ── INICIO: centrar_nodo_foco ────────────────────────
@@ -286,25 +303,9 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
         fetch(`${API}/nodos`).then(r => r.json()),
         fetch(`${API}/relacions`).then(r => r.json())
       ])
-      const nodes = nodosRes.nodos
-          .filter(n => (n.universo || 'gaia') === universoActivo)
-          .map(n => ({
-            id: n.id, label: n.label,
-            type:   n.id === 'gaia' ? 'origin' : (n.type || 'concept'),
-            status: n.status, centro: n.centro || '',
-            fx: n.id === 'gaia' ? 0 : undefined,
-            fy: n.id === 'gaia' ? 0 : undefined
-          }))
-        const idsVisibles = new Set(nodes.map(n => n.id))
-        const links = (relaRes.relacions || [])
-          .filter(r => idsVisibles.has(r.source) && idsVisibles.has(r.target))
-          .map(r => ({
-            source: r.source, target: r.target,
-            tipo: r.tipo, strength: r.strength || 'medium'
-          }))
       // Reset flag de engineStop para que o zoomToFit volva disparar
       engineStopRef.current = false
-      setDatos({ nodes, links })
+      setDatos(filtrarDatos(nodosRes, relaRes))
 
       // zoomToFit tras tempo suficiente para que a simulación asente
       setTimeout(() => {
@@ -316,7 +317,7 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
       console.warn('[MapaUniverso] refrescarForzas:', e.message)
       setRefrescando(false)
     }
-  }, [universoActivo])
+ }, [filtrarDatos])
   // ── FIN: refrescar_forzas ────────────────────────────
 
   // ── INICIO: shortcut_R ───────────────────────────────
@@ -443,6 +444,7 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
 
   // ── INICIO: handler_click ────────────────────────────
   const handleNodeClick = useCallback((node) => {
+    toggleAberto(node)
     sonClickNodo(node.type)
     if (lupaActiva) {
       setTooltip(null)
@@ -624,6 +626,7 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
             } catch(e) { console.warn('Efectos 3D:', e.message) }
           }}
           onNodeClick={node => {
+            toggleAberto(node)
             sonClickNodo(node.type)
             setNodoActivo(prev => prev?.id === node.id ? null : node)
             if (onNodoSeleccionado) onNodoSeleccionado(node)
