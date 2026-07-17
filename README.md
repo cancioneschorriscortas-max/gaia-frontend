@@ -99,6 +99,13 @@ da app (botón **«+ Engadir idioma»**) ou engádense as traducións ao diccion
 - `docs/architecture/decisions/` — rexistro de decisións (ADRs).
 
 ---
+## Atribucións
+
+O universo curricular "Marble Curriculum" incorpora datos de
+[Marble Skill Taxonomy](https://github.com/withmarbleapp/os-taxonomy)
+(© Marble, [withmarble.com](https://withmarble.com)), baixo licenzas
+[ODbL 1.0](https://opendatacommons.org/licenses/odbl/1-0/) (base de datos)
+e [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) (contido).
 
 ## Licenza
 
