@@ -28,6 +28,7 @@ const MapaUniverso = forwardRef(function MapaUniverso({
   const graphRef       = useRef(null)
   const [universoActivo, setUniversoActivo] = useState('gaia')
   const [nodosAbertos, setNodosAbertos] = useState(new Set())
+  const [universosDispoñibles, setUniversosDispoñibles] = useState(['gaia'])
   const engineStopRef  = useRef(false)
   const [datos,          setDatos]          = useState({ nodes: [], links: [] })
   const [nodoActivo,     setNodoActivo]     = useState(null)
@@ -68,6 +69,10 @@ const MapaUniverso = forwardRef(function MapaUniverso({
 
   // Filtro compartido: universo + LOD. Devolve { nodes, links } listos.
   const filtrarDatos = useCallback((nodosRes, relaRes) => {
+    // Universos existentes: derívanse dos datos — engadir universo = importar datos, cero código
+    setUniversosDispoñibles([...new Set(
+      nodosRes.nodos.map(n => n.universo || 'gaia')
+    )].sort())
     // pai de cada nodo (target da súa PERTENCE_A)
     const paiDe = {}
     for (const r of (relaRes.relacions || [])) {
@@ -246,7 +251,19 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
     cargar()
 }, [filtrarDatos])
   // ── FIN: carga_datos ─────────────────────────────────
-
+// ── INICIO: reencadre_viaxe_universo ─────────────────
+  // Ao cambiar de universo, recentar a cámara no universo novo
+  // (senón a vista queda onde estaba: descentrada ou no baleiro)
+  useEffect(() => {
+    if (!graphRef.current) return
+    setNodoActivo(null)                        // pechar selección do universo anterior
+    engineStopRef.current = false              // desbloquear o zoomToFit automático
+    const timer = setTimeout(() => {
+      try { graphRef.current?.zoomToFit(600, 80) } catch(e) {}
+    }, 1200)
+    return () => clearTimeout(timer)
+  }, [universoActivo])
+  // ── FIN: reencadre_viaxe_universo ────────────────────
   // ── INICIO: centrar_nodo_foco ────────────────────────
   useEffect(() => {
     if (!nodoFoco || !graphRef.current) return
@@ -544,15 +561,18 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
           : 'opacity 300ms ease, filter 200ms ease, transform 200ms ease'
     }}>
 <button
-        onClick={() => setUniversoActivo(u => u === 'gaia' ? 'marble' : 'gaia')}
+        onClick={() => setUniversoActivo(u => {
+          const i = universosDispoñibles.indexOf(u)
+          return universosDispoñibles[(i + 1) % universosDispoñibles.length]
+        })}
         style={{
-          position: 'absolute', top: 60, left:12, zIndex: 50,
+          position: 'absolute', top: 60, left: 12, zIndex: 50,
           padding: '6px 14px', borderRadius: 20, border: '1px solid #e8a547',
           background: 'rgba(10,16,32,.85)', color: '#e8a547', cursor: 'pointer',
           fontWeight: 600, fontSize: 13
         }}
       >
-        🌌 {universoActivo === 'gaia' ? 'GAIA' : 'Marble'}
+        🌌 {universoActivo.toUpperCase()}
       </button>
       {lupaActiva && !modo3D && (
         <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'rgba(4,3,2,0.18)', backdropFilter: 'blur(0.8px)', WebkitBackdropFilter: 'blur(0.8px)', transition: 'opacity 400ms ease' }} />
