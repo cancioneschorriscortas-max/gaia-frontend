@@ -254,7 +254,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
           width: 300,
           flexShrink: 0,
           borderRight: '1px solid var(--gaia-cosmos-400)',
-          padding: '28px 18px',
+          padding: '28px 18px 100px 18px',
           overflowY: 'auto',
           background: 'rgba(10, 16, 32, 0.4)',
           backdropFilter: 'blur(8px)',
@@ -438,7 +438,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
         </div>
 
         {/* ───── PANEL DEREITO: DETALLE RUTA ───── */}
-        <div style={{ flex: 1, padding: '36px 44px', overflowY: 'auto' }}>
+       <div style={{ flex: 1, padding: '36px 44px 100px 44px', overflowY: 'auto' }}>
           {!rutaActiva ? (
             <div style={{ textAlign: 'center', marginTop: '15vh' }}>
               <div style={{
