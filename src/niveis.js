@@ -85,5 +85,7 @@ export const XP_ACCIONS = {
   RETO_PRIMARY:       { tipo: 'comprension', base: 15, motivo: 'Reto primaria completado'    },
   RETO_SECONDARY:     { tipo: 'comprension', base: 30, motivo: 'Reto secundaria completado'  },
   RETO_EXPERT:        { tipo: 'comprension', base: 60, motivo: 'Reto experto completado'     },
+  // Rutas
+  RUTA_COMPLETADA:    { tipo: 'exploracion', base: 25, motivo: 'Ruta completada'             },
 }
 // ── FIN: xp_por_accion ───────────────────────────────

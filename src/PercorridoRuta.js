@@ -93,9 +93,9 @@ const IconoSpinner = ({ size = 24 }) => (
 )
 // ── FIN: iconos_svg ──────────────────────────────────
 
-function PercorridoRuta({ journeyId, idioma = 'gl', onPechar }) {
+function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null }) {
 
-  const { authHeaders } = useUser()
+  const { authHeaders, rexistrarXP } = useUser()
 
   // ── INICIO: estados ──────────────────────────────────
   const [ruta, setRuta]               = useState(null)
@@ -146,8 +146,10 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar }) {
 
 
 // ── INICIO: progreso_persistente ─────────────────────
-  // Restaura o punto onde quedou o usuario (antes de darlle a
-  // "comezar" na intro) e garda cada avance no backend.
+  // Restaura o punto onde quedou o usuario e garda cada avance.
+  // Se chega pasoInicial (desde a Senda), mándase ese e non se restaura.
+  const [xaCompletada, setXaCompletada] = useState(false)
+
   const gardarProgreso = (novoIndice, completada = false) => {
     fetch(`${API}/journeys/${journeyId}/progreso`, {
       method: 'PUT',
@@ -161,10 +163,13 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar }) {
     fetch(`${API}/journeys/${journeyId}/progreso`, { headers: authHeaders() })
       .then(r => r.json())
       .then(async p => {
-        const gardado = Math.min(p.indice || 0, stops.length - 1)
-        if (gardado > 0) {
-          await cargarNodo(stops[gardado].nodo.id)
-          setIndice(gardado)
+        setXaCompletada(p.completada === true)
+        const destino = pasoInicial != null
+          ? Math.min(Math.max(0, pasoInicial), stops.length - 1)
+          : Math.min(p.indice || 0, stops.length - 1)
+        if (destino > 0 || pasoInicial != null) {
+          await cargarNodo(stops[destino].nodo.id)
+          setIndice(destino)
         }
       })
       .catch(() => {})
@@ -180,10 +185,15 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar }) {
   // ── FIN: pechar ──────────────────────────────────────
 
 // ── INICIO: ir_a ─────────────────────────────────────
+ // ── INICIO: ir_a ─────────────────────────────────────
   const irA = async (novoIndice) => {
     setMostrarMais(false) // BUG ARRANXADO: reseta ao cambiar de paso
     if (novoIndice >= stops.length) {
       gardarProgreso(stops.length - 1, true)   // ruta completada
+      if (!xaCompletada) {                      // premio só a primeira vez
+        rexistrarXP('RUTA_COMPLETADA')
+        setXaCompletada(true)
+      }
       setFase('fin')
       return
     }
@@ -192,6 +202,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar }) {
     setIndice(novoIndice)
     gardarProgreso(novoIndice)                  // garda o avance (o backend só sobe)
   }
+  // ── FIN: ir_a ────────────────────────────────────────
   // ── FIN: ir_a ────────────────────────────────────────
 
   // ── INICIO: repetir ──────────────────────────────────
