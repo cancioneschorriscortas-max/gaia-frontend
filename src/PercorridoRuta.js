@@ -144,6 +144,34 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar }) {
   }, [journeyId])
   // ── FIN: carga_inicial ───────────────────────────────
 
+
+// ── INICIO: progreso_persistente ─────────────────────
+  // Restaura o punto onde quedou o usuario (antes de darlle a
+  // "comezar" na intro) e garda cada avance no backend.
+  const gardarProgreso = (novoIndice, completada = false) => {
+    fetch(`${API}/journeys/${journeyId}/progreso`, {
+      method: 'PUT',
+      headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ indice: novoIndice, completada })
+    }).catch(e => console.warn('[PercorridoRuta] Non se gardou o progreso:', e.message))
+  }
+
+  useEffect(() => {
+    if (stops.length === 0) return
+    fetch(`${API}/journeys/${journeyId}/progreso`, { headers: authHeaders() })
+      .then(r => r.json())
+      .then(async p => {
+        const gardado = Math.min(p.indice || 0, stops.length - 1)
+        if (gardado > 0) {
+          await cargarNodo(stops[gardado].nodo.id)
+          setIndice(gardado)
+        }
+      })
+      .catch(() => {})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stops])
+  // ── FIN: progreso_persistente ────────────────────────
+
   // ── INICIO: pechar ───────────────────────────────────
   const pechar = () => {
     setVisible(false)
@@ -151,16 +179,18 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar }) {
   }
   // ── FIN: pechar ──────────────────────────────────────
 
-  // ── INICIO: ir_a ─────────────────────────────────────
+// ── INICIO: ir_a ─────────────────────────────────────
   const irA = async (novoIndice) => {
     setMostrarMais(false) // BUG ARRANXADO: reseta ao cambiar de paso
     if (novoIndice >= stops.length) {
+      gardarProgreso(stops.length - 1, true)   // ruta completada
       setFase('fin')
       return
     }
     const stop = stops[novoIndice]
     await cargarNodo(stop.nodo.id)
     setIndice(novoIndice)
+    gardarProgreso(novoIndice)                  // garda o avance (o backend só sobe)
   }
   // ── FIN: ir_a ────────────────────────────────────────
 
