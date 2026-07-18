@@ -759,9 +759,18 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
             getEstrelas(cx, cy, w, h, globalScale).forEach((s) => {
               ctx.beginPath()
               ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI)
-              ctx.fillStyle = `rgba(255,255,255,${s.o})`
+             ctx.fillStyle = `rgba(255,255,255,${s.o})`
               ctx.fill()
             })
+          }}
+          onNodeClick={handleNodeClick}
+          onNodeHover={handleNodeHover}
+          onBackgroundClick={() => { setNodoActivo(null); setTooltip(null) }}
+          // ── INICIO: fix_engine_stop ──────────────────
+          onEngineStop={() => {
+            if (engineStopRef.current) return
+            engineStopRef.current = true
+            graphRef.current?.zoomToFit(400, 50)
           }}
           // ── FIN: fix_engine_stop ─────────────────────
           width={dimensions.width}
