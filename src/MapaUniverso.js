@@ -30,6 +30,7 @@ const MapaUniverso = forwardRef(function MapaUniverso({
   const [nodosAbertos, setNodosAbertos] = useState(new Set())
   const [universosDispoñibles, setUniversosDispoñibles] = useState(['gaia'])
   const engineStopRef  = useRef(false)
+  const labelRectsRef  = useRef([])
   const [datos,          setDatos]          = useState({ nodes: [], links: [] })
   const [nodoActivo,     setNodoActivo]     = useState(null)
   const [cargando,       setCargando]       = useState(true)
@@ -96,6 +97,10 @@ const MapaUniverso = forwardRef(function MapaUniverso({
         fx: n.id === 'gaia' ? 0 : undefined,
         fy: n.id === 'gaia' ? 0 : undefined
       }))
+   // Prioridade de pintado/labels: importantes primeiro (reservan sitio antes)
+    const PRIORIDADE = { origin: 0, galaxy: 1, constellation: 2, system: 3, concept: 4, process: 5 }
+    nodes.sort((a, b) => (PRIORIDADE[a.type] ?? 9) - (PRIORIDADE[b.type] ?? 9))
+
     const idsVisibles = new Set(nodes.map(n => n.id))
     const links = (relaRes.relacions || [])
       .filter(r => idsVisibles.has(r.source) && idsVisibles.has(r.target))
@@ -376,8 +381,9 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
   // ── FIN: helpers ─────────────────────────────────────
 
   // ── INICIO: render_nodo ──────────────────────────────
-  // Estilo FLAT: un círculo sólido + aro no activo. Sen sombras,
-  // sen triple pasada, sen gradiente especular.
+  // Estilo FLAT + LABEL CULLING: un círculo sólido, aro-pulso no activo,
+  // e a label só se pinta se non colide con ningunha xa pintada
+  // (prioridade = orde do array de nodos, ordenado en filtrarDatos).
   const renderNodo = useCallback((node, ctx, globalScale) => {
     const size     = getNodoTamaño(node)
     const cor      = getNodoCor(node)
@@ -390,7 +396,7 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
       : opacidadeCentro
     const esActivo = nodoActivo?.id === node.id
 
-    // Aro do nodo activo (pulso suave estilo boceto)
+    // Aro do nodo activo (pulso suave)
     if (esActivo) {
       const pulso = 1 + Math.sin(Date.now() * 0.004) * 0.12
       ctx.beginPath()
@@ -407,20 +413,42 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
     ctx.fill()
     ctx.globalAlpha = 1
 
+    // ── Label con culling ──
     if (globalScale >= 2 || node.type === 'galaxy' || node.type === 'constellation' || node.type === 'origin') {
       const baseFontSize = node.type === 'origin' ? 18 : node.type === 'constellation' ? 14 : node.type === 'galaxy' ? 12 : node.type === 'system' ? 10 : 9
       const fontSize     = Math.max(baseFontSize / globalScale, node.type === 'origin' ? 10 : node.type === 'constellation' ? 8 : 6)
       ctx.font      = `bold ${fontSize}px Arial`
-      ctx.textAlign = 'center'
-      const labelY    = node.y + size + fontSize + 2
       const labelText = node[`label_${idioma}`] || node.label || node.id
-      ctx.strokeStyle = 'rgba(0,0,0,0.9)'
-      ctx.lineWidth   = node.type === 'origin' ? 4 : 3
-      ctx.strokeText(labelText, node.x, labelY)
-      ctx.fillStyle   = nodoPertenceCentro ? '#6ee7b7' : cfg.label?.[node.type] || `rgba(255,255,255,${opacidade * 0.8})`
-      ctx.globalAlpha = opacidade
-      ctx.fillText(labelText, node.x, labelY)
-      ctx.globalAlpha = 1
+
+      // Rectángulo que ocuparía a label (en coordenadas de mundo)
+      const tw = ctx.measureText(labelText).width
+      const th = fontSize * 1.25
+      const marxe = fontSize * 0.35
+      const rect = {
+        x: node.x - tw / 2 - marxe,
+        y: node.y + size + 2,
+        w: tw + marxe * 2,
+        h: th + marxe
+      }
+
+      // Colide cunha label xa pintada neste frame? → non pintar (o nodo queda)
+      const colide = labelRectsRef.current.some(r =>
+        rect.x < r.x + r.w && rect.x + rect.w > r.x &&
+        rect.y < r.y + r.h && rect.y + rect.h > r.y
+      )
+      // O nodo activo pinta a súa label sempre (é o que o usuario tocou)
+      if (!colide || esActivo) {
+        labelRectsRef.current.push(rect)
+        ctx.textAlign = 'center'
+        const labelY = node.y + size + fontSize + 2
+        ctx.strokeStyle = 'rgba(0,0,0,0.9)'
+        ctx.lineWidth   = node.type === 'origin' ? 4 : 3
+        ctx.strokeText(labelText, node.x, labelY)
+        ctx.fillStyle   = nodoPertenceCentro ? '#6ee7b7' : cfg.label?.[node.type] || `rgba(255,255,255,${opacidade * 0.8})`
+        ctx.globalAlpha = opacidade
+        ctx.fillText(labelText, node.x, labelY)
+        ctx.globalAlpha = 1
+      }
     }
   }, [nodoActivo, getNodoCor, getNodoTamaño, estaConectado, cfg, idioma, lupaActiva, centroFiltro])
   // ── FIN: render_nodo ─────────────────────────────────
@@ -720,7 +748,8 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
           linkDirectionalParticleWidth={cfg.relacions.particulas_tamaño}
           linkDirectionalParticleSpeed={0.004}
           linkDirectionalParticleColor={corParticula}
-         onRenderFramePre={(ctx, globalScale) => {
+        onRenderFramePre={(ctx, globalScale) => {
+            labelRectsRef.current = []
             const transform = ctx.getTransform()
             const cx = -transform.e / transform.a
             const cy = -transform.f / transform.d
@@ -733,15 +762,6 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
               ctx.fillStyle = `rgba(255,255,255,${s.o})`
               ctx.fill()
             })
-          }}
-          onNodeClick={handleNodeClick}
-          onNodeHover={handleNodeHover}
-          onBackgroundClick={() => { setNodoActivo(null); setTooltip(null) }}
-          // ── INICIO: fix_engine_stop ──────────────────
-          onEngineStop={() => {
-            if (engineStopRef.current) return
-            engineStopRef.current = true
-            graphRef.current?.zoomToFit(400, 50)
           }}
           // ── FIN: fix_engine_stop ─────────────────────
           width={dimensions.width}
