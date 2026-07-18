@@ -376,6 +376,8 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
   // ── FIN: helpers ─────────────────────────────────────
 
   // ── INICIO: render_nodo ──────────────────────────────
+  // Estilo FLAT: un círculo sólido + aro no activo. Sen sombras,
+  // sen triple pasada, sen gradiente especular.
   const renderNodo = useCallback((node, ctx, globalScale) => {
     const size     = getNodoTamaño(node)
     const cor      = getNodoCor(node)
@@ -386,48 +388,24 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
     const opacidade = nodoActivo
       ? (conectado ? 1 : cfg.seleccion.opacidade_non_conectado) * opacidadeCentro
       : opacidadeCentro
-    const glowExtra = lupaActiva ? 2.2 : nodoPertenceCentro ? 2.8 : 1
-    const haloExtra = lupaActiva ? 3.0 : nodoPertenceCentro ? 3.5 : 2.2
+    const esActivo = nodoActivo?.id === node.id
 
-    ctx.save()
-    ctx.shadowBlur  = cfg.glow.intensidade * glowExtra
-    ctx.shadowColor = corFinal
-    ctx.beginPath()
-    ctx.arc(node.x, node.y, size, 0, 2 * Math.PI)
-    ctx.fillStyle   = corFinal
-    ctx.globalAlpha = opacidade * (lupaActiva ? 0.45 : 0.3)
-    ctx.fill()
-    ctx.restore()
+    // Aro do nodo activo (pulso suave estilo boceto)
+    if (esActivo) {
+      const pulso = 1 + Math.sin(Date.now() * 0.004) * 0.12
+      ctx.beginPath()
+      ctx.arc(node.x, node.y, size * 1.7 * pulso, 0, 2 * Math.PI)
+      ctx.fillStyle = corFinal + '33'
+      ctx.fill()
+    }
 
-    ctx.beginPath()
-    ctx.arc(node.x, node.y, size * haloExtra, 0, 2 * Math.PI)
-    ctx.fillStyle = corFinal + (lupaActiva ? '22' : nodoPertenceCentro ? '33' : '15')
-    ctx.fill()
-
-    ctx.save()
-    ctx.shadowBlur  = cfg.glow.intensidade * glowExtra * 1.5
-    ctx.shadowColor = corFinal
+    // O nodo: un círculo sólido
     ctx.beginPath()
     ctx.arc(node.x, node.y, size, 0, 2 * Math.PI)
     ctx.fillStyle   = corFinal
     ctx.globalAlpha = opacidade
     ctx.fill()
-    ctx.restore()
-
-    if (node.x != null && node.y != null) {
-      const gradient = ctx.createRadialGradient(
-        node.x - size * 0.3, node.y - size * 0.3, 0,
-        node.x, node.y, size
-      )
-      gradient.addColorStop(0, 'rgba(255,255,255,0.4)')
-      gradient.addColorStop(1, 'rgba(255,255,255,0)')
-      ctx.beginPath()
-      ctx.arc(node.x, node.y, size, 0, 2 * Math.PI)
-      ctx.fillStyle   = gradient
-      ctx.globalAlpha = opacidade
-      ctx.fill()
-      ctx.globalAlpha = 1
-    }
+    ctx.globalAlpha = 1
 
     if (globalScale >= 2 || node.type === 'galaxy' || node.type === 'constellation' || node.type === 'origin') {
       const baseFontSize = node.type === 'origin' ? 18 : node.type === 'constellation' ? 14 : node.type === 'galaxy' ? 12 : node.type === 'system' ? 10 : 9
@@ -742,49 +720,19 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
           linkDirectionalParticleWidth={cfg.relacions.particulas_tamaño}
           linkDirectionalParticleSpeed={0.004}
           linkDirectionalParticleColor={corParticula}
-          onRenderFramePre={(ctx, globalScale) => {
+         onRenderFramePre={(ctx, globalScale) => {
             const transform = ctx.getTransform()
             const cx = -transform.e / transform.a
             const cy = -transform.f / transform.d
             const w  = ctx.canvas.width  / transform.a
             const h  = ctx.canvas.height / transform.d
-            const t  = Date.now()
 
-            getEstrelas(cx, cy, w, h, globalScale).forEach((s, i) => {
-              const opFinal = Math.max(0.05, s.o + Math.sin(t * 0.0015 + i * 2.3) * 0.15)
+            getEstrelas(cx, cy, w, h, globalScale).forEach((s) => {
               ctx.beginPath()
-              ctx.arc(s.x, s.y, s.r * (1 + Math.sin(t * 0.002 + i * 1.7) * 0.1), 0, 2 * Math.PI)
-              ctx.fillStyle = `rgba(255,255,255,${opFinal})`
+              ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI)
+              ctx.fillStyle = `rgba(255,255,255,${s.o})`
               ctx.fill()
             })
-
-            if (datos?.nodes) {
-              const haloConfig = {
-                origin:        { cor: '255,220,100', radio: 80, op: 0.12, glow: true },
-                galaxy:        { cor: '201,168,76',  radio: 55, op: 0.09, glow: true },
-                constellation: { cor: '168,85,247',  radio: 38, op: 0.07, glow: false },
-                system:        { cor: '59,130,246',  radio: 25, op: 0.05, glow: false }
-              }
-              ctx.save()
-              ctx.globalCompositeOperation = 'lighter'
-              datos.nodes.forEach(node => {
-                const hc = haloConfig[node.type]
-                if (!hc || !node.x) return
-                if (node.x < cx - 200 || node.x > cx + w + 200 || node.y < cy - 200 || node.y > cy + h + 200) return
-                const radioFinal = (hc.radio * (1 + Math.sin(t * 0.0005 + node.x * 0.01) * 0.08) * 3.5) / globalScale
-                ctx.shadowBlur = hc.glow ? 15 : 0
-                if (hc.glow) ctx.shadowColor = `rgba(${hc.cor}, 0.4)`
-                const grad = ctx.createRadialGradient(node.x, node.y, 0, node.x, node.y, radioFinal)
-                grad.addColorStop(0,   `rgba(${hc.cor}, ${hc.op * 0.9})`)
-                grad.addColorStop(0.7, `rgba(${hc.cor}, ${hc.op * 0.2})`)
-                grad.addColorStop(1,   `rgba(${hc.cor}, 0)`)
-                ctx.fillStyle = grad
-                ctx.beginPath()
-                ctx.arc(node.x, node.y, radioFinal, 0, 2 * Math.PI)
-                ctx.fill()
-              })
-              ctx.restore()
-            }
           }}
           onNodeClick={handleNodeClick}
           onNodeHover={handleNodeHover}
