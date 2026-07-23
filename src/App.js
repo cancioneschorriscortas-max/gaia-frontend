@@ -39,6 +39,11 @@ import ModoProfesor from './ModoProfesor'
 import ModoArquitecto from './ModoArquitecto'
 import GaiaLogo from './components/GaiaLogo'
 import OberonProfesionVista from './OberonProfesionVista'
+//provisional
+import SendaRuta from './SendaRuta'
+//ruta neno
+import RutaNeno from './RutaNeno'
+import PortadaNeno from './PortadaNeno'
 import './App.css'
 //import ProbaYggdrasil from './ProbaYggdrasil'
 import { API } from './config/api';
@@ -197,6 +202,8 @@ function App() {
   const [rolVisto, setRolVisto] = useState(
     !!localStorage.getItem('gaia_rol_visto')
   )
+  // TEMPORAL: acceso portada neno — null | 'portada' | { ruta: journeyId }
+  const [portadaNeno, setPortadaNeno] = useState(null)
   // ── FIN: estado_local ────────────────────────────────
 
   // ── INICIO: refs ─────────────────────────────────────
@@ -921,6 +928,11 @@ function App() {
         <div style={{ position: 'absolute', top: 16, right: 16, zIndex: 10, display: 'flex', gap: 8, alignItems: 'center' }}>
           {renderMenuUsuario()}
           <div style={{ width: 1, height: 20, background: S.borderColor }} />
+          {/* TEMPORAL: acceso portada neno — a integración definitiva virá co onboarding */}
+          <button onClick={() => setPortadaNeno('portada')}
+            style={{ padding: '6px 12px', background: 'rgba(10, 16, 32, 0.6)', border: `1px solid ${S.borderColor}`, color: S.colorMuted, borderRadius: S.borderRadius, cursor: 'pointer', fontSize: 12, fontFamily: S.fontBody, letterSpacing: '0.02em' }}>
+            🧭 Explorador
+          </button>
           <button onClick={centrarGaia}
             style={{ padding: '6px 12px', background: 'rgba(10, 16, 32, 0.6)', border: `1px solid ${S.borderColor}`, color: S.colorGold, borderRadius: S.borderRadius, cursor: 'pointer', fontSize: 12, fontFamily: S.fontBody, letterSpacing: '0.02em' }}>
             {t(idioma, 'volverGaia')}
@@ -1199,8 +1211,43 @@ function App() {
   const profesionId = window.location.pathname.split('/').pop()
   return <OberonProfesionVista profesionId={profesionId} />
 }
+
+
+//return <RutaNeno journeyId="galicia_no_prato" idioma="gl" onSair={() => alert('saír')} />
   // ── FIN: rutas_especiais ─────────────────────────────
+
+  // ── INICIO: portada_neno (TEMPORAL) ──────────────────
+  // Pantalla completa: portada diaria ↔ ruta. Saír de todo → app normal.
+  if (portadaNeno === 'portada') {
+    return (
+      <PortadaNeno
+        idioma={idioma}
+        onAbrirRuta={(id) => setPortadaNeno({ ruta: id })}
+        onExplorar={() => setPortadaNeno(null)}
+      />
+    )
+  }
+  if (portadaNeno?.ruta) {
+    return (
+      <RutaNeno
+        journeyId={portadaNeno.ruta}
+        idioma={idioma}
+        onSair={() => setPortadaNeno('portada')}
+      />
+    )
+  }
+  // ── FIN: portada_neno ────────────────────────────────
 //return <ProbaYggdrasil />
+/*est intros nenos
+return <div style={{ minHeight: '100vh', background: '#050a14', paddingTop: 40 }}>
+  <SendaRuta
+    journeyId="galicia_no_prato"
+    idioma="gl"
+    onEntrar={(i) => alert(`Abriría o paso ${i + 1} (PercorridoRuta)`)}
+    onPechar={() => alert('pechar')}
+  />
+</div>
+//test intros nenos*/
   // ── INICIO: render_principal ─────────────────────────
   return (
     <div style={{ display: 'flex', height: '100vh', background: 'var(--gaia-cosmos-900)', color: S.colorText, fontFamily: S.fontBody }}>
