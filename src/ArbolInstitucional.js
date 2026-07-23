@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import PercorridoRuta from './PercorridoRuta'
+import RutaNeno from './RutaNeno'
 import { API } from './config/api';
 
 // ═══════════════════════════════════════════════════════════
@@ -535,12 +535,21 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
       </div>
 
       {/* ═══ PERCORRIDO GUIADO ═══ */}
+      {/* Unha soa experiencia de ruta: entra pola SENDA (RutaNeno), non
+          directo ao paso. O profesor ve exactamente o que verán os alumnos.
+          RutaNeno non é overlay por si mesmo → envólvese nun fixo, igual
+          que facía PercorridoRuta (position:fixed · inset:0 · zIndex:150). */}
       {percorridoActivo && (
-        <PercorridoRuta
-          journeyId={percorridoActivo}
-          idioma={idioma}
-          onPechar={() => setPercorridoActivo(null)}
-        />
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 150,
+          background: 'var(--gaia-cosmos-900)', overflowY: 'auto'
+        }}>
+          <RutaNeno
+            journeyId={percorridoActivo}
+            idioma={idioma}
+            onSair={() => setPercorridoActivo(null)}
+          />
+        </div>
       )}
 
       <style>{`

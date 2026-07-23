@@ -74,6 +74,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
   // ── INICIO: estado ────────────────────────────────────
   const [rutas,    setRutas]    = useState(null)   // null = cargando · [] = ningunha
   const [stops,    setStops]    = useState([])
+  const [catalogo, setCatalogo] = useState([])     // rutas que se poden empezar (caso b)
   const [cargando, setCargando] = useState(true)
   // ── FIN: estado ───────────────────────────────────────
 
@@ -95,10 +96,32 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
   // ── INICIO: ruta_destacada ────────────────────────────
   // A activa = a primeira NON completada. Se todas están completadas,
   // destácase a última completada (caso c) para poder volver percorrela.
+  // O backend devolve `ORDER BY p.ts DESC`, logo a máis recente é rutas[0].
   const activa      = rutas ? rutas.find(r => !r.completada) : null
   const todasFeitas = !!rutas && rutas.length > 0 && !activa
-  const destacada   = activa || (todasFeitas ? rutas[rutas.length - 1] : null)
+  const destacada   = activa || (todasFeitas ? rutas[0] : null)
   // ── FIN: ruta_destacada ───────────────────────────────
+
+  // ── INICIO: carga_catalogo ────────────────────────────
+  // Só no caso (b): sen ningunha ruta empezada, o neno ten que poder
+  // ESCOLLER unha. Mesmo endpoint e mesma visibilidade que o Arquivo
+  // de Rutas (`GET /journeys`, sen filtros) — modelo autoservizo v1.
+  useEffect(() => {
+    if (!rutas || rutas.length > 0) return
+    let vivo = true
+    fetch(`${API}/journeys`)
+      .then(r => r.ok ? r.json() : { journeys: [] })
+      .catch(() => ({ journeys: [] }))
+      .then(d => { if (vivo) setCatalogo(Array.isArray(d.journeys) ? d.journeys : []) })
+    return () => { vivo = false }
+  }, [rutas])
+  // ── FIN: carga_catalogo ───────────────────────────────
+
+  // ── INICIO: label_catalogo ────────────────────────────
+  // OLLO: `/journeys` devolve `label` como OBXECTO {gl,es,en,pt},
+  // mentres `/progreso/rutas` devólveo como string. Non se poden tratar igual.
+  const labelCatalogo = (j) => j.label?.[idioma] || j.label?.gl || j.id
+  // ── FIN: label_catalogo ───────────────────────────────
 
   // ── INICIO: carga_stops ───────────────────────────────
   // SendaVisual precisa os stops completos → GET /journeys/:id
@@ -175,20 +198,52 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
               Debuxando o teu camiño…
             </div>
           ) : !destacada ? (
-            /* (b) Aínda non hai ningunha ruta empezada */
-            <div style={{ padding: '18px 0 6px', textAlign: 'center' }}>
-              <div style={{ fontSize: 14.5, color: '#c9d6ef', marginBottom: 18, lineHeight: 1.6 }}>
-                Aínda non tes camiño. Explora o universo<br />
-                ou pide unha ruta ao teu profe.
+            /* (b) Ningunha ruta empezada → escoller unha do catálogo */
+            <div style={{ padding: '10px 0 4px' }}>
+              <div style={{ fontSize: 14.5, color: '#c9d6ef', marginBottom: 16, lineHeight: 1.6, textAlign: 'center' }}>
+                {catalogo.length > 0
+                  ? <>Aínda non tes camiño.<br />Escolle por onde queres empezar:</>
+                  : <>Aínda non tes camiño. Explora o universo<br />ou pide unha ruta ao teu profe.</>}
               </div>
-              <button onClick={() => onExplorar && onExplorar()}
-                style={{
-                  background: C.dourado, color: C.douradoTxt, border: 'none',
-                  borderRadius: 22, padding: '11px 34px', fontSize: 15,
-                  fontWeight: 600, cursor: 'pointer'
-                }}>
-                Explorar o universo
-              </button>
+
+              {catalogo.map(j => (
+                <div key={j.id}
+                  onClick={() => onAbrirRuta && onAbrirRuta(j.id)}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = C.dourado }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = C.borde }}
+                  style={{
+                    display: 'flex', alignItems: 'center', gap: 14,
+                    background: '#0d1729', border: `1px solid ${C.borde}`,
+                    borderRadius: 12, padding: '13px 16px', marginBottom: 9,
+                    cursor: 'pointer', transition: 'border-color 160ms ease'
+                  }}>
+                  <span style={{ fontSize: 22 }}>{j.icono || '📚'}</span>
+                  <span style={{ fontSize: 15, fontWeight: 600, color: C.texto }}>
+                    {labelCatalogo(j)}
+                  </span>
+                  <span style={{ marginLeft: 'auto', fontSize: 13, color: C.dourado, fontWeight: 600 }}>
+                    Comezar →
+                  </span>
+                </div>
+              ))}
+
+              {/* O secundario á vista pero apagado (só hai un dominante) */}
+              <div style={{ textAlign: 'center', marginTop: catalogo.length > 0 ? 14 : 4 }}>
+                <button onClick={() => onExplorar && onExplorar()}
+                  style={catalogo.length > 0
+                    ? {
+                        background: 'none', border: 'none', color: C.secundario,
+                        fontSize: 13, cursor: 'pointer', textDecoration: 'underline',
+                        textUnderlineOffset: 3, fontFamily: 'inherit'
+                      }
+                    : {
+                        background: C.dourado, color: C.douradoTxt, border: 'none',
+                        borderRadius: 22, padding: '11px 34px', fontSize: 15,
+                        fontWeight: 600, cursor: 'pointer'
+                      }}>
+                  {catalogo.length > 0 ? 'ou explora o universo pola túa conta' : 'Explorar o universo'}
+                </button>
+              </div>
             </div>
           ) : (
             /* (a) ruta activa · (c) todas completadas */
