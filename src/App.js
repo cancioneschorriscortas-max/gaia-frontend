@@ -39,8 +39,6 @@ import ModoProfesor from './ModoProfesor'
 import ModoArquitecto from './ModoArquitecto'
 import GaiaLogo from './components/GaiaLogo'
 import OberonProfesionVista from './OberonProfesionVista'
-//provisional
-import SendaRuta from './SendaRuta'
 //ruta neno
 import RutaNeno from './RutaNeno'
 import PortadaNeno from './PortadaNeno'
@@ -1211,9 +1209,6 @@ function App() {
   const profesionId = window.location.pathname.split('/').pop()
   return <OberonProfesionVista profesionId={profesionId} />
 }
-
-
-//return <RutaNeno journeyId="galicia_no_prato" idioma="gl" onSair={() => alert('saír')} />
   // ── FIN: rutas_especiais ─────────────────────────────
 
   // ── INICIO: portada_neno (TEMPORAL) ──────────────────
@@ -1238,16 +1233,6 @@ function App() {
   }
   // ── FIN: portada_neno ────────────────────────────────
 //return <ProbaYggdrasil />
-/*est intros nenos
-return <div style={{ minHeight: '100vh', background: '#050a14', paddingTop: 40 }}>
-  <SendaRuta
-    journeyId="galicia_no_prato"
-    idioma="gl"
-    onEntrar={(i) => alert(`Abriría o paso ${i + 1} (PercorridoRuta)`)}
-    onPechar={() => alert('pechar')}
-  />
-</div>
-//test intros nenos*/
   // ── INICIO: render_principal ─────────────────────────
   return (
     <div style={{ display: 'flex', height: '100vh', background: 'var(--gaia-cosmos-900)', color: S.colorText, fontFamily: S.fontBody }}>
