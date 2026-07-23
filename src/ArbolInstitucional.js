@@ -2,6 +2,24 @@ import { useState, useEffect } from 'react'
 import RutaNeno from './RutaNeno'
 import { API } from './config/api';
 
+// ── INICIO: activable (a11y) ─────────────────────────
+// Converte un div clicable nun control real: foco co tabulador
+// e activación con Enter/Espazo, non só co rato.
+function activable(accion) {
+  return {
+    role: 'button',
+    tabIndex: 0,
+    onClick: accion,
+    onKeyDown: (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        accion()
+      }
+    }
+  }
+}
+// ── FIN: activable ───────────────────────────────────
+
 // ═══════════════════════════════════════════════════════════
 // ArbolInstitucional — Arquivo institucional de rutas
 // ═══════════════════════════════════════════════════════════
@@ -312,7 +330,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
           {Object.entries(modulos).map(([mod, data]) => (
             <div key={mod} style={{ marginBottom: 6 }}>
               <div
-                onClick={() => seleccionarModulo(mod)}
+                {...activable(() => seleccionarModulo(mod))}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -381,7 +399,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
                   {data.rutas.map(j => (
                     <div
                       key={j.id}
-                      onClick={() => seleccionarRuta(j)}
+                      {...activable(() => seleccionarRuta(j))}
                       style={{
                         padding: '9px 12px',
                         marginBottom: 3,

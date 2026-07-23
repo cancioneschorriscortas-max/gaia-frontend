@@ -929,7 +929,7 @@ function App() {
           {/* TEMPORAL: acceso portada neno — a integración definitiva virá co onboarding */}
           <button onClick={() => setPortadaNeno('portada')}
             style={{ padding: '6px 12px', background: 'rgba(10, 16, 32, 0.6)', border: `1px solid ${S.borderColor}`, color: S.colorMuted, borderRadius: S.borderRadius, cursor: 'pointer', fontSize: 12, fontFamily: S.fontBody, letterSpacing: '0.02em' }}>
-            🧭 Explorador
+            🧭 {t(idioma, 'aMinaViaxe')}
           </button>
           <button onClick={centrarGaia}
             style={{ padding: '6px 12px', background: 'rgba(10, 16, 32, 0.6)', border: `1px solid ${S.borderColor}`, color: S.colorGold, borderRadius: S.borderRadius, cursor: 'pointer', fontSize: 12, fontFamily: S.fontBody, letterSpacing: '0.02em' }}>
@@ -1012,8 +1012,10 @@ function App() {
           seleccionarNodo={seleccionarNodoConTransicion}
         />
       )}
+      {/* TEMPORAL (onMinaViaxe): acceso portada neno — a integración definitiva virá co onboarding */}
       <BarraInferiorMovil
         nodos={nodos} idioma={idioma}
+        onMinaViaxe={() => setPortadaNeno('portada')}
         onSeleccionar={id => seleccionarNodoConTransicion(id)}
         onEnviar={usuario && !usuario.explorador ? () => abrirPanel('envio') : null}
         onLua={() => togglePanel('lua')}

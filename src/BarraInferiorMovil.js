@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { t } from './i18n'
 
 // ═══════════════════════════════════════════════════════════
 // BarraInferiorMovil — Navegación principal en móbil
@@ -32,6 +33,16 @@ const IconoMenu = ({ size = 22 }) => (
     <line x1="3"  y1="6"  x2="21" y2="6"  />
     <line x1="3"  y1="12" x2="21" y2="12" />
     <line x1="3"  y1="18" x2="21" y2="18" />
+  </svg>
+)
+// Bruxula: o acceso á portada diaria do neno ("A miña viaxe").
+// DECISIÓN EXECUTOR: o briefing pedía a icona 🧭, pero esta barra ten
+// como norma da casa que todos os emojis son SVG (mellora 1 da cabeceira).
+// Mantense a norma: bruxula debuxada, non emoji.
+const IconoBruxula = ({ size = 22 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="9" />
+    <polygon points="15.5,8.5 10.5,10.5 8.5,15.5 13.5,13.5" fill="currentColor" stroke="none" />
   </svg>
 )
 const IconoBusca = ({ size = 22 }) => (
@@ -85,7 +96,7 @@ const COR_TIPO = {
 }
 // ── FIN: cor_tipo_nodo ───────────────────────────────
 
-function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar, onLua, luaActiva, onMenu, onGaia }) {
+function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar, onLua, luaActiva, onMenu, onGaia, onMinaViaxe }) {
 
   const [buscaAberta, setBuscaAberta] = useState(false)
   const [busca,       setBusca]       = useState('')
@@ -258,6 +269,16 @@ function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar
         paddingBottom: 'env(safe-area-inset-bottom, 0)',
         boxSizing: 'content-box'
       }}>
+
+        {/* A miña viaxe — portada diaria do neno. Primeiro item da barra. */}
+        {onMinaViaxe && (
+          <BtnBarra
+            Icono={IconoBruxula}
+            label={t(idioma, 'aMinaViaxe')}
+            onClick={onMinaViaxe}
+            cor="var(--gaia-accent)"
+          />
+        )}
 
         {/* Menú */}
         <BtnBarra

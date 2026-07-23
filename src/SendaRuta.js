@@ -39,14 +39,20 @@ export function SendaVisual({ stops, indice, completada = false, onTocarPaso, id
   ).join(' ')
 
   return (
-    <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
+    <div style={{ width: '100%' }}>
       <style>{`
         @keyframes sendaPulso {
           0%, 100% { r: 22; opacity: 0.25; }
           50%      { r: 30; opacity: 0.1; }
         }
       `}</style>
-      <svg viewBox={`0 0 ${ancho} ${alto}`} style={{ width: ancho, height: alto, display: 'block' }}>
+      {/* O SVG escala ao contedor en vez de desbordar: as coordenadas
+          internas non cambian, cámbiaas o viewBox. Así a senda ENTEIRA
+          vese sen scroll lateral nun móbil ou nun tablet.
+          Custo coñecido e aceptado en v1: con 8+ paradas as etiquetas
+          quedan pequenas, porque todo escala proporcionalmente. */}
+      <svg viewBox={`0 0 ${ancho} ${alto}`} preserveAspectRatio="xMidYMid meet"
+           style={{ width: '100%', height: 'auto', display: 'block' }}>
         {/* A senda: tramo andado sólido, tramo por andar punteado */}
         <path d={camiño} fill="none" stroke="#2a3a5c" strokeWidth="3"
               strokeDasharray="1 10" strokeLinecap="round" />
