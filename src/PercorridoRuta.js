@@ -580,6 +580,26 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
               </h1>
             </div>
 
+            {/* Imaxe da parada (a primeira media de tipo imaxe do nodo). A etiqueta
+                leva a atribución (autor · licenza · fonte): o material libre cítase. */}
+            {(() => {
+              const img = (nodoActual?.media || []).find(m => m.type === 'image' && m.url)
+              if (!img) return null
+              const pe = img[`label_${idioma}`] || img.label_gl || ''
+              return (
+                <figure style={{ margin: '0 0 22px' }}>
+                  <img src={img.url} alt={titulo} loading="lazy"
+                    style={{ width: '100%', maxHeight: 300, objectFit: 'cover', borderRadius: 14, display: 'block',
+                             border: '1px solid var(--gaia-cosmos-400)', animation: 'percorridoFadeIn 300ms ease' }} />
+                  {pe && (
+                    <figcaption style={{ fontSize: 10.5, color: 'var(--gaia-text-tertiary)', marginTop: 6, textAlign: 'right' }}>
+                      {pe}
+                    </figcaption>
+                  )}
+                </figure>
+              )
+            })()}
+
             {/* Texto primary — capa base */}
             {texto ? (
               <div style={{
