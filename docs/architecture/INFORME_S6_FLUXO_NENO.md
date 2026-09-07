@@ -77,6 +77,26 @@ Comprobado en vivo tras os cambios: reto reséstase (textarea baleiro no paso 2)
    pero non é a do espertar de EXPERIENCIA_NENO §3.1 (Lúa con tres frases). Non se tocou.
 10. **Un 401 na consola ao arrincar** (`/auth/perfil` ou similar antes de ter token). Inofensivo.
 
+## 4-bis. Rolda 2 — o que se engadiu para que "mole"
+
+Encargo do director: liberdade para estender, cambiar fluxo e UI, e que aprender sexa adictivo.
+Todo commit local sen push (frontend `feat(neno): portais inline…`, backend `feat(api): cartas…`).
+
+| Peza | Onde | Que fai |
+|---|---|---|
+| **Portais inline** | `src/portais.js`, `PercorridoRuta`, `VisorNodo` | `[[palabra\|nodo]]` no texto. No percorrido abre un **panel de desvío** (o nodo destino, coa frase de Lúa, sen perder o paso; os portais de dentro encadean). +8 XP (`NODO_NOVO`) a primeira vez por nodo; carta 🔭 ao cruzar o primeiro portal. Os visitados quedan en `localStorage` por usuario. |
+| **Lúa v1 sen IA** | `src/data/frasesLua.json`, `src/lua.js` | 25 frases por contexto (hora, estado da ruta, evento). Gaña a máis específica; entre iguais rota polo día. Portada, senda, desvío e fin de ruta. |
+| **Cartas** | `src/data/cartas.json`, `ColeccionCartas.js`, backend `/cartas` | 7 cartas en 4 coleccións (mundo, oficios, natureza, exploración). Gáñanse ao completar unha ruta ou co primeiro portal. Revelación con volta; colección coas que faltan como siluetas e a pista de como conseguilas. |
+| **Contido novo** | `docs/content/como_funciona_o_mundo.seed.mjs` | 12 nodos, 33 relacións, 3 rutas: **A viaxe da auga** (chuvia → río → depuradora → billa), **A viaxe da luz** (vento → xerador → rede → enchufe), **De onde vén o leite** (herba → vaca → leite → queixo). Texto primary 45-65 palabras para 8-10 anos, secondary "e por que?", es/en, portal por nodo (o último pecha o círculo), reto de 3 opcións. Datos de Galicia comprobados (Miño, Costa da Morte, rubia galega/frisona, tetilla, San Simón). |
+
+Portais marcados tamén nos 4 nodos do pan (só se marcaron palabras que xa estaban no texto do director).
+
+**Ideas seguintes, por orde de impacto:** (1) imaxes nas paradas (VisorMedio xa existe; falta
+media nos nodos novos — Wikimedia Commons CC), (2) espertar + elección de rol narrativa (§3.1-3.2),
+(3) "O teu soño" real ligado ao test de Oberón, (4) rutas `secondary` para o instituto reutilizando
+os mesmos nodos (o texto secondary xa está), (5) máis rutas "como funciona": o lume, o pan xa, o
+sal, a marea, o móbil, o lixo/reciclaxe.
+
 ## 5. Como arrincar a pila local (para a próxima sesión)
 
 ```

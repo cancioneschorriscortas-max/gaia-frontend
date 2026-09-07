@@ -403,10 +403,23 @@ estender). Informe completo con achados e backlog en `docs/architecture/INFORME_
   Antes dicía "estrutura reprodutiva" e "grano" a un neno de 8 anos.
 - 99 claves i18n novas (gl/es/en).
 
-**Próximo (ver informe):** portais inline NON existen no código (a mecánica 1 do tutorial non se
-pode ensinar); `/journeys` expón rutas `draft`/`private` aos nenos; banco de frases de Lúa v1;
-o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha afirmación institucional que
-o director debe confirmar ou retirar.
+**Rolda 2 (mesma sesión, encargo "fai que mole, que sexa adictivo aprender"):**
+- **Portais inline EXISTEN xa** (Regra 6): `[[palabra|nodo]]` no texto → `src/portais.js`. No
+  percorrido abren un **panel de desvío** (excursión sen perder o paso; os portais de dentro seguen
+  o fío), XP `NODO_NOVO` a primeira vez, carta 🔭 co primeiro portal. Os 4 nodos do pan lévanos.
+- **Lúa v1 SEN IA** (§4 de EXPERIENCIA_NENO): `src/data/frasesLua.json` + `src/lua.js`. Portada,
+  senda, desvío e fin de ruta falan desde o banco.
+- **Cartas coleccionables** (§3.4): `src/data/cartas.json` (7 cartas, 4 coleccións), `GET/POST
+  /cartas` no backend, revelación con volta ao rematar a ruta, colección na portada con siluetas.
+- **Contido "como funciona o mundo":** 3 rutas novas × 4 nodos (gl/es/en, portais, retos, 33
+  relacións): **A viaxe da auga 💧, A viaxe da luz ⚡, De onde vén o leite 🐄**. Fonte:
+  `docs/content/como_funciona_o_mundo.seed.mjs`. Xa hai 6 rutas na BD local.
+- Probado como neno: portal → desvío → carta 🔭; ruta da auga completa → carta 💧; colección 2/7.
+
+**Próximo (ver informe):** `/journeys` expón rutas `draft`/`private` aos nenos (publicalas e
+filtrar); o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha afirmación
+institucional que o director debe confirmar ou retirar; espertar + elección de rol narrativa;
+media (imaxes) nas paradas; "O teu soño" real con Oberón.
 
 ---
 
