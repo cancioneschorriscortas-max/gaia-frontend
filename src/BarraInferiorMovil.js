@@ -142,10 +142,21 @@ function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar
           {nodosFiltrados.map((n, i) => (
             <div
               key={n.id}
+              role="button"
+              tabIndex={0}
+              aria-label={t(idioma, 'barraResultadoAria', n.label)}
               onClick={() => {
                 onSeleccionar(n.id)
                 setBusca('')
                 setBuscaAberta(false)
+              }}
+              onKeyDown={e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault()
+                  onSeleccionar(n.id)
+                  setBusca('')
+                  setBuscaAberta(false)
+                }
               }}
               style={{
                 padding: '12px 16px',
@@ -185,7 +196,7 @@ function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase'
                 }}>
-                  {n.type}
+                  {t(idioma, 'tipo' + String(n.type || '').charAt(0).toUpperCase() + String(n.type || '').slice(1))}
                 </div>
               </div>
             </div>
@@ -221,7 +232,8 @@ function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar
             value={busca}
             onChange={e => setBusca(e.target.value)}
             onKeyDown={e => e.key === 'Escape' && setBuscaAberta(false)}
-            placeholder="Buscar no universo..."
+            placeholder={t(idioma, 'buscarUniverso')}
+            aria-label={t(idioma, 'buscarUniverso')}
             style={{
               flex: 1,
               minWidth: 0,
@@ -235,7 +247,7 @@ function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar
           />
           <button
             onClick={() => { setBuscaAberta(false); setBusca('') }}
-            aria-label="Pechar busca"
+            aria-label={t(idioma, 'barraPecharBusca')}
             style={{
               background: 'transparent',
               border: 'none',
@@ -283,7 +295,7 @@ function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar
         {/* Menú */}
         <BtnBarra
           Icono={IconoMenu}
-          label="Menú"
+          label={t(idioma, 'barraMenu')}
           onClick={onMenu}
           cor="var(--gaia-text-secondary)"
         />
@@ -291,19 +303,19 @@ function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar
         {/* Busca */}
         <BtnBarra
           Icono={IconoBusca}
-          label="Buscar"
+          label={t(idioma, 'barraBuscar')}
           onClick={() => setBuscaAberta(v => !v)}
           cor={buscaAberta ? 'var(--gaia-accent)' : 'var(--gaia-text-secondary)'}
           activo={buscaAberta}
         />
 
         {/* GAIA — central destacado */}
-        <BtnGaia onClick={onGaia} />
+        <BtnGaia onClick={onGaia} idioma={idioma} />
 
         {/* LÚA */}
         <BtnBarra
           Icono={IconoLua}
-          label="LÚA"
+          label={t(idioma, 'barraLua')}
           onClick={onLua}
           cor={luaActiva ? 'var(--gaia-concept)' : 'var(--gaia-text-secondary)'}
           activo={luaActiva}
@@ -315,7 +327,7 @@ function BarraInferiorMovil({ nodos = [], idioma = 'gl', onSeleccionar, onEnviar
         {onEnviar && (
           <BtnBarra
             Icono={IconoMais}
-            label="Enviar"
+            label={t(idioma, 'barraEnviar')}
             onClick={onEnviar}
             cor="var(--gaia-constellation)"
           />
@@ -351,12 +363,18 @@ function BtnBarra({ Icono, label, onClick, cor = 'var(--gaia-text-secondary)', a
       onTouchStart={e => { e.currentTarget.style.transform = 'scale(0.92)' }}
       onTouchEnd={e => { e.currentTarget.style.transform = 'scale(1)' }}>
       <Icono size={22} />
+      {/* Unha soa liña: con 5 botóns a 375px hai ~57px por botón e
+          "A miña viaxe" partíase en dúas liñas pegadas. */}
       <span style={{
         fontSize: 10,
         fontFamily: 'var(--gaia-font-body)',
         fontWeight: activo ? 700 : 500,
         letterSpacing: '0.02em',
-        lineHeight: 1
+        lineHeight: 1,
+        maxWidth: '100%',
+        whiteSpace: 'nowrap',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis'
       }}>
         {label}
       </span>
@@ -368,11 +386,11 @@ function BtnBarra({ Icono, label, onClick, cor = 'var(--gaia-text-secondary)', a
 // ── INICIO: BtnGaia ──────────────────────────────────
 // Botón central destacado: círculo elevado, glow ámbar,
 // protagonismo visual do corazón da app.
-function BtnGaia({ onClick }) {
+function BtnGaia({ onClick, idioma = 'gl' }) {
   return (
     <button
       onClick={onClick}
-      aria-label="Volver a GAIA"
+      aria-label={t(idioma, 'barraVolverGaiaAria')}
       style={{
         flex: '0 0 auto',
         width: 56,

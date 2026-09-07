@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react'
 import RutaNeno from './RutaNeno'
 import { API } from './config/api';
+import { t } from './i18n'
+
+// Por debaixo deste ancho o arquivo pasa a UNHA columna: lista de
+// módulos/rutas OU detalle da ruta, con botón de volta. Con dúas columnas
+// a 375px o panel esquerdo (300px fixos) non deixaba sitio ao detalle.
+const ANCHO_ESTREITO = 760
 
 // ── INICIO: activable (a11y) ─────────────────────────
 // Converte un div clicable nun control real: foco co tabulador
@@ -82,20 +88,36 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
   const [rutaActiva, setRutaActiva] = useState(null)
   const [visible, setVisible] = useState(false)
   const [percorridoActivo, setPercorridoActivo] = useState(null)
+  const [estreito, setEstreito] = useState(() => typeof window !== 'undefined' && window.innerWidth < ANCHO_ESTREITO)
 
   useEffect(() => {
+    let vivo = true
     setTimeout(() => setVisible(true), 100)
     fetch(`${API}/journeys`)
-      .then(r => r.json())
+      .then(r => r.ok ? r.json() : { journeys: [] })
       .then(d => {
+        if (!vivo) return
         setJourneys(d.journeys || [])
         setCargando(false)
       })
-      .catch(() => setCargando(false))
+      .catch(() => vivo && setCargando(false))
+    const medir = () => setEstreito(window.innerWidth < ANCHO_ESTREITO)
+    window.addEventListener('resize', medir)
+    return () => { vivo = false; window.removeEventListener('resize', medir) }
   }, [])
 
+  // Pechar co teclado (Escape), como calquera modal.
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape' && !percorridoActivo) pechar() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [percorridoActivo])
+
+  const NIVEL_LABEL = { primary: t(idioma, 'primaria'), secondary: t(idioma, 'percorridoSecundaria'), expert: t(idioma, 'experto') }
+
   const modulos = journeys.reduce((acc, j) => {
-    const mod = j.modulo || 'Xeral'
+    const mod = j.modulo || t(idioma, 'arquivoXeral')
     if (!acc[mod]) acc[mod] = { rutas: [] }
     acc[mod].rutas.push(j)
     return acc
@@ -130,8 +152,11 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
       color: 'var(--gaia-text-primary)',
       opacity: visible ? 1 : 0,
       transition: 'opacity 400ms ease',
-      overflow: 'hidden'
-    }}>
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column'
+    }}
+    role="dialog" aria-modal="true" aria-label={t(idioma, 'arquivoTitulo')}>
 
       {/* ═══ VIGNETTE ═══ */}
       <div style={{
@@ -150,9 +175,10 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
       {/* ═══ CABECEIRA CEREMONIAL ═══ */}
       <div style={{
         position: 'relative', zIndex: 2,
-        padding: '22px 40px',
+        flex: 'none',
+        padding: estreito ? '14px 18px' : '22px 40px',
         display: 'grid',
-        gridTemplateColumns: '1fr auto 1fr',
+        gridTemplateColumns: estreito ? '1fr' : '1fr auto 1fr',
         alignItems: 'center',
         gap: 20,
         borderBottom: '1px solid var(--gaia-accent-border)',
@@ -160,7 +186,8 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)'
       }}>
-        {/* Metadata esquerda */}
+        {/* Metadata esquerda (só con sitio) */}
+        {!estreito && (
         <div style={{
           fontFamily: 'var(--gaia-font-mono)',
           fontSize: 10,
@@ -169,10 +196,11 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
           lineHeight: 1.8,
           textTransform: 'uppercase'
         }}>
-          <div>Versión <span style={{ color: 'var(--gaia-accent)', fontWeight: 600 }}>0.7</span></div>
-          <div>Ámbito <span style={{ color: 'var(--gaia-accent)', fontWeight: 600 }}>Educativo</span></div>
-          <div>Módulos <span style={{ color: 'var(--gaia-accent)', fontWeight: 600 }}>{Object.keys(modulos).length} activos</span></div>
+          <div>{t(idioma, 'arquivoVersion')} <span style={{ color: 'var(--gaia-accent)', fontWeight: 600 }}>0.7</span></div>
+          <div>{t(idioma, 'arquivoAmbito')} <span style={{ color: 'var(--gaia-accent)', fontWeight: 600 }}>{t(idioma, 'arquivoAmbitoEducativo')}</span></div>
+          <div>{t(idioma, 'arquivoModulos')} <span style={{ color: 'var(--gaia-accent)', fontWeight: 600 }}>{Object.keys(modulos).length} {t(idioma, 'arquivoActivos')}</span></div>
         </div>
+        )}
 
         {/* Título central */}
         <div style={{ textAlign: 'center' }}>
@@ -185,7 +213,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
             textShadow: `0 0 40px ${ACCENT_GLOW}, 0 0 80px rgba(232, 165, 71, 0.15)`,
             lineHeight: 1
           }}>
-            Arquivo GAIA
+            {t(idioma, 'arquivoTitulo')}
           </div>
           <div style={{
             fontFamily: 'var(--gaia-font-mono)',
@@ -195,7 +223,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
             marginTop: 8,
             textTransform: 'uppercase'
           }}>
-            Plataforma para a preservación do coñecemento
+            {t(idioma, 'arquivoSubtitulo')}
           </div>
           <div style={{
             display: 'flex',
@@ -225,7 +253,8 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
           </div>
         </div>
 
-        {/* Metadata dereita */}
+        {/* Metadata dereita (só con sitio) */}
+        {!estreito && (
         <div style={{
           textAlign: 'right',
           fontFamily: 'var(--gaia-font-mono)',
@@ -236,7 +265,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
           textTransform: 'uppercase'
         }}>
           <div>
-            Estado {' '}
+            {t(idioma, 'arquivoEstado')} {' '}
             <span style={{
               color: 'var(--gaia-success)',
               fontWeight: 600,
@@ -244,7 +273,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
               alignItems: 'center',
               gap: 4
             }}>
-              Operativo
+              {t(idioma, 'arquivoOperativo')}
               <span style={{
                 width: 6, height: 6,
                 borderRadius: '50%',
@@ -254,25 +283,30 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
               }} />
             </span>
           </div>
-          <div>Xunta de Galicia · 2026</div>
-          <div>Acceso institucional</div>
+          <div>{t(idioma, 'arquivoInstitucion')}</div>
+          <div>{t(idioma, 'arquivoAcceso')}</div>
         </div>
+        )}
       </div>
 
       {/* ═══ CONTIDO PRINCIPAL ═══ */}
+      {/* flex:1 + minHeight:0 en vez de calc(100vh - 120px): a cabeceira
+          non mide sempre 120px e o contido quedaba cortado tras o pé. */}
       <div style={{
         position: 'relative', zIndex: 2,
         display: 'flex',
-        height: 'calc(100vh - 120px)',
+        flex: 1,
+        minHeight: 0,
         overflow: 'hidden'
       }}>
 
-        {/* ───── PANEL ESQUERDO: MÓDULOS ───── */}
+        {/* ───── PANEL ESQUERDO: MÓDULOS (en estreito, só sen ruta escollida) ───── */}
+        {(!estreito || !rutaActiva) && (
         <div style={{
-          width: 300,
+          width: estreito ? '100%' : 300,
           flexShrink: 0,
-          borderRight: '1px solid var(--gaia-cosmos-400)',
-          padding: '28px 18px 100px 18px',
+          borderRight: estreito ? 'none' : '1px solid var(--gaia-cosmos-400)',
+          padding: estreito ? '18px 16px 90px' : '28px 18px 100px 18px',
           overflowY: 'auto',
           background: 'rgba(10, 16, 32, 0.4)',
           backdropFilter: 'blur(8px)',
@@ -287,7 +321,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
             textTransform: 'uppercase',
             fontWeight: 600
           }}>
-            Módulos de coñecemento
+            {t(idioma, 'arquivoModulosCon')}
           </div>
 
           {cargando && (
@@ -300,7 +334,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
               letterSpacing: '0.1em',
               textTransform: 'uppercase'
             }}>
-              Cargando...
+              {t(idioma, 'cargando')}
             </div>
           )}
 
@@ -314,7 +348,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
               lineHeight: 1.5,
               padding: '20px 10px'
             }}>
-              Sen rutas creadas aínda.
+              {t(idioma, 'arquivoSenRutas')}
               <div style={{
                 fontSize: 10,
                 fontFamily: 'var(--gaia-font-mono)',
@@ -322,7 +356,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
                 color: 'var(--gaia-text-disabled)',
                 letterSpacing: '0.05em'
               }}>
-                Crea rutas dende o editor e asígnalles un módulo.
+                {t(idioma, 'arquivoCreaRutas')}
               </div>
             </div>
           )}
@@ -331,6 +365,8 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
             <div key={mod} style={{ marginBottom: 6 }}>
               <div
                 {...activable(() => seleccionarModulo(mod))}
+                aria-expanded={moduloActivo === mod}
+                aria-label={t(idioma, 'arquivoModuloAria', mod)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -382,7 +418,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
                     marginTop: 3,
                     letterSpacing: '0.05em'
                   }}>
-                    {data.rutas.length} {data.rutas.length === 1 ? 'ruta' : 'rutas'}
+                    {data.rutas.length === 1 ? t(idioma, 'arquivoUnhaRuta') : t(idioma, 'arquivoNRutas', data.rutas.length)}
                   </div>
                 </div>
                 <div style={{
@@ -400,6 +436,8 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
                     <div
                       key={j.id}
                       {...activable(() => seleccionarRuta(j))}
+                      aria-pressed={rutaActiva?.id === j.id}
+                      aria-label={t(idioma, 'arquivoRutaAria', j.label?.[idioma] || j.label?.gl || j.id, NIVEL_LABEL[j.level] || j.level)}
                       style={{
                         padding: '9px 12px',
                         marginBottom: 3,
@@ -445,7 +483,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
                         letterSpacing: '0.05em',
                         textTransform: 'uppercase'
                       }}>
-                        {j.level === 'primary' ? 'Primaria' : j.level === 'secondary' ? 'Secundaria' : 'Experto'}
+                        {NIVEL_LABEL[j.level] || j.level}
                       </div>
                     </div>
                   ))}
@@ -454,9 +492,20 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
             </div>
           ))}
         </div>
+        )}
 
-        {/* ───── PANEL DEREITO: DETALLE RUTA ───── */}
-       <div style={{ flex: 1, padding: '36px 44px 100px 44px', overflowY: 'auto' }}>
+        {/* ───── PANEL DEREITO: DETALLE RUTA (en estreito, só con ruta escollida) ───── */}
+        {(!estreito || rutaActiva) && (
+       <div style={{ flex: 1, minWidth: 0, padding: estreito ? '18px 16px 90px' : '36px 44px 100px 44px', overflowY: 'auto' }}>
+          {estreito && rutaActiva && (
+            <button onClick={() => setRutaActiva(null)}
+              style={{
+                background: 'none', border: 'none', color: 'var(--gaia-accent)', cursor: 'pointer',
+                fontFamily: 'var(--gaia-font-body)', fontSize: 13, fontWeight: 600, padding: '0 0 16px'
+              }}>
+              {t(idioma, 'arquivoVolverLista')}
+            </button>
+          )}
           {!rutaActiva ? (
             <div style={{ textAlign: 'center', marginTop: '15vh' }}>
               <div style={{
@@ -475,7 +524,7 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
                 textTransform: 'uppercase',
                 fontWeight: 500
               }}>
-                Selecciona un módulo e unha ruta
+                {t(idioma, 'arquivoSelecciona')}
               </div>
             </div>
           ) : (
@@ -486,22 +535,24 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
             />
           )}
         </div>
+        )}
       </div>
 
       {/* ═══ BARRA INFERIOR INSTITUCIONAL ═══ */}
       <div style={{
         position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 3,
-        padding: '14px 32px',
+        padding: estreito ? '10px 16px' : '14px 32px',
+        justifyContent: estreito ? 'center' : 'space-between',
         background: 'rgba(10, 16, 32, 0.85)',
         borderTop: '1px solid var(--gaia-accent-border)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
         gap: 20,
         flexWrap: 'wrap'
       }}>
+        {!estreito && (
         <div style={{
           fontFamily: 'var(--gaia-font-mono)',
           fontSize: 9,
@@ -509,8 +560,9 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
           color: 'var(--gaia-text-disabled)',
           textTransform: 'uppercase'
         }}>
-          Arquivo GAIA · Preservación e transmisión do coñecemento
+          {t(idioma, 'arquivoPe')}
         </div>
+        )}
 
         <button
           onClick={pechar}
@@ -538,9 +590,10 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
           }}
         >
           <IconoVolver size={10} />
-          Volver a GAIA
+          {t(idioma, 'arquivoVolverGaia')}
         </button>
 
+        {!estreito && (
         <div style={{
           fontFamily: 'var(--gaia-font-mono)',
           fontSize: 9,
@@ -548,8 +601,9 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
           color: 'var(--gaia-text-disabled)',
           textTransform: 'uppercase'
         }}>
-          Xunta de Galicia · Consellería de educación · 2026
+          {t(idioma, 'arquivoPeDereita')}
         </div>
+        )}
       </div>
 
       {/* ═══ PERCORRIDO GUIADO ═══ */}
@@ -585,23 +639,28 @@ function RutaDetalle({ journey, idioma, onAbrir }) {
   const [cargando, setCargando] = useState(true)
 
   useEffect(() => {
+    // Cancelación: ao cambiar rápido de ruta, os pasos da anterior
+    // aterraban baixo a cabeceira da nova.
+    let vivo = true
     setCargando(true)
     fetch(`${API}/journeys/${journey.id}`)
-      .then(r => r.json())
+      .then(r => r.ok ? r.json() : { stops: [] })
       .then(d => {
+        if (!vivo) return
         setStops(d.stops || [])
         setCargando(false)
       })
-      .catch(() => setCargando(false))
+      .catch(() => vivo && setCargando(false))
+    return () => { vivo = false }
   }, [journey.id])
 
   const label = journey.label?.[idioma] || journey.label?.gl || ''
   const desc = journey.description?.[idioma] || journey.description?.gl || ''
 
   const NIVEL_LABEL = {
-    primary: 'Primaria',
-    secondary: 'Secundaria',
-    expert: 'Experto'
+    primary: t(idioma, 'primaria'),
+    secondary: t(idioma, 'percorridoSecundaria'),
+    expert: t(idioma, 'experto')
   }
   const NIVEL_COR_FB = {
     primary: '#5dd4a8',
@@ -625,7 +684,7 @@ function RutaDetalle({ journey, idioma, onAbrir }) {
           alignItems: 'center',
           gap: 8
         }}>
-          <span>{journey.modulo || 'Xeral'}</span>
+          <span>{journey.modulo || t(idioma, 'arquivoXeral')}</span>
           <span style={{ color: 'var(--gaia-cosmos-400)' }}>·</span>
           <span style={{
             display: 'inline-flex',
@@ -683,7 +742,7 @@ function RutaDetalle({ journey, idioma, onAbrir }) {
           letterSpacing: '0.1em',
           textTransform: 'uppercase'
         }}>
-          Cargando pasos...
+          {t(idioma, 'arquivoCargandoPasos')}
         </div>
       ) : stops.length === 0 ? (
         <div style={{
@@ -692,7 +751,7 @@ function RutaDetalle({ journey, idioma, onAbrir }) {
           fontFamily: 'var(--gaia-font-body)',
           padding: '20px 0'
         }}>
-          Esta ruta non ten pasos definidos aínda.
+          {t(idioma, 'arquivoSenPasos')}
         </div>
       ) : (
         <div>
@@ -705,7 +764,7 @@ function RutaDetalle({ journey, idioma, onAbrir }) {
             textTransform: 'uppercase',
             fontWeight: 600
           }}>
-            Percorrido · {stops.length} {stops.length === 1 ? 'paso' : 'pasos'}
+            {stops.length === 1 ? t(idioma, 'arquivoPercorrido1') : t(idioma, 'arquivoPercorridoN', stops.length)}
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {stops.map((stop, i) => (
@@ -784,7 +843,7 @@ function RutaDetalle({ journey, idioma, onAbrir }) {
             e.currentTarget.style.boxShadow = 'none'
           }}
         >
-          Iniciar ruta
+          {t(idioma, 'arquivoIniciarRuta')}
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <line x1="5" y1="12" x2="19" y2="12" />
             <polyline points="12 5 19 12 12 19" />

@@ -818,7 +818,7 @@ function App() {
             {/* Opcións do menú */}
             <MenuItem href="/ranking" Icono={IconoTrofeo} label={t(idioma, 'rankingCentros')} color={S.colorGold} />
             {usuario && !esProfesor && !usuario.explorador && (
-  <MenuItem onClick={() => { abrirPanel('oberonTest'); pecharPanel('menuConfig') }} Icono={IconoEstrela} label="Test vocacional" />
+  <MenuItem onClick={() => { abrirPanel('oberonTest'); pecharPanel('menuConfig') }} Icono={IconoEstrela} label={t(idioma, 'menuTestVocacional')} />
 )}
             <MenuItem onClick={() => { abrirPanel('arbol'); pecharMenus() }} Icono={IconoArbol} label={t(idioma, 'arquivoRutas')} />
             <MenuItem onClick={() => { setIntroConAudio(true); setPrimeiroContactoVisto(false); pecharPanel('menuConfig') }} Icono={IconoEstrela} label={t(idioma, 'verIntroduccion')} />
@@ -875,7 +875,7 @@ function App() {
             )}
           </div>
 
-          <MenuItem onClick={() => { abrirPanel('perfil'); pecharPanel('menuUsuario') }} Icono={IconoUsuario} label="O meu perfil" />
+          <MenuItem onClick={() => { abrirPanel('perfil'); pecharPanel('menuUsuario') }} Icono={IconoUsuario} label={t(idioma, 'menuOMeuPerfil')} />
           <MenuItem onClick={() => { logoutCompleto(); pecharPanel('menuUsuario') }} Icono={IconoLogout} label={t(idioma, 'cerrarSesion')} color="var(--gaia-danger)" ultimo />
 
         </div>
