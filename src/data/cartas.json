@@ -1,0 +1,32 @@
+{
+  "_comentario": "Cartas coleccionables v1 (EXPERIENCIA_NENO §3.4 e §4): recompensa = celebración. Gáñanse ao completar unha ruta (`ruta`) ou por un evento (`evento`). O backend só garda os ids que ten cada usuario (GET/POST /cartas); a definición vive aquí.",
+  "coleccions": {
+    "mundo":       { "gl": "Como funciona o mundo", "es": "Cómo funciona el mundo", "en": "How the world works", "cor": "#e8a547" },
+    "oficios":     { "gl": "Oficios",               "es": "Oficios",               "en": "Trades",              "cor": "#ff9fb8" },
+    "natureza":    { "gl": "Natureza",              "es": "Naturaleza",            "en": "Nature",              "cor": "#5dd4a8" },
+    "exploracion": { "gl": "Exploración",           "es": "Exploración",           "en": "Exploration",         "cor": "#9bb3ff" }
+  },
+  "cartas": [
+    { "id": "carta_pan", "coleccion": "mundo", "emoji": "🥖", "ruta": "a_viaxe_do_pan",
+      "titulo": { "gl": "O pan madruga", "es": "El pan madruga", "en": "Bread rises early" },
+      "texto":  { "gl": "O panadeiro empeza a traballar de noite para que o pan estea quente cando ti espertas. O tempo tamén é un ingrediente.", "es": "El panadero empieza a trabajar de noche para que el pan esté caliente cuando tú despiertas. El tiempo también es un ingrediente.", "en": "The baker starts at night so the bread is warm when you wake up. Time is an ingredient too." } },
+    { "id": "carta_prato", "coleccion": "oficios", "emoji": "🍽️", "ruta": "galicia_no_prato",
+      "titulo": { "gl": "Galicia no prato", "es": "Galicia en el plato", "en": "Galicia on the plate" },
+      "texto":  { "gl": "Cada prato conta de onde vén: o mar, a horta, o forno. Comer con atención é outra forma de viaxar.", "es": "Cada plato cuenta de dónde viene: el mar, la huerta, el horno. Comer con atención es otra forma de viajar.", "en": "Every dish tells where it comes from: the sea, the garden, the oven. Eating with attention is another way to travel." } },
+    { "id": "carta_mar", "coleccion": "oficios", "emoji": "⚓", "ruta": "oficios_do_mar",
+      "titulo": { "gl": "Xente do mar", "es": "Gente del mar", "en": "People of the sea" },
+      "texto":  { "gl": "No mar traballan mariñeiros, mariscadoras, redeiras e carpinteiros de ribeira. Ningún barco sae só.", "es": "En el mar trabajan marineros, mariscadoras, rederas y carpinteros de ribera. Ningún barco sale solo.", "en": "At sea work sailors, shellfish gatherers, net menders and boat builders. No boat sails alone." } },
+    { "id": "carta_auga", "coleccion": "mundo", "emoji": "💧", "ruta": "a_viaxe_da_auga",
+      "titulo": { "gl": "A auga dá a volta", "es": "El agua da la vuelta", "en": "Water goes round" },
+      "texto":  { "gl": "A auga da túa billa xa foi chuvia, río e nube moitas veces. Non se gasta: só viaxa. Por iso hai que coidala.", "es": "El agua de tu grifo ya fue lluvia, río y nube muchas veces. No se gasta: solo viaja. Por eso hay que cuidarla.", "en": "The water from your tap has already been rain, river and cloud many times. It is not used up: it only travels. That is why we take care of it." } },
+    { "id": "carta_luz", "coleccion": "mundo", "emoji": "⚡", "ruta": "a_viaxe_da_luz",
+      "titulo": { "gl": "O vento que acende a lámpada", "es": "El viento que enciende la lámpara", "en": "The wind that lights the lamp" },
+      "texto":  { "gl": "Cando apagas unha luz que non fai falla, un muíño de vento traballa un pouquiño menos. As pequenas cousas contan.", "es": "Cuando apagas una luz que no hace falta, un molino de viento trabaja un poquito menos. Las pequeñas cosas cuentan.", "en": "When you switch off a light you don't need, a wind turbine works a tiny bit less. Small things count." } },
+    { "id": "carta_leite", "coleccion": "natureza", "emoji": "🐄", "ruta": "de_onde_ven_o_leite",
+      "titulo": { "gl": "A vaca é unha fábrica de herba", "es": "La vaca es una fábrica de hierba", "en": "The cow is a grass factory" },
+      "texto":  { "gl": "Unha vaca pode beber ata 100 litros de auga nun día de calor. Case todo o que dá leite é herba e auga transformadas.", "es": "Una vaca puede beber hasta 100 litros de agua en un día de calor. Casi todo lo que da leche es hierba y agua transformadas.", "en": "A cow can drink up to 100 litres of water on a hot day. Almost everything that makes milk is grass and water, transformed." } },
+    { "id": "carta_portal", "coleccion": "exploracion", "emoji": "🔭", "evento": "primeiro_portal",
+      "titulo": { "gl": "Explorador de atallos", "es": "Explorador de atajos", "en": "Shortcut explorer" },
+      "texto":  { "gl": "Saíches do camiño polo primeiro portal. Todo no universo está conectado con algo: seguir un fío é a forma de coñecelo.", "es": "Te saliste del camino por el primer portal. Todo en el universo está conectado con algo: seguir un hilo es la forma de conocerlo.", "en": "You stepped off the path through your first portal. Everything in the universe connects to something: following a thread is how you get to know it." } }
+  ]
+}

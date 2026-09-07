@@ -330,5 +330,14 @@
   "tipoConstellation": "constellation",
   "tipoSystem": "system",
   "tipoConcept": "concept",
-  "tipoProcess": "process"
+  "tipoProcess": "process",
+  "percorridoDesvio": "A detour",
+  "percorridoVolverCamino": "Back to the path",
+  "cartaNova": "New card",
+  "cartasTitulo": "Your cards",
+  "cartasTidas": "You have {0} of {1}",
+  "cartasOculta": "Card yet to discover",
+  "cartasComoRuta": "Complete a path to earn it",
+  "cartasComoPortal": "Go through a portal ↗ in a text to earn it",
+  "portadaCartasAbrir": "Open the card collection"
 }

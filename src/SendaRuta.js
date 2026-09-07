@@ -27,6 +27,7 @@ import { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react'
 import { useUser } from './contexts/UserContext'
 import { API } from './config/api'
 import { t } from './i18n'
+import { fraseLua } from './lua'
 
 const ANCHO_VERTICAL = 480   // por debaixo disto a senda vai en vertical
 
@@ -232,10 +233,9 @@ export default function SendaRuta({ journeyId, idioma = 'gl', onEntrar, onPechar
 
   const nome      = usuario?.nome ? usuario.nome.split(' ')[0] : ''
   const empezada  = indice > 0 || completada
-  const fraseBase = completada ? 'sendaCompleta' : empezada ? 'sendaContinua' : 'sendaEmpeza'
-  const fraseLua  = aviso
-    ? t(idioma, 'sendaPechadaAviso')
-    : (nome ? t(idioma, fraseBase + 'Nome', nome) : t(idioma, fraseBase))
+  // Lúa fala desde o banco de frases (sen IA): estado da senda ou aviso.
+  const evento    = aviso ? 'parada_pechada' : completada ? 'senda_completa' : empezada ? 'senda_continua' : 'senda_empeza'
+  const fraseDeLua = fraseLua({ idioma, nome, hora: -1, evento })
   const labelRuta = ruta[`label_${idioma}`] || ruta.label?.[idioma] || ruta.label_gl || ruta.label?.gl || journeyId
 
   return (
@@ -261,7 +261,7 @@ export default function SendaRuta({ journeyId, idioma = 'gl', onEntrar, onPechar
           background: aviso ? '#2a2214' : '#101a30', border: `1px solid ${aviso ? '#e8a547' : '#2a3a5c'}`, borderRadius: 10,
           padding: '8px 14px', fontSize: 13.5, color: '#c9d6ef', transition: 'background 200ms, border-color 200ms'
         }}>
-          {fraseLua}
+          {fraseDeLua}
         </div>
       </div>
 

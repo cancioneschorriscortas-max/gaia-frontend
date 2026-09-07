@@ -1,0 +1,59 @@
+{
+  "_comentario": "Banco de frases de Lúa v1 (EXPERIENCIA_NENO §4): SEN IA, determinista. Cada frase ten un contexto `cando`; escóllese a máis específica que cadre e, entre varias, vaise rotando polo día. {nome}, {nodo}, {anterior}, {ruta}, {n}, {total} interpólanse.",
+  "frases": [
+    { "id": "benvida_man",       "cando": { "hora": [5, 12] },
+      "gl": "Bos días{, nome}! O universo abriu cedo hoxe.", "es": "¡Buenos días{, nome}! El universo abrió temprano hoy.", "en": "Good morning{, nome}! The universe opened early today." },
+    { "id": "benvida_man_2",     "cando": { "hora": [5, 12] },
+      "gl": "Bos días{, nome}! Hoxe hai algo novo que descubrir.", "es": "¡Buenos días{, nome}! Hoy hay algo nuevo que descubrir.", "en": "Good morning{, nome}! There is something new to discover today." },
+    { "id": "benvida_tarde",     "cando": { "hora": [12, 20] },
+      "gl": "Boa tarde{, nome}! Quedou algo a medio descubrir?", "es": "¡Buenas tardes{, nome}! ¿Quedó algo a medio descubrir?", "en": "Good afternoon{, nome}! Did something stay half-discovered?" },
+    { "id": "benvida_tarde_2",   "cando": { "hora": [12, 20] },
+      "gl": "Boa tarde{, nome}! O universo estivo agardando por ti.", "es": "¡Buenas tardes{, nome}! El universo estuvo esperándote.", "en": "Good afternoon{, nome}! The universe was waiting for you." },
+    { "id": "benvida_noite",     "cando": { "hora": [20, 29] },
+      "gl": "Boas noites{, nome}! Un anaquiño de universo antes de durmir?", "es": "¡Buenas noches{, nome}! ¿Un trocito de universo antes de dormir?", "en": "Good evening{, nome}! A little piece of universe before bed?" },
+
+    { "id": "mision_ruta",       "cando": { "ruta": "activa", "nodo": true },
+      "gl": "Hoxe {nodo} espera por ti.", "es": "Hoy {nodo} te espera.", "en": "Today {nodo} is waiting for you." },
+    { "id": "mision_ruta_ant",   "cando": { "ruta": "activa", "nodo": true, "anterior": true },
+      "gl": "Hoxe {nodo} espera por ti. Lémbraste de {anterior}?", "es": "Hoy {nodo} te espera. ¿Te acuerdas de {anterior}?", "en": "Today {nodo} is waiting for you. Remember {anterior}?" },
+    { "id": "mision_sen_ruta",   "cando": { "ruta": "ningunha" },
+      "gl": "Aínda non tes camiño. Escolle un aquí abaixo e empeza a andar.", "es": "Todavía no tienes camino. Elige uno aquí abajo y empieza a andar.", "en": "You have no path yet. Pick one below and start walking." },
+    { "id": "mision_novas",      "cando": { "ruta": "novas" },
+      "gl": "O último camiño está feito. Hai outros agardando aquí abaixo.", "es": "El último camino está hecho. Hay otros esperando aquí abajo.", "en": "The last path is done. Others are waiting below." },
+    { "id": "mision_novas_2",    "cando": { "ruta": "novas" },
+      "gl": "Camiño completo. Que che apetece descubrir hoxe?", "es": "Camino completo. ¿Qué te apetece descubrir hoy?", "en": "Path complete. What do you feel like discovering today?" },
+    { "id": "mision_todas",      "cando": { "ruta": "todas" },
+      "gl": "Todos os camiños feitos! Podes volver percorrelos ou explorar libre.", "es": "¡Todos los caminos hechos! Puedes volver a recorrerlos o explorar libre.", "en": "Every path done! You can walk them again or explore freely." },
+
+    { "id": "senda_empeza",      "cando": { "evento": "senda_empeza" },
+      "gl": "Todo camiño empeza nun primeiro paso{, nome}. Toca a estrela!", "es": "Todo camino empieza con un primer paso{, nome}. ¡Toca la estrella!", "en": "Every path starts with a first step{, nome}. Tap the star!" },
+    { "id": "senda_continua",    "cando": { "evento": "senda_continua" },
+      "gl": "Continúa onde o deixaches{, nome} — toca a estrela que brilla.", "es": "Continúa donde lo dejaste{, nome} — toca la estrella que brilla.", "en": "Carry on where you left off{, nome} — tap the glowing star." },
+    { "id": "senda_completa",    "cando": { "evento": "senda_completa" },
+      "gl": "Camiño completo{, nome}! Podes repasar calquera parada.", "es": "¡Camino completo{, nome}! Puedes repasar cualquier parada.", "en": "Path complete{, nome}! You can revisit any stop." },
+    { "id": "parada_pechada",    "cando": { "evento": "parada_pechada" },
+      "gl": "Esa parada aínda está pechada. Primeiro toca a estrela que brilla.", "es": "Esa parada aún está cerrada. Primero toca la estrella que brilla.", "en": "That stop is still locked. Tap the glowing star first." },
+
+    { "id": "reto_ok",           "cando": { "evento": "reto_ok" },
+      "gl": "Iso xa non cho quita ninguén.", "es": "Eso ya no te lo quita nadie.", "en": "Nobody can take that from you now." },
+    { "id": "reto_ok_2",         "cando": { "evento": "reto_ok" },
+      "gl": "Boa! Unha estrela máis no teu ceo.", "es": "¡Bien! Una estrella más en tu cielo.", "en": "Nice! One more star in your sky." },
+    { "id": "reto_ko",           "cando": { "evento": "reto_ko" },
+      "gl": "Case! As estrelas tampouco se acenden á primeira.", "es": "¡Casi! Las estrellas tampoco se encienden a la primera.", "en": "Almost! Stars don't light up on the first try either." },
+
+    { "id": "portal_novo",       "cando": { "evento": "portal_novo" },
+      "gl": "Saíches do camiño... e atopaches algo. Así se descobre.", "es": "Te saliste del camino... y encontraste algo. Así se descubre.", "en": "You stepped off the path... and found something. That is how discovering works." },
+    { "id": "portal_novo_2",     "cando": { "evento": "portal_novo" },
+      "gl": "Un atallo! Todo no universo está conectado con algo.", "es": "¡Un atajo! Todo en el universo está conectado con algo.", "en": "A shortcut! Everything in the universe is connected to something." },
+    { "id": "portal_visto",      "cando": { "evento": "portal_visto" },
+      "gl": "Xa coñeces este sitio. Bo sinal: o universo vaise facendo pequeno.", "es": "Ya conoces este sitio. Buena señal: el universo se va haciendo pequeño.", "en": "You already know this place. Good sign: the universe is getting smaller." },
+
+    { "id": "fin_sesion",        "cando": { "evento": "ruta_completa" },
+      "gl": "Misión feita. O universo agarda mañá — descansa{, nome}.", "es": "Misión hecha. El universo espera mañana — descansa{, nome}.", "en": "Mission done. The universe will wait for tomorrow — rest{, nome}." },
+    { "id": "fin_sesion_2",      "cando": { "evento": "ruta_completa" },
+      "gl": "Do principio ao final{, nome}. Agora sabes como funciona.", "es": "Del principio al final{, nome}. Ahora sabes cómo funciona.", "en": "From start to finish{, nome}. Now you know how it works." },
+
+    { "id": "carta_nova",        "cando": { "evento": "carta_nova" },
+      "gl": "Unha carta nova para a túa colección!", "es": "¡Una carta nueva para tu colección!", "en": "A new card for your collection!" }
+  ]
+}

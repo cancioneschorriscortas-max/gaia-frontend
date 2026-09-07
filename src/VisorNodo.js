@@ -6,6 +6,7 @@ import VisorRuta from './VisorRuta'
 import RetoInteractivo from './RetoInteractivo'
 import ModoExame from './ModoExame'
 import { API } from './config/api';
+import { TextoConPortais, limparPortais } from './portais'
 
 // ═══════════════════════════════════════════════════════════
 // VisorNodo — Páxina completa dun nodo
@@ -170,7 +171,7 @@ function VisorNodo({
   const texto  = (n) => nodo.content?.[n]?.[idioma] || nodo.content?.[n]?.gl || ''
   const reto   = (n) => nodo.retos?.[n]?.[idioma]   || nodo.retos?.[n]?.gl   || ''
   const titulo = nodo.labels?.[idioma] || nodo.labels?.gl || ''
-  const resumo = texto('primary').split('.').slice(0, 2).join('.') + '.'
+  const resumo = limparPortais(texto('primary')).split('.').slice(0, 2).join('.') + '.'
 
   const relacionsMostrar = verTodasRelacions ? relacions : relacions.slice(0, 4)
 
@@ -649,7 +650,9 @@ function VisorNodo({
                       margin: '0 0 20px 0',
                       maxWidth: '68ch'
                     }}>
-                      {textoNivel}
+                      {/* Portais (Regra 6): [[palabra|nodo]] → salto ao nodo destino */}
+                      <TextoConPortais texto={textoNivel} idioma={idioma}
+                                       onPortal={(id) => seleccionarNodo && seleccionarNodo(id)} />
                     </p>
                     {retoNivel && (
                       <RetoInteractivo

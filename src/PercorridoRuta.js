@@ -3,6 +3,9 @@ import RetoInteractivo from './RetoInteractivo'
 import { useUser } from './contexts/UserContext'
 import { API } from './config/api';
 import { t } from './i18n'
+import { TextoConPortais } from './portais'
+import { fraseLua } from './lua'
+import CARTAS from './data/cartas.json'
 
 // ═══════════════════════════════════════════════════════════
 // PercorridoRuta — Pantalla completa para percorrer unha ruta
@@ -96,7 +99,20 @@ const IconoSpinner = ({ size = 24 }) => (
 
 function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null }) {
 
-  const { authHeaders, rexistrarXP } = useUser()
+  const { authHeaders, rexistrarXP, usuario } = useUser()
+
+  // ── INICIO: portais_e_cartas (estado) ────────────────
+  // desvio: o nodo aberto desde un portal (unha "excursión" fóra da ruta).
+  // portaisVistos: por usuario e persistente, para que o XP de NODO_NOVO
+  // se dea unha soa vez por nodo e Lúa saiba se é a primeira vez.
+  const chaveVistos = `gaia_portais_${usuario?.id || 'anon'}`
+  const [desvio, setDesvio] = useState(null)          // { id, nodo, cargando, frase }
+  const [portaisVistos, setPortaisVistos] = useState(() => {
+    try { return new Set(JSON.parse(localStorage.getItem(chaveVistos) || '[]')) } catch { return new Set() }
+  })
+  const [cartaNova, setCartaNova] = useState(null)     // carta gañada nesta pantalla (fin ou portal)
+  const [cartaPortal, setCartaPortal] = useState(null) // carta gañada ao cruzar o primeiro portal
+  // ── FIN: portais_e_cartas (estado) ───────────────────
 
   // ── INICIO: estados ──────────────────────────────────
   const [ruta, setRuta]               = useState(null)
@@ -202,6 +218,52 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
   }
   // ── FIN: pechar ──────────────────────────────────────
 
+  // ── INICIO: cartas ───────────────────────────────────
+  // Garda a carta no backend; se é nova, devólvea para celebrala.
+  const gañarCarta = async (cartaId) => {
+    const carta = CARTAS.cartas.find(c => c.id === cartaId)
+    if (!carta || !usuario || usuario.explorador) return null
+    try {
+      const r = await fetch(`${API}/cartas/${cartaId}`, { method: 'POST', headers: authHeaders() })
+      if (!r.ok) return null
+      const d = await r.json()
+      return d.nova ? carta : null
+    } catch { return null }
+  }
+  // ── FIN: cartas ──────────────────────────────────────
+
+  // ── INICIO: abrir_portal ─────────────────────────────
+  // Un portal abre o nodo destino nun panel por riba do paso, sen perder
+  // o sitio na ruta. A primeira vez que se visita un nodo por portal dá
+  // XP de NODO_NOVO; a primeira vez que se cruza UN portal, a carta 🔭.
+  const abrirPortal = async (nodoId) => {
+    const novo = !portaisVistos.has(nodoId)
+    const primeiroPortal = portaisVistos.size === 0
+    setDesvio({ id: nodoId, nodo: null, cargando: true,
+                frase: fraseLua({ idioma, hora: -1, evento: novo ? 'portal_novo' : 'portal_visto', nome: usuario?.nome?.split(' ')[0] }) })
+    try {
+      const res = await fetch(`${API}/nodo/${nodoId}`, { headers: authHeaders() })
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const data = await res.json()
+      setNodos(prev => ({ ...prev, [nodoId]: data }))
+      setDesvio(d => d && d.id === nodoId ? { ...d, nodo: data, cargando: false } : d)
+    } catch (e) {
+      setDesvio(d => d && d.id === nodoId ? { ...d, nodo: { erro: true }, cargando: false } : d)
+      return
+    }
+    if (novo) {
+      const seguintes = new Set(portaisVistos); seguintes.add(nodoId)
+      setPortaisVistos(seguintes)
+      try { localStorage.setItem(chaveVistos, JSON.stringify([...seguintes])) } catch {}
+      rexistrarXP('NODO_NOVO', nodoId)
+      if (primeiroPortal) {
+        const c = await gañarCarta('carta_portal')
+        if (c) setCartaPortal(c)
+      }
+    }
+  }
+  // ── FIN: abrir_portal ────────────────────────────────
+
 // ── INICIO: ir_a ─────────────────────────────────────
  // ── INICIO: ir_a ─────────────────────────────────────
   const irA = async (novoIndice) => {
@@ -213,6 +275,9 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
         setXaCompletada(true)
       }
       setFase('fin')
+      // A carta da ruta (se a ten): o backend di se é nova; só entón se celebra.
+      const carta = CARTAS.cartas.find(c => c.ruta === journeyId)
+      if (carta) gañarCarta(carta.id).then(c => c && setCartaNova(c))
       return
     }
     const stop = stops[novoIndice]
@@ -552,7 +617,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                   lineHeight: 1.7,
                   margin: 0
                 }}>
-                  {texto}
+                  <TextoConPortais texto={texto} idioma={idioma} visitados={portaisVistos} onPortal={abrirPortal} />
                 </p>
               </div>
             ) : (
@@ -638,7 +703,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                       lineHeight: 1.7,
                       margin: 0
                     }}>
-                      {textoSecundario}
+                      <TextoConPortais texto={textoSecundario} idioma={idioma} visitados={portaisVistos} onPortal={abrirPortal} />
                     </p>
                   </div>
                 )}
@@ -794,6 +859,14 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
               {t(idioma, 'percorridoCompletaches', stops.length, rutaLabel)}
             </p>
 
+            {/* Lúa pecha a sesión (metrónomo: unha misión, e a durmir) */}
+            <p style={{ color: 'var(--gaia-concept)', fontSize: 14, fontStyle: 'italic', margin: '-20px 0 30px' }}>
+              {fraseLua({ idioma, hora: -1, evento: 'ruta_completa', nome: usuario?.nome?.split(' ')[0] })}
+            </p>
+
+            {/* Carta nova: a celebración, non o soborno */}
+            {cartaNova && <CartaRevelada carta={cartaNova} idioma={idioma} />}
+
             {/* Resumo pasos */}
             <div style={{
               textAlign: 'left',
@@ -918,8 +991,131 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
         )}
 
       </div>
+
+      {/* ═══ DESVÍO POR PORTAL ═══ */}
+      {desvio && (
+        <PanelDesvio
+          desvio={desvio}
+          idioma={idioma}
+          visitados={portaisVistos}
+          onPortal={abrirPortal}
+          onPechar={() => setDesvio(null)}
+          carta={cartaPortal}
+          onCartaVista={() => setCartaPortal(null)}
+        />
+      )}
     </div>
   )
 }
+
+// ── INICIO: PanelDesvio ──────────────────────────────
+// Folla que sobe desde abaixo co nodo destino do portal. Non cambia o
+// paso da ruta: é unha excursión. Os portais de dentro seguen abrindo
+// nodos no mesmo panel (fío de descubrimento).
+function PanelDesvio({ desvio, idioma, visitados, onPortal, onPechar, carta, onCartaVista }) {
+  const n = desvio.nodo
+  const titulo = n?.labels?.[idioma] || n?.labels?.gl || desvio.id
+  const texto  = n?.content?.primary?.[idioma] || n?.content?.primary?.gl || ''
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onPechar() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onPechar])
+  return (
+    <div role="dialog" aria-modal="true" aria-label={t(idioma, 'percorridoDesvio')}
+      style={{ position: 'fixed', inset: 0, zIndex: 160, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+      <div onClick={onPechar} style={{ position: 'absolute', inset: 0, background: 'rgba(5, 10, 20, 0.6)' }} />
+      <div style={{
+        position: 'relative', width: '100%', maxWidth: 720, maxHeight: '80vh', overflowY: 'auto',
+        background: 'var(--gaia-cosmos-800)', border: '1px solid var(--gaia-concept-border)',
+        borderBottom: 'none', borderRadius: '18px 18px 0 0', padding: '18px 22px 26px',
+        boxShadow: '0 -12px 40px rgba(0,0,0,0.5)', animation: 'percorridoSube 260ms ease',
+        fontFamily: 'var(--gaia-font-body)', color: 'var(--gaia-text-primary)'
+      }}>
+        <style>{`@keyframes percorridoSube { from { transform: translateY(40px); opacity: 0 } to { transform: none; opacity: 1 } }`}</style>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+          <span style={{ fontSize: 10, fontFamily: 'var(--gaia-font-mono)', letterSpacing: '0.18em',
+                         textTransform: 'uppercase', color: 'var(--gaia-concept)', fontWeight: 700, flex: 1 }}>
+            ↗ {t(idioma, 'percorridoDesvio')}
+          </span>
+          <button onClick={onPechar} aria-label={t(idioma, 'pechar')}
+            style={{ background: 'none', border: 'none', color: 'var(--gaia-text-tertiary)', fontSize: 20, cursor: 'pointer' }}>✕</button>
+        </div>
+
+        {/* Lúa */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
+          <svg width="30" height="30" viewBox="0 0 34 34" aria-hidden="true" style={{ flexShrink: 0 }}>
+            <path d="M 17 4 a 13 13 0 1 0 0 26 a 10 13 0 1 1 0 -26 Z" fill="#e8f0ff" />
+            <circle cx="14.5" cy="15" r="1.3" fill="#0a1020" />
+            <path d="M 11.5 20 q 3.5 3 7 0" stroke="#0a1020" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          </svg>
+          <div style={{ fontSize: 13, color: 'var(--gaia-text-secondary)', fontStyle: 'italic' }}>{desvio.frase}</div>
+        </div>
+
+        <h3 style={{ fontFamily: 'var(--gaia-font-display)', fontSize: 24, margin: '0 0 10px', color: 'var(--gaia-accent)' }}>
+          {titulo}
+        </h3>
+        {desvio.cargando ? (
+          <div style={{ color: 'var(--gaia-text-tertiary)', fontSize: 13 }}>{t(idioma, 'cargando')}</div>
+        ) : n?.erro ? (
+          <div style={{ color: 'var(--gaia-text-tertiary)', fontSize: 13 }}>{t(idioma, 'percorridoErroNodo')}</div>
+        ) : (
+          <p style={{ fontSize: 16, lineHeight: 1.7, margin: 0 }}>
+            {texto
+              ? <TextoConPortais texto={texto} idioma={idioma} visitados={visitados} onPortal={onPortal} />
+              : t(idioma, 'percorridoSenContido')}
+          </p>
+        )}
+
+        {carta && (
+          <div style={{ marginTop: 18 }}>
+            <CartaRevelada carta={carta} idioma={idioma} compacta />
+          </div>
+        )}
+
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: 20 }}>
+          <button onClick={onPechar}
+            style={{ background: 'var(--gaia-accent)', color: 'var(--gaia-cosmos-900)', border: 'none',
+                     borderRadius: 22, padding: '11px 30px', fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' }}>
+            {t(idioma, 'percorridoVolverCamino')}
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+// ── FIN: PanelDesvio ─────────────────────────────────
+
+// ── INICIO: CartaRevelada ────────────────────────────
+// A carta gañada, cunha volta (flip) ao aparecer. Definición en data/cartas.json.
+export function CartaRevelada({ carta, idioma = 'gl', compacta = false }) {
+  const col = CARTAS.coleccions[carta.coleccion] || {}
+  const cor = col.cor || '#e8a547'
+  return (
+    <div role="status" aria-live="polite" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, margin: compacta ? 0 : '0 auto 30px' }}>
+      <style>{`@keyframes cartaVolta { 0% { transform: rotateY(90deg) scale(0.8); opacity: 0 } 60% { transform: rotateY(-12deg) scale(1.04); opacity: 1 } 100% { transform: none } }`}</style>
+      <div style={{ fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: cor, fontWeight: 700 }}>
+        ✦ {t(idioma, 'cartaNova')}
+      </div>
+      <div style={{
+        width: compacta ? 220 : 240, borderRadius: 16, padding: '18px 16px 16px', textAlign: 'center',
+        background: `linear-gradient(160deg, ${cor}22, var(--gaia-cosmos-900))`, border: `1.5px solid ${cor}`,
+        boxShadow: `0 0 30px ${cor}55`, animation: 'cartaVolta 700ms ease'
+      }}>
+        <div style={{ fontSize: 46, lineHeight: 1 }}>{carta.emoji}</div>
+        <div style={{ fontFamily: 'var(--gaia-font-display)', fontSize: 17, fontWeight: 700, color: cor, margin: '10px 0 6px' }}>
+          {carta.titulo?.[idioma] || carta.titulo?.gl}
+        </div>
+        <div style={{ fontSize: 12.5, lineHeight: 1.55, color: 'var(--gaia-text-secondary)' }}>
+          {carta.texto?.[idioma] || carta.texto?.gl}
+        </div>
+        <div style={{ fontSize: 10, marginTop: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--gaia-text-tertiary)' }}>
+          {col[idioma] || col.gl || carta.coleccion}
+        </div>
+      </div>
+    </div>
+  )
+}
+// ── FIN: CartaRevelada ───────────────────────────────
 
 export default PercorridoRuta

@@ -330,5 +330,14 @@
   "tipoConstellation": "constelación",
   "tipoSystem": "sistema",
   "tipoConcept": "concepto",
-  "tipoProcess": "proceso"
+  "tipoProcess": "proceso",
+  "percorridoDesvio": "Un desvío",
+  "percorridoVolverCamino": "Volver ao camiño",
+  "cartaNova": "Carta nova",
+  "cartasTitulo": "As túas cartas",
+  "cartasTidas": "Tes {0} de {1}",
+  "cartasOculta": "Carta por descubrir",
+  "cartasComoRuta": "Completa un camiño para conseguila",
+  "cartasComoPortal": "Cruza un portal ↗ nun texto para conseguila",
+  "portadaCartasAbrir": "Abrir a colección de cartas"
 }

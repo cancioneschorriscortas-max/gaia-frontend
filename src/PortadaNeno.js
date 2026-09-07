@@ -18,6 +18,9 @@ import { useUser } from './contexts/UserContext'
 import { SendaVisual } from './SendaRuta'
 import { API } from './config/api'
 import { t } from './i18n'
+import { fraseLua } from './lua'
+import CARTAS from './data/cartas.json'
+import ColeccionCartas from './ColeccionCartas'
 
 // ── INICIO: paleta ──────────────────────────────────────
 const C = {
@@ -179,16 +182,37 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
   }, [destacada?.id])
   // ── FIN: carga_stops ──────────────────────────────────
 
-  // ── INICIO: frase_do_dia ──────────────────────────────
-  const nome  = usuario?.nome ? usuario.nome.split(' ')[0] : ''
-  const cedo  = new Date().getHours() < 13
-  const saudo = nome
-    ? t(idioma, cedo ? 'portadaBosDiasNome' : 'portadaBoaTardeNome', nome)
-    : t(idioma, cedo ? 'portadaBosDias'     : 'portadaBoaTarde')
-  const fraseLua = activa ? `${saudo} ${t(idioma, 'portadaMisionEspera')}` : saudo
-  // ── FIN: frase_do_dia ─────────────────────────────────
+  // ── INICIO: cartas ────────────────────────────────────
+  const [cartas, setCartas] = useState([])
+  const [verCartas, setVerCartas] = useState(false)
+  useEffect(() => {
+    let vivo = true
+    fetch(`${API}/cartas`, { headers: authHeaders() })
+      .then(r => r.ok ? r.json() : { cartas: [] })
+      .catch(() => ({ cartas: [] }))
+      .then(d => { if (vivo) setCartas(Array.isArray(d.cartas) ? d.cartas : []) })
+    return () => { vivo = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  // ── FIN: cartas ───────────────────────────────────────
 
   const indice     = Math.min(destacada?.indice || 0, Math.max(0, stops.length - 1))
+
+  // ── INICIO: frase_do_dia (banco de frases de Lúa, sen IA) ──
+  // Saúdo pola hora + misión segundo o estado da ruta. As dúas saen do
+  // banco (src/data/frasesLua.json): a mesma frase todo o día, outra mañá.
+  const nome  = usuario?.nome ? usuario.nome.split(' ')[0] : ''
+  const labelStop = (s) => s?.nodo?.[`label_${idioma}`] || s?.nodo?.label_gl || ''
+  const saudo  = fraseLua({ idioma, nome })
+  const mision = fraseLua({
+    idioma, nome, hora: -1,
+    // 'novas': o empezado está feito pero hai camiños por estrear no catálogo
+    ruta: activa ? 'activa' : porEmpezar.length > 0 ? (todasFeitas ? 'novas' : 'ningunha') : todasFeitas ? 'todas' : 'ningunha',
+    nodo: activa ? labelStop(stops[indice]) : '',
+    anterior: activa && indice > 0 ? labelStop(stops[indice - 1]) : ''
+  })
+  const fraseDoDia = [saudo, mision].filter(Boolean).join(' ')
+  // ── FIN: frase_do_dia ─────────────────────────────────
   const completada = destacada?.completada === true
   const labelRuta  = destacada
     ? (destacada[`label_${idioma}`] || destacada.label || destacada.id)
@@ -218,7 +242,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
             flex: '1 1 200px', background: C.tarxeta, border: `1px solid ${C.borde}`,
             borderRadius: 10, padding: '11px 16px', fontSize: 14.5, color: '#c9d6ef'
           }}>
-            {fraseLua}
+            {fraseDoDia}
           </div>
           <div style={{
             flexShrink: 0, background: C.tarxeta, border: `1px solid ${C.borde}`,
@@ -383,23 +407,28 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
 
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
 
-          {/* Cartas — placeholder v1, non funcional */}
-          <Tarxeta titulo={`${t(idioma, 'portadaCartas')} · ${t(idioma, 'portadaProximamente')}`} style={{ flex: '1 1 240px', opacity: 0.75 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }} aria-disabled="true">
+          {/* Cartas — a colección (gáñanse completando camiños e cruzando portais) */}
+          <Tarxeta titulo={t(idioma, 'portadaCartas')} onClick={() => setVerCartas(true)} style={{ flex: '1 1 240px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               <div style={{ position: 'relative', width: 44, height: 40, flexShrink: 0 }}>
                 <div style={{
                   position: 'absolute', left: 0, top: 4, width: 26, height: 34,
                   background: '#1b2742', border: `1px solid ${C.azul}`, borderRadius: 4,
-                  transform: 'rotate(-12deg)'
-                }} />
+                  transform: 'rotate(-12deg)', display: 'grid', placeItems: 'center', fontSize: 15
+                }}>{CARTAS.cartas.find(c => cartas.includes(c.id))?.emoji || ''}</div>
                 <div style={{
                   position: 'absolute', left: 14, top: 2, width: 26, height: 34,
                   background: '#231b3a', border: `1px solid ${C.rosa}`, borderRadius: 4,
-                  transform: 'rotate(9deg)'
-                }} />
+                  transform: 'rotate(9deg)', display: 'grid', placeItems: 'center', fontSize: 15
+                }}>{CARTAS.cartas.filter(c => cartas.includes(c.id))[1]?.emoji || ''}</div>
               </div>
-              <div style={{ fontSize: 15, fontWeight: 600, color: C.texto }}>
-                {t(idioma, 'portadaCartasConta', 0)}
+              <div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: C.texto }}>
+                  {t(idioma, 'cartasTidas', cartas.length, CARTAS.cartas.length)}
+                </div>
+                <div style={{ fontSize: 12, color: C.secundario, marginTop: 3 }}>
+                  {t(idioma, 'portadaCartasAbrir')} →
+                </div>
               </div>
             </div>
           </Tarxeta>
@@ -424,6 +453,10 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
         {/* ── FIN: zona_3_tarxetas ───────────────────────── */}
 
       </div>
+
+      {verCartas && (
+        <ColeccionCartas idioma={idioma} tidas={cartas} onPechar={() => setVerCartas(false)} />
+      )}
     </div>
   )
 }
