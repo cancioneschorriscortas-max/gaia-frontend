@@ -101,9 +101,14 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
         setCargando(false)
       })
       .catch(() => vivo && setCargando(false))
-    const medir = () => setEstreito(window.innerWidth < ANCHO_ESTREITO)
+    // matchMedia ademais de resize: a emulación de móbil das DevTools cambia
+    // o viewport sen disparar sempre 'resize', pero a media query si avisa.
+    const mq = window.matchMedia(`(max-width: ${ANCHO_ESTREITO - 1}px)`)
+    const medir = () => setEstreito(mq.matches || window.innerWidth < ANCHO_ESTREITO)
+    medir()
+    mq.addEventListener('change', medir)
     window.addEventListener('resize', medir)
-    return () => { vivo = false; window.removeEventListener('resize', medir) }
+    return () => { vivo = false; mq.removeEventListener('change', medir); window.removeEventListener('resize', medir) }
   }, [])
 
   // Pechar co teclado (Escape), como calquera modal.
