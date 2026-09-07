@@ -588,7 +588,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
               const pe = img[`label_${idioma}`] || img.label_gl || ''
               return (
                 <figure style={{ margin: '0 0 22px' }}>
-                  <img src={img.url} alt={titulo} loading="lazy"
+                  <img src={img.url} alt={titulo}
                     style={{ width: '100%', maxHeight: 300, objectFit: 'cover', borderRadius: 14, display: 'block',
                              border: '1px solid var(--gaia-cosmos-400)', animation: 'percorridoFadeIn 300ms ease' }} />
                   {pe && (
