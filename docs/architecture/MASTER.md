@@ -12,6 +12,12 @@
 > **Estado (3ª sesión, peche): MULTIVERSO + LOD OPERATIVOS · Marble COMPLETO dentro (1.653 nodos / 4.873 rel.)**
 > — dous universos co botón 🌌, mapa escalonado (esqueleto por defecto, expandir ao picar),
 > `/nodo` e `/import` gravando `universo`. Detalle en §10, Sesión 3.
+> **Estado (4ª sesión): EXPERIENCIA DO NENO en marcha** — deseño en `docs/design/EXPERIENCIA_NENO.md`,
+> mapa con estilo flat + label culling, e a rebanda da senda COMPLETA (F1 progreso persistente,
+> F2 SendaRuta, F3 bucle senda↔paso con XP).
+> **Estado (5ª sesión, peche): NOVO MODELO DE TRABALLO — Claude Code como EXECUTOR** (test aprobado:
+> `PortadaNeno.js` construída por axente con briefing). Portada diaria v1 operativa (boceto 5) +
+> decisión "autoservizo v1" + Arquivo unificado con RutaNeno. Detalle en §10, Sesións 4-5.
 
 ---
 
@@ -369,6 +375,78 @@ Wikipedia (texto)  (SPARQL / API)        relation{type,context,        (humano a
 ---
 
 ## 10. Bitácora
+
+### Sesión 6 — Executor autónomo: fluxo do neno de punta a punta, móbil e i18n
+
+**Encargo do director:** "perfeccionar GAIA" con autonomía (probar como usuario, mellorar,
+estender). Informe completo con achados e backlog en `docs/architecture/INFORME_S6_FLUXO_NENO.md`.
+
+**Feito:**
+- **Pila local levantada e documentada:** Neo4j en `C:\neo4j-community-5.26.22` (`bin\neo4j.bat console`),
+  backend `node index.js` en `D:\gaia-backend`, frontend con `.env.local` → `http://localhost:4000`
+  (ignorado por git; o `.env` segue apuntando á IP da LAN).
+- **"A viaxe do pan" xa se pode percorrer de punta a punta:** os 4 nodos xa estaban importados
+  (director); o executor cargou os 4 retos (`reto_primary_gl/es/en`, `reto_bloqueado=false`) e creou
+  a journey `a_viaxe_do_pan` (🍞, módulo Galicia, 4 paradas). Probado como neno: portada → senda →
+  4 pasos con reto → ruta completa → +40 XP. Conta de proba local: `Proba Executor`
+  (profesor, centro "Centro de proba"; credenciais no scratchpad da sesión, non no repo).
+- **Fluxo do neno (commit `fc4eae4`):** RetoInteractivo arrastraba a avaliación do paso anterior
+  (bug grave, arranxado), erros sen saída, XP prometido 20 vs real 15, opcións do reto nunha soa
+  liña; PercorridoRuta con fase `erro`; **SendaVisual VERTICAL en móbil** (a 375px as etiquetas
+  quedaban en 6px); PortadaNeno con volta ao mapa e caso "ruta desaparecida"; a11y (teclado,
+  aria, progressbar); todas as cadeas destes ficheiros por `t()`.
+- **Arquivo de Rutas (commit `3a10399`):** en móbil era inusable (panel de 300px fixos + detalle
+  con ancho negativo); agora unha columna con volta; Escape pecha; i18n completa; barra inferior por `t()`.
+- **Backend (`gaia-backend` commits `3daa41a`, seguinte):** stops e `/progreso/rutas` con
+  `label_{idioma}`; login co centro opcional de verdade; **voz de Lúa por nivel** en `/avaliar-reto`
+  (en primaria: neno de 8-10 anos, frases curtas, galego normativo, pista en vez de resposta).
+  Antes dicía "estrutura reprodutiva" e "grano" a un neno de 8 anos.
+- 99 claves i18n novas (gl/es/en).
+
+**Próximo (ver informe):** portais inline NON existen no código (a mecánica 1 do tutorial non se
+pode ensinar); `/journeys` expón rutas `draft`/`private` aos nenos; banco de frases de Lúa v1;
+o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha afirmación institucional que
+o director debe confirmar ou retirar.
+
+---
+
+### Sesión 5 (peche) — Claude Code como executor + Portada diaria
+
+**O CAMBIO DE MODELO (ler isto se es un chat novo):** o proxecto pasa a un triángulo
+**director (Agarfal) + arquitecto (chats de deseño coma este) + EXECUTOR (Claude Code
+sobre os repos locais)**. O arquitecto escribe briefings autosuficientes en `docs/design/`;
+o executor implementa; o director revisa e proba. **Regras do executor:** `git pull` antes;
+non tocar ficheiros fóra do alcance do briefing; commit local **SEN push** (o push é do
+director tras revisar); dúbidas → opción simple + comentario `// DECISIÓN EXECUTOR: ...`.
+
+**Feito:**
+- **Test do executor: APROBADO con nota.** Primeira tarefa real (briefing `docs/design/BRIEFING_PORTADA_NENO.md`): construíu `PortadaNeno.js` (350 liñas, estilo da casa exacto), diagnosticou un problema de UX con referencias de liña (a portada era un cul-de-sac: só lía rutas empezadas e a única entrada ao catálogo estaba agochada no menú ⚙), cazou un bug propio (`rutas[length-1]` con `ORDER BY DESC` → `rutas[0]`), e PAROU a pedir decisión de deseño en vez de improvisar. Revisión de código do arquitecto: limpa.
+- **Decisión de deseño (director): modelo AUTOSERVIZO v1** — o neno escolle ruta (Principio 3, autonomía). O tutorial asignado por rol chegará co onboarding; a asignación por profesor é feature futura (non existe no backend: PROGRESO créase ao empezar, non ao asignar).
+- **Opción C aplicada:** caso (b) da portada mostra "Camiños que podes empezar" (`GET /journeys`, mesma visibilidade que o Arquivo) abrindo `RutaNeno`; e o "Iniciar ruta" do **Arquivo (ArbolInstitucional) pasa a abrir RutaNeno** en vez de PercorridoRuta pelado — unha soa experiencia de ruta en toda a app.
+- **`PortadaNeno.js` v1 (boceto 5):** Zona 1 Lúa+frase por hora+chip XP/nivel · Zona 2 ruta activa coa `SendaVisual` (casos: activa / sen rutas → catálogo / todas feitas → última con "Volver percorrer") · Zona 3 tarxetas Soño (placeholder Oberón), Cartas (placeholder) e Explorar. Acceso temporal: botón "🧭 Explorador" en App (marcado TEMPORAL ata o onboarding). Degradación: sen login/backend → caso (b), nunca peta.
+
+**Próximo:**
+1. **Contido "A viaxe do pan"** → briefing ao executor (`docs/design/BRIEFING_CONTIDO_PAN.md`): el redacta borrador + JSON de import en draft; o DIRECTOR revisa a VOZ (o texto para nenos é territorio do director) e importa pola porta de sempre.
+2. **Oberón (outros chats): Fase 4 de Yggdrasil** (vista real + persistencia) — eses chats deben ler este MASTER antes; poden usar Claude Code como executor co mesmo modelo.
+3. Banco de frases de Lúa v1 → elección de rol narrativa → espertar.
+4. Fíos: unificar backend (candidata a tarefa de executor), tradución Marble (a man), portais entre universos, opacidade 0.01 como default (pendente confirmar).
+
+---
+
+### Sesión 4 — Experiencia do neno: deseño + estilo flat + senda (F1-F3)
+
+**Feito:**
+- **Multiverso extensible (peche S3):** universos derivados dos datos (engadir universo = importar datos co campo, cero código), botón 🌌 ciclador, reencadre ao viaxar (`zoomToFit` por `universoActivo`).
+- **Deseño experiencia do neno:** investigación (SDT, Duolingo, Khan/Bloom, Zelda BotW, Scratch/Papert, Montessori, Tokkatsu) → **8 principios** + fluxo (espertar → elección de rol → tutorial "A viaxe do pan" → bucle diario) + 5 bocetos validados → **`docs/design/EXPERIENCIA_NENO.md`** (inventario existe/falta, banco de frases de Lúa v1 SEN IA, fóra-de-alcance, orde de implementación).
+- **Dirección de arte FLAT:** `mapaConfig.js` novo (fondo `#0a1020`, paleta plana, glow/bloom/partículas a 0) + `renderNodo` flat (círculo sólido, aro-pulso no activo) + `onRenderFramePre` sen halos + **label culling por prioridade** (`labelRectsRef` + orde en `filtrarDatos` + colisión de rects → cero solapamentos; label do activo sempre). Nota: opacidade relacións 0.01 gustou (candidata a default). Incidencia: o recorte dun parche levou por diante `onNodeClick/onNodeHover/onBackgroundClick/onEngineStop` do 2D → restaurados; política nova de parches: incluír contexto posterior ao punto de corte.
+- **REBANDA DA SENDA COMPLETA (F1-F3), probada:**
+  - F1: `(Usuario)-[:PROGRESO {indice,completada,iniciada,ts}]->(Journey)`; `PUT/GET /journeys/:id/progreso` (indice só sobe; completada pegañenta) + `GET /progreso/rutas`; PercorridoRuta restaura e garda.
+  - F2: `SendaRuta.js` = `SendaVisual` (presentacional: curva SVG, feitas ✓/actual pulsando/futuras 🔒) + wrapper (journey+progreso, Lúa con frase por estado, botón único).
+  - F3: `RutaNeno.js` (senda↔paso; remonta con `key` ao volver → refetch + **pop de desbloqueo** `popActual`); `PercorridoRuta` con `pasoInicial`; **XP `RUTA_COMPLETADA` (+25 exploración)** só a 1ª vez.
+- Fix: `ArbolInstitucional` — botón "Iniciar ruta" tapado polo footer fixo → padding inferior.
+- **Fontes futuras mapeadas:** Epicure/KAIKAKU (embeddings 1.790 ingredientes; **MCP oficial `epicure-mcp.kaikaku.ai/mcp`** compatible coa API de Lúa → "Lúa chef"; memoria para IA local) · planos antigos (Diderot/ARTFL, patentes Google/USPTO/Espacenet, Smithsonian CC0 — encaixe: MEDIA dos nodos) · oficios tradicionais (Galipedia CC BY-SA, Artesanía de Galicia/Xunta, Galiciana; Monesma: ENLAZAR vídeos si, reproducir textos non) · Tokkatsu (portal U.Tokio; engordar Life Skills/PSD de Marble; mecánica de hábitos fóra do modelo actual, anotada).
+
+---
 
 ### Sesión 3 (peche) — Multiverso + LOD + Marble completo
 
