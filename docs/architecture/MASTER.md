@@ -415,6 +415,9 @@ estender). Informe completo con achados e backlog en `docs/architecture/INFORME_
   relacións): **A viaxe da auga 💧, A viaxe da luz ⚡, De onde vén o leite 🐄**. Fonte:
   `docs/content/como_funciona_o_mundo.seed.mjs`. Xa hai 6 rutas na BD local.
 - Probado como neno: portal → desvío → carta 🔭; ruta da auga completa → carta 💧; colección 2/7.
+- **Imaxes nas paradas:** 16 fotos de Wikimedia Commons (CC0/CC BY/CC BY-SA), escollidas a man
+  con follas de contacto, cargadas como media dos nodos e pintadas como cabeceira de cada paso
+  coa atribución ao pé. Lista en `docs/content/media_atribucions.json`.
 
 **Próximo (ver informe):** `/journeys` expón rutas `draft`/`private` aos nenos (publicalas e
 filtrar); o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha afirmación

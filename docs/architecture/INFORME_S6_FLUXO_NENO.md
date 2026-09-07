@@ -91,6 +91,10 @@ Todo commit local sen push (frontend `feat(neno): portais inline…`, backend `f
 
 Portais marcados tamén nos 4 nodos do pan (só se marcaron palabras que xa estaban no texto do director).
 
+| **Imaxes nas paradas** | `PercorridoRuta` (cabeceira), `docs/content/media_atribucions.json` | 16 fotos de Wikimedia Commons con licenza libre (CC0, CC BY, CC BY-SA), buscadas pola API de Commons, filtradas por licenza e **escollidas mirando follas de contacto** (Edge headless). Cargadas como `media` tipo `image` nos nodos; a etiqueta leva "Foto: autor · licenza · Wikimedia Commons" e píntase ao pé da imaxe (a atribución é obrigatoria nas CC BY). Para cambiar unha foto: `DELETE /media/:id` + `POST /nodo/:id/media`. |
+
+Regra de ouro das imaxes: **só licenzas libres e sempre con atribución visible**; nada de Google Images.
+
 **Ideas seguintes, por orde de impacto:** (1) imaxes nas paradas (VisorMedio xa existe; falta
 media nos nodos novos — Wikimedia Commons CC), (2) espertar + elección de rol narrativa (§3.1-3.2),
 (3) "O teu soño" real ligado ao test de Oberón, (4) rutas `secondary` para o instituto reutilizando
