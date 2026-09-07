@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import RetoInteractivo from './RetoInteractivo'
 import { useUser } from './contexts/UserContext'
 import { API } from './config/api';
+import { t } from './i18n'
 
 // ═══════════════════════════════════════════════════════════
 // PercorridoRuta — Pantalla completa para percorrer unha ruta
@@ -102,14 +103,19 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
   const [stops, setStops]             = useState([])
   const [nodos, setNodos]             = useState({}) // cache
   const [indice, setIndice]           = useState(0)
-  const [fase, setFase]               = useState('cargando')
+  const [fase, setFase]               = useState('cargando')   // cargando | percorrido | fin | erro
   const [visible, setVisible]         = useState(false)
   const [mostrarMais, setMostrarMais] = useState(false)
   // ── FIN: estados ─────────────────────────────────────
 
   // ── INICIO: cargar_nodo ──────────────────────────────
+  // Un nodo que non se puido cargar queda marcado ({ erro: true }) en
+  // vez de quedar baleiro: así o paso di "non se puido cargar" e non
+  // "sen contido", e non se volve pedir en bucle.
   const cargarNodo = async (id) => {
-    if (nodos[id]) return
+    let xa = false
+    setNodos(prev => { xa = !!prev[id] && !prev[id].erro; return prev })
+    if (xa) return
     try {
       const res = await fetch(`${API}/nodo/${id}`, { headers: authHeaders() })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
@@ -117,29 +123,38 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
       setNodos(prev => ({ ...prev, [id]: data }))
     } catch (e) {
       console.error('[PercorridoRuta] Erro cargando nodo:', e)
+      setNodos(prev => ({ ...prev, [id]: { erro: true } }))
     }
   }
   // ── FIN: cargar_nodo ─────────────────────────────────
 
   // ── INICIO: carga_inicial ────────────────────────────
   useEffect(() => {
+    let vivo = true
     setTimeout(() => setVisible(true), 100)
 
     fetch(`${API}/journeys/${journeyId}`, { headers: authHeaders() })
-      .then(r => r.json())
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`)
+        return r.json()
+      })
       .then(async data => {
+        if (!vivo) return
         setRuta(data)
         const stopsValidos = (data.stops || []).filter(s => s && s.nodo)
         setStops(stopsValidos)
-        if (stopsValidos.length > 0) {
-          await cargarNodo(stopsValidos[0].nodo.id)
+        if (stopsValidos.length === 0) {   // ruta sen pasos: non hai nada que percorrer
+          setFase('erro')
+          return
         }
-        setFase('percorrido')
+        await cargarNodo(stopsValidos[0].nodo.id)
+        if (vivo) setFase('percorrido')
       })
       .catch(e => {
         console.error('[PercorridoRuta] Erro cargando ruta:', e)
-        setFase('percorrido')
+        if (vivo) setFase('erro')
       })
+    return () => { vivo = false }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [journeyId])
   // ── FIN: carga_inicial ───────────────────────────────
@@ -160,19 +175,22 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
 
   useEffect(() => {
     if (stops.length === 0) return
+    let vivo = true
     fetch(`${API}/journeys/${journeyId}/progreso`, { headers: authHeaders() })
-      .then(r => r.json())
+      .then(r => r.ok ? r.json() : { indice: 0, completada: false })
+      .catch(() => ({ indice: 0, completada: false }))
       .then(async p => {
+        if (!vivo) return
         setXaCompletada(p.completada === true)
         const destino = pasoInicial != null
           ? Math.min(Math.max(0, pasoInicial), stops.length - 1)
           : Math.min(p.indice || 0, stops.length - 1)
         if (destino > 0 || pasoInicial != null) {
           await cargarNodo(stops[destino].nodo.id)
-          setIndice(destino)
+          if (vivo) setIndice(destino)
         }
       })
-      .catch(() => {})
+    return () => { vivo = false }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stops])
   // ── FIN: progreso_persistente ────────────────────────
@@ -219,7 +237,9 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
   // ── INICIO: derivados ────────────────────────────────
   const stopActual       = stops[indice]
   const nodoActual       = stopActual ? nodos[stopActual.nodo.id] : null
-  const titulo           = nodoActual?.labels?.[idioma] || nodoActual?.labels?.gl || stopActual?.nodo?.label_gl || ''
+  const nodoConErro      = !!nodoActual?.erro
+  const titulo           = nodoActual?.labels?.[idioma] || nodoActual?.labels?.gl
+                        || stopActual?.nodo?.[`label_${idioma}`] || stopActual?.nodo?.label_gl || ''
   const texto            = nodoActual?.content?.primary?.[idioma]   || nodoActual?.content?.primary?.gl   || ''
   const textoSecundario  = nodoActual?.content?.secondary?.[idioma] || nodoActual?.content?.secondary?.gl || ''
   const reto             = nodoActual?.retos?.primary?.[idioma]     || nodoActual?.retos?.primary?.gl     || ''
@@ -300,7 +320,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
               fontWeight: 600,
               marginBottom: 4
             }}>
-              Percorrido
+              {t(idioma, 'percorrido')}
             </div>
             <div style={{
               fontSize: 15,
@@ -323,13 +343,13 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                 color: 'var(--gaia-text-tertiary)',
                 letterSpacing: '0.05em'
               }}>
-                Paso <span style={{ color: 'var(--gaia-accent)', fontWeight: 700 }}>{indice + 1}</span>
+                {t(idioma, 'percorridoPaso')} <span style={{ color: 'var(--gaia-accent)', fontWeight: 700 }}>{indice + 1}</span>
                 <span style={{ color: 'var(--gaia-text-disabled)' }}> / {stops.length}</span>
               </div>
             )}
             <button
               onClick={pechar}
-              aria-label="Pechar percorrido"
+              aria-label={t(idioma, 'percorridoPecharAria')}
               style={{
                 background: 'transparent',
                 border: '1px solid var(--gaia-cosmos-400)',
@@ -356,7 +376,9 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
 
         {/* Barra de progreso */}
         {fase === 'percorrido' && stops.length > 0 && (
-          <div style={{ display: 'flex', gap: 4 }}>
+          <div style={{ display: 'flex', gap: 4 }}
+               role="progressbar" aria-valuemin={1} aria-valuemax={stops.length} aria-valuenow={indice + 1}
+               aria-valuetext={t(idioma, 'percorridoProgresoAria', indice + 1, stops.length)}>
             {stops.map((_, i) => {
               const completado = i < indice
               const actual     = i === indice
@@ -412,8 +434,41 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
               textTransform: 'uppercase',
               fontWeight: 500
             }}>
-              Cargando ruta...
+              {t(idioma, 'cargando')}
             </div>
+          </div>
+        )}
+
+        {/* ─── FASE: ERRO (ruta que non carga ou sen pasos) ─── */}
+        {fase === 'erro' && (
+          <div role="alert" style={{ textAlign: 'center', marginTop: '14vh' }}>
+            <p style={{
+              fontSize: 15,
+              fontFamily: 'var(--gaia-font-body)',
+              color: 'var(--gaia-text-secondary)',
+              lineHeight: 1.6,
+              margin: '0 0 24px 0'
+            }}>
+              {t(idioma, 'percorridoErro')}
+            </p>
+            <button
+              onClick={pechar}
+              style={{
+                padding: '12px 24px',
+                background: 'var(--gaia-accent)',
+                color: 'var(--gaia-cosmos-900)',
+                border: '1px solid var(--gaia-accent)',
+                borderRadius: 10,
+                fontSize: 13,
+                fontFamily: 'var(--gaia-font-body)',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8
+              }}>
+              <IconoFlechaEsq /> {t(idioma, 'percorridoVolver')}
+            </button>
           </div>
         )}
 
@@ -488,7 +543,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                     background: 'var(--gaia-constellation)',
                     boxShadow: '0 0 6px var(--gaia-constellation)'
                   }} />
-                  Primaria
+                  {t(idioma, 'primaria')}
                 </div>
                 <p style={{
                   fontSize: 16,
@@ -512,7 +567,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                 fontStyle: 'italic',
                 color: 'var(--gaia-text-tertiary)'
               }}>
-                Sen contido primario dispoñible para este nodo.
+                {t(idioma, nodoConErro ? 'percorridoErroNodo' : 'percorridoSenContido')}
               </div>
             )}
 
@@ -544,7 +599,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                   }}>
                     <IconoChevronAbaixo />
                   </span>
-                  {mostrarMais ? 'Ocultar máis información' : 'Ver máis información'}
+                  {t(idioma, mostrarMais ? 'percorridoOcultarMais' : 'percorridoVerMais')}
                 </button>
                 {mostrarMais && (
                   <div style={{
@@ -574,7 +629,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                         background: 'var(--gaia-system)',
                         boxShadow: '0 0 6px var(--gaia-system)'
                       }} />
-                      Secundaria
+                      {t(idioma, 'percorridoSecundaria')}
                     </div>
                     <p style={{
                       fontSize: 14,
@@ -614,7 +669,6 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                 pregunta={reto}
                 nivel="primary"
                 idioma={idioma}
-                puntosTotais={20}
               />
             )}
 
@@ -655,7 +709,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                     e.currentTarget.style.color = 'var(--gaia-text-secondary)'
                   }}>
                   <IconoFlechaEsq />
-                  Anterior
+                  {t(idioma, 'percorridoAnterior')}
                 </button>
               )}
               <button
@@ -680,8 +734,8 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                   transition: 'all 150ms ease'
                 }}>
                 {eUltimoPaso
-                  ? <><IconoBandeira /> Rematar ruta</>
-                  : <>Seguinte <IconoFlechaDer /></>
+                  ? <><IconoBandeira /> {t(idioma, 'percorridoRematar')}</>
+                  : <>{t(idioma, 'percorridoSeguinte')} <IconoFlechaDer /></>
                 }
               </button>
             </div>
@@ -717,7 +771,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
               fontWeight: 600,
               marginBottom: 10
             }}>
-              Ruta completada
+              {t(idioma, 'percorridoCompletada')}
             </div>
 
             <h2 style={{
@@ -728,7 +782,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
               fontWeight: 700,
               letterSpacing: '-0.02em'
             }}>
-              Parabéns!
+              {t(idioma, 'percorridoParabens')}
             </h2>
             <p style={{
               color: 'var(--gaia-text-secondary)',
@@ -737,10 +791,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
               margin: '0 0 36px 0',
               lineHeight: 1.5
             }}>
-              Completaches os <strong style={{ color: 'var(--gaia-text-primary)' }}>{stops.length} pasos</strong> de{' '}
-              <em style={{ color: 'var(--gaia-accent)', fontStyle: 'normal', fontWeight: 600 }}>
-                "{rutaLabel}"
-              </em>
+              {t(idioma, 'percorridoCompletaches', stops.length, rutaLabel)}
             </p>
 
             {/* Resumo pasos */}
@@ -762,10 +813,11 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                 fontWeight: 600,
                 marginBottom: 12
               }}>
-                Percorrido
+                {t(idioma, 'percorrido')}
               </div>
               {stops.map((s, i) => {
-                const labelNodo = nodos[s.nodo.id]?.labels?.[idioma] || nodos[s.nodo.id]?.labels?.gl || s.nodo.label_gl
+                const labelNodo = nodos[s.nodo.id]?.labels?.[idioma] || nodos[s.nodo.id]?.labels?.gl
+                               || s.nodo[`label_${idioma}`] || s.nodo.label_gl
                 return (
                   <div key={i} style={{
                     display: 'flex',
@@ -839,7 +891,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                   e.currentTarget.style.background = 'var(--gaia-cosmos-800)'
                   e.currentTarget.style.color = 'var(--gaia-text-secondary)'
                 }}>
-                <IconoRepetir /> Repetir
+                <IconoRepetir /> {t(idioma, 'percorridoRepetir')}
               </button>
               <button
                 onClick={pechar}
@@ -859,7 +911,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                   boxShadow: '0 0 24px rgba(232, 165, 71, 0.4)',
                   transition: 'all 150ms ease'
                 }}>
-                Volver a GAIA <IconoFlechaDer />
+                {t(idioma, 'percorridoVolver')} <IconoFlechaDer />
               </button>
             </div>
           </div>

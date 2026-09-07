@@ -153,10 +153,15 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
 
   // ── INICIO: carga_stops ───────────────────────────────
   // SendaVisual precisa os stops completos → GET /journeys/:id
+  // Se a ruta xa non existe (404) ou quedou sen pasos, márcase como
+  // desaparecida: a portada avisa e ofrece o catálogo en vez dun botón
+  // que leva a un erro.
+  const [rutaDesaparecida, setRutaDesaparecida] = useState(false)
   useEffect(() => {
-    if (!destacada?.id) { setStops([]); setCargando(false); return }
+    if (!destacada?.id) { setStops([]); setCargando(false); setRutaDesaparecida(false); return }
     let vivo = true
     setCargando(true)
+    setRutaDesaparecida(false)
     fetch(`${API}/journeys/${destacada.id}`, { headers: authHeaders() })
       .then(r => r.ok ? r.json() : null)
       .catch(() => null)
@@ -166,6 +171,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
           .filter(s => s.nodo)
           .sort((a, b) => (a.order || 0) - (b.order || 0))
         setStops(ordenados)
+        setRutaDesaparecida(ordenados.length === 0)
         setCargando(false)
       })
     return () => { vivo = false }
@@ -194,6 +200,16 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
       fontFamily: 'inherit', padding: '28px 20px 60px'
     }}>
       <div style={{ maxWidth: 860, margin: '0 auto' }}>
+
+        {/* Saída explícita: a portada substitúe a app enteira (tamén a barra
+            inferior do móbil), así que precisa a súa propia porta de volta. */}
+        <button onClick={() => onExplorar && onExplorar()}
+          style={{
+            background: 'none', border: 'none', color: C.secundario, fontSize: 13,
+            cursor: 'pointer', padding: '0 0 14px', fontFamily: 'inherit'
+          }}>
+          {t(idioma, 'portadaVolverAoMapa')}
+        </button>
 
         {/* ── INICIO: zona_1_lua ─────────────────────────── */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 28, flexWrap: 'wrap' }}>
@@ -225,6 +241,11 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
           {rutas === null || (destacada && cargando) ? (
             <div style={{ padding: '30px 0', textAlign: 'center', color: C.azul, fontSize: 13.5 }}>
               {t(idioma, 'portadaDebuxando')}
+            </div>
+          ) : destacada && rutaDesaparecida ? (
+            /* A ruta con progreso xa non existe no backend */
+            <div role="status" style={{ padding: '14px 0 4px', textAlign: 'center', fontSize: 14, color: '#c9d6ef', lineHeight: 1.6 }}>
+              {t(idioma, 'portadaRutaDesaparecida')}
             </div>
           ) : destacada ? (
             /* Bloque principal: ruta activa, ou a última completada */
@@ -302,6 +323,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
                 return (
                   <div key={j.id}
                     {...activable(() => onAbrirRuta && onAbrirRuta(j.id))}
+                    aria-label={t(idioma, 'portadaAbrirRutaAria', labelCatalogo(j))}
                     onMouseEnter={realzar(C.dourado)}
                     onMouseLeave={realzar(C.borde)}
                     onFocus={realzar(C.dourado)}
@@ -343,9 +365,10 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
         {/* ── FIN: zona_2_camiño ─────────────────────────── */}
 
         {/* ── INICIO: zona_3_tarxetas ────────────────────── */}
-        {/* O teu soño — v1 ESTÁTICA (placeholder de Oberón, sen endpoint) */}
-        <Tarxeta titulo={t(idioma, 'portadaOTeuSono')} style={{ marginBottom: 14 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        {/* O teu soño — v1 ESTÁTICA (placeholder de Oberón, sen endpoint).
+            Leva a marca "proximamente" para que non pareza tocable. */}
+        <Tarxeta titulo={`${t(idioma, 'portadaOTeuSono')} · ${t(idioma, 'portadaProximamente')}`} style={{ marginBottom: 14, opacity: 0.85 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }} aria-disabled="true">
             <div style={{ fontSize: 30 }}>🥖</div>
             <div>
               <div style={{ fontSize: 15, fontWeight: 600, color: C.rosa }}>
@@ -361,8 +384,8 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
 
           {/* Cartas — placeholder v1, non funcional */}
-          <Tarxeta titulo={t(idioma, 'portadaCartas')} style={{ flex: '1 1 240px', opacity: 0.75 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <Tarxeta titulo={`${t(idioma, 'portadaCartas')} · ${t(idioma, 'portadaProximamente')}`} style={{ flex: '1 1 240px', opacity: 0.75 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }} aria-disabled="true">
               <div style={{ position: 'relative', width: 44, height: 40, flexShrink: 0 }}>
                 <div style={{
                   position: 'absolute', left: 0, top: 4, width: 26, height: 34,

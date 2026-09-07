@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useUser } from './contexts/UserContext'
 import { API } from './config/api';
+import { t } from './i18n'
+import { XP_ACCIONS } from './niveis'
 
 // ═══════════════════════════════════════════════════════════
 // RetoInteractivo — Reto con avaliación LÚA
@@ -43,7 +45,7 @@ const NIVEL_COR_FALLBACK = {
 }
 // ── FIN: cores_nivel_semanticas ──────────────────────
 
-function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTotais = 20, onXP }) {
+function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel = 'primary', idioma = 'gl', puntosTotais, onXP }) {
 
   // ── INICIO: contexto ─────────────────────────────────
   const { authHeaders, rexistrarRetoXP, estaAutenticado } = useUser()
@@ -54,7 +56,23 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
   const [avaliando, setAvaliando] = useState(false)
   const [resultado, setResultado] = useState(null)
   const [enviado,   setEnviado]   = useState(false)
+
+  // Cando cambia o reto (outro nodo ou outra pregunta) o compoñente
+  // volve ao principio. Sen isto, ao pasar de parada no percorrido a
+  // resposta e a avaliación do paso anterior quedaban debaixo da
+  // pregunta nova.
+  useEffect(() => {
+    setResposta('')
+    setResultado(null)
+    setEnviado(false)
+    setAvaliando(false)
+  }, [nodoId, pregunta])
   // ── FIN: estados ─────────────────────────────────────
+
+  // XP que promete o reto = o que de verdade dá o backend para este
+  // nivel (XP_ACCIONS), salvo que quen o usa fixe outro valor.
+  const xpReto = puntosTotais ?? (XP_ACCIONS[`RETO_${String(nivel).toUpperCase()}`]?.base || 15)
+  const nivelLabel = t(idioma, { primary: 'primaria', secondary: 'secundaria', expert: 'experto' }[nivel] || 'primaria')
 
   const corNivel = NIVEL_COR[nivel] || 'var(--gaia-accent)'
   const corNivelFallback = NIVEL_COR_FALLBACK[nivel] || '#e8a547'
@@ -74,24 +92,33 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
       })
 
       if (res.status === 401) {
-        setResultado({ erro: true, mensaxe: 'Necesitas iniciar sesión para responder retos' })
+        setResultado({ erro: true, mensaxe: t(idioma, 'retoNecesitasSesion') })
         return
       }
       if (res.status === 429) {
-        const data = await res.json()
-        setResultado({ erro: true, mensaxe: data.error || 'Límite diario de retos alcanzado' })
+        setResultado({ erro: true, mensaxe: t(idioma, 'retoLimiteDiario') })
         return
       }
 
-      const data = await res.json()
-      setResultado(data)
+      let data = null
+      try { data = await res.json() } catch (e) { data = null }
+
+      // Calquera outra resposta que non sexa unha avaliación válida
+      // (500 do backend, 400 de validación, JSON roto) móstrase como
+      // erro e deixa o formulario á vista para volver intentalo.
+      const puntos = Number(data?.puntos)
+      if (!res.ok || data?.erro || !Number.isFinite(puntos)) {
+        setResultado({ erro: true })
+        return
+      }
+      setResultado({ ...data, puntos })
       setEnviado(true)
 
       // Rexistrar XP no servidor
-      if (data.puntos >= 40) {
+      if (puntos >= 40) {
         await rexistrarRetoXP(nivel, nodoId || null)
       }
-      if (onXP) onXP(Math.round((data.puntos / 100) * puntosTotais))
+      if (onXP) onXP(Math.round((puntos / 100) * xpReto))
 
       // Gardar no historial
       if (estaAutenticado) {
@@ -102,7 +129,7 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
             body:    JSON.stringify({
               nodoId:    nodoId || nodoLabel,
               nodoLabel, pregunta, resposta,
-              puntos:    data.puntos, nivel, idioma
+              puntos, nivel, idioma
             })
           })
         } catch (e) {}
@@ -139,9 +166,9 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
     return 'var(--gaia-danger-border)'
   }
   const mensaxePuntuacion = (puntos) => {
-    if (puntos >= 70) return '¡Moi ben!'
-    if (puntos >= 40) return 'Ben, pero mellora'
-    return 'Sigue intentándoo'
+    if (puntos >= 70) return t(idioma, 'retoMoiBen')
+    if (puntos >= 40) return t(idioma, 'retoBenMellora')
+    return t(idioma, 'retoSigue')
   }
   // ── FIN: helper_cor_puntuacion ───────────────────────
 
@@ -179,7 +206,7 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
             textTransform: 'uppercase',
             fontWeight: 700
           }}>
-            Reto · {nivel}
+            {t(idioma, 'retoEtiqueta', nivelLabel)}
           </span>
         </div>
         <span style={{
@@ -193,11 +220,13 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
           letterSpacing: '0.05em',
           fontWeight: 600
         }}>
-          +{puntosTotais} XP
+          +{xpReto} XP
         </span>
       </div>
 
       {/* ═══ PREGUNTA ═══ */}
+      {/* pre-line: as preguntas con opcións (a / b / c) gárdanse con saltos
+          de liña e teñen que verse en liñas separadas, non nun só bloque. */}
       <p style={{
         fontFamily: 'var(--gaia-font-display)',
         fontSize: 15,
@@ -205,7 +234,8 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
         color: 'var(--gaia-text-primary)',
         lineHeight: 1.55,
         margin: '0 0 16px 0',
-        letterSpacing: '-0.01em'
+        letterSpacing: '-0.01em',
+        whiteSpace: 'pre-line'
       }}>
         {pregunta}
       </p>
@@ -216,7 +246,8 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
           <textarea
             value={resposta}
             onChange={e => setResposta(e.target.value)}
-            placeholder="Escribe aquí a túa resposta..."
+            placeholder={t(idioma, 'retoPlaceholder')}
+            aria-label={t(idioma, 'retoRespostaAria')}
             disabled={avaliando}
             style={{
               width: '100%',
@@ -276,14 +307,14 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
                   animation: 'retoSpin 1s linear infinite',
                   fontSize: 14
                 }}>◌</span>
-                LÚA está avaliando...
+                {t(idioma, 'retoAvaliando')}
               </>
             ) : (
               <>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
-                Enviar resposta
+                {t(idioma, 'retoEnviar')}
               </>
             )}
           </button>
@@ -293,7 +324,7 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
 
       {/* ═══ RESULTADO ═══ */}
       {resultado && !resultado.erro && (
-        <div style={{ marginTop: 4 }}>
+        <div style={{ marginTop: 4 }} role="status" aria-live="polite">
 
           {/* Card de puntuación */}
           <div style={{
@@ -325,7 +356,7 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
                 textTransform: 'uppercase',
                 marginBottom: 3
               }}>
-                Puntos sobre 100
+                {t(idioma, 'retoPuntosSobre100')}
               </div>
               <div style={{
                 fontSize: 13,
@@ -390,7 +421,7 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  O que acertaches
+                  {t(idioma, 'retoAcertaches')}
                 </div>
                 <p style={{
                   fontSize: 13,
@@ -424,7 +455,7 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
                   gap: 5
                 }}>
                   <span style={{ fontSize: 12 }}>→</span>
-                  Que mellorar
+                  {t(idioma, 'retoMellorar')}
                 </div>
                 <p style={{
                   fontSize: 13,
@@ -463,7 +494,7 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
                     background: 'var(--gaia-concept)',
                     boxShadow: '0 0 4px var(--gaia-concept-glow)'
                   }} />
-                  LÚA di
+                  {t(idioma, 'retoLuaDi')}
                 </div>
                 <p style={{
                   fontSize: 13,
@@ -513,14 +544,14 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
               <polyline points="23 4 23 10 17 10" />
               <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
             </svg>
-            Intentar de novo
+            {t(idioma, 'retoIntentarDeNovo')}
           </button>
         </div>
       )}
 
       {/* ═══ ERRO ═══ */}
       {resultado?.erro && (
-        <div style={{
+        <div role="alert" style={{
           marginTop: 8,
           padding: '12px 14px',
           background: 'var(--gaia-danger-bg)',
@@ -540,7 +571,7 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel, idioma, puntosTot
             <line x1="12" y1="8" x2="12" y2="12" />
             <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
-          {resultado.mensaxe || 'Erro ao avaliar. Inténtao de novo.'}
+          {resultado.mensaxe || t(idioma, 'retoErro')}
         </div>
       )}
 
