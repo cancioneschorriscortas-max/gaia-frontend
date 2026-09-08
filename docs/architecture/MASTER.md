@@ -522,6 +522,11 @@ gravación, onda de radio) e "As mensaxes, por dentro" 📨 (sobre, centro de cl
 submarino), con retos abertos de cálculo e razoamento (`docs/content/rutas_secundaria_3.seed.mjs`).
 **Total: 27 rutas (16 primaria + 7 secundaria + 4 experto), 56 paradas con foto, 34 cartas.**
 
+**Rolda 19:** revisión visual das 56 fotos en folla de contacto completa; substituída a salina (saía unha
+montaña nevada) por traballadores recollendo sal. Receita nova: as miniaturas pídense á API de Commons
+(`iiurlwidth=320`) e descárganse en local antes de capturar, porque o host de miniaturas devolve 400 a
+anchuras non xeradas.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
