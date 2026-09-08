@@ -101,6 +101,20 @@ media nos nodos novos — Wikimedia Commons CC), (2) espertar + elección de rol
 os mesmos nodos (o texto secondary xa está), (5) máis rutas "como funciona": o lume, o pan xa, o
 sal, a marea, o móbil, o lixo/reciclaxe.
 
+## 4-ter. Rolda 3 — onboarding e catálogo completo
+
+| Peza | Onde | Que fai |
+|---|---|---|
+| **Espertar** (§3.1) | `PrimeiroContacto.js` | Guión novo: "Isto é todo o que se pode aprender" → "Ninguén o coñece enteiro" → Lúa preséntase → "Pero ti vas ter o teu propio camiño" → "Como queres viaxar polo universo?" + botón "Elixir o meu camiño". Textos por i18n. **Nota:** `/assets/lua-intro.mp3` segue sendo a voz do guión vello; se se quere voz, hai que regravala. |
+| **Elección** (§3.2) | `components/SeleccionRol.js` | Lúa conta cada camiño ao tocar a carta (2 frases por rol, claves `rolLua*`), botón "Este son eu", cabeceira "Como queres viaxar polo universo?". A especialidade segue sendo o paso 2, saltable. Arranxo: as habilidades das cartas mostraban a clave en bruto (`rolHabFisico`). |
+| **Aterraxe na portada** (§3.4) | `App.js` | Tras escoller camiño, e ao entrar en cada sesión, o alumnado empeza na portada ("A miña viaxe"); profesores e exploradores sen conta seguen no mapa. Desde a portada sáese co "← Volver ao mapa". |
+| **Tutorial primeiro** | `PortadaNeno.js` | "A viaxe do pan" encabeza sempre o catálogo. |
+| **Rutas publicadas** | backend `/journeys`, `PUT /journeys/:id` | As 8 rutas pasaron a `published`+`public`. `/journeys` filtra por rol (token opcional): quen non é profesor só ve esas. |
+| **Contido** | `docs/content/como_funciona_o_mundo_2.seed.mjs` | A viaxe do lixo (lixo → contedor → planta de reciclaxe → obxecto novo) e Por que sobe e baixa o mar (Lúa no ceo → marea → marisqueo → ameixa). 8 fotos Commons con atribución (`media_atribucions.json`, 24 en total). |
+
+Conta de proba alumna: `Nena Proba` (5º primaria, centro "Centro de proba"); a contrasinal está no
+scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
+
 ## 5. Como arrincar a pila local (para a próxima sesión)
 
 ```

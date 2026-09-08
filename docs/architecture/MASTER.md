@@ -419,10 +419,21 @@ estender). Informe completo con achados e backlog en `docs/architecture/INFORME_
   con follas de contacto, cargadas como media dos nodos e pintadas como cabeceira de cada paso
   coa atribución ao pé. Lista en `docs/content/media_atribucions.json`.
 
-**Próximo (ver informe):** `/journeys` expón rutas `draft`/`private` aos nenos (publicalas e
-filtrar); o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha afirmación
-institucional que o director debe confirmar ou retirar; espertar + elección de rol narrativa;
-media (imaxes) nas paradas; "O teu soño" real con Oberón.
+**Rolda 3 (8 set 2026, "sigue cando queiras"):**
+- **Espertar (§3.1) e elección (§3.2) FEITOS:** PrimeiroContacto co guión de tres frases de Lúa
+  e "Como queres viaxar polo universo?"; SeleccionRol como "elixe o teu starter" (Lúa conta cada
+  camiño ao tocalo, botón "Este son eu"); **o alumnado aterra na súa portada** ao entrar e tras
+  escoller camiño (bucle diario §3.4). O tutorial vai primeiro no catálogo.
+- **Rutas publicadas e filtradas:** as 8 rutas do neno están `published`/`public`; `/journeys`
+  só devolve esas a quen non é profesor (token opcional). Conta de proba alumna: `Nena Proba`.
+- **2 rutas máis "como funciona o mundo":** A viaxe do lixo ♻️ e Por que sobe e baixa o mar 🌊
+  (8 nodos, 21 relacións, 2 cartas, 8 fotos). Total: **8 rutas, 24 paradas con foto, 9 cartas.**
+- Arranxo de paso: as habilidades das cartas de rol saían coa clave i18n en bruto.
+
+**Próximo (ver informe):** o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha
+afirmación institucional que o director debe confirmar ou retirar; "O teu soño" real con Oberón;
+rutas `secondary` reutilizando nodos; máis rutas "como funciona" (o lume, o sal, o móbil, o
+tempo/meteoroloxía); voz de Lúa gravada para o espertar (`/assets/lua-intro.mp3` é a vella).
 
 ---
 
