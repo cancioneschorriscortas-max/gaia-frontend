@@ -495,6 +495,9 @@ con foto, 27 cartas.**
 e contadores (completa / a medias / sen empezar) e chip por alumno (`src/misions.js` compartido;
 backend `/centro/:centro/alumnos` devolve `rutasFeitas`).
 
+**Rolda 13:** Modo profesor desde o móbil: entrada no menú móbil e cabeceira/lapelas/Xestión
+adaptadas a menos de 760 px (`ModoProfesor.js` con anchura reactiva).
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

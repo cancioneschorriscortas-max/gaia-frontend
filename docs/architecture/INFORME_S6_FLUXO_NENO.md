@@ -143,6 +143,7 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 | **Lúa e a misión** | `src/data/frasesLua.json`, `PortadaNeno.js` | Contexto novo `misionFalta` no banco de frases: con 1 ruta pendente Lúa nomea a ruta que falta; coa misión feita e sen camiño activo, dío. Ten prioridade sobre a frase da misión do día. |
 | **Experto 3** | `docs/content/rutas_experto_3.seed.mjs` | "A auga, a fondo": ciclo da auga con números (calor latente, 1 mm = 1 L/m², chuvia orográfica), bacía e caudal, ETAP fronte a EDAR (cloro libre, DBO₅), presión (10 m = 1 bar) e consumo. Carta "Dez metros, un bar". |
 | **Misión no profesor** | `ModoProfesor.js`, `src/misions.js`, backend `/centro/:centro/alumnos` | Panel "Misión da semana" enriba da lista de alumnado: tema, e cantos a levan completa, a medias ou sen empezar (respecta os filtros). En cada alumno, chip co emoji do tema e n/3. O backend devolve `rutasFeitas` (ids completados) na mesma consulta, sen peticións extra. |
+| **Profesor no móbil** | `App.js` (menú móbil), `ModoProfesor.js` | Con pantalla estreita a app entra en modo móbil e o botón "⚙ Editor" non existía: o profesorado non podía entrar. Agora hai "Modo profesor" no menú móbil e o modo adáptase: cabeceira en dúas liñas, lapelas con scroll horizontal, sen botón Arquitecto, Xestión coa barra en fila. Probado a 375 px coas lapelas Dashboard, Alumnado e Xestión. |
 
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
