@@ -476,6 +476,10 @@ reloxo). **Mapa guiado:** "Explorar libre" abre o mapa centrado na parada actual
 **modo "Os meus camiños"** (só esqueleto + paradas das rutas visibles, `GET /journeys/nodos`),
 que é o por defecto para o alumnado; un botón 🧭 alterna con "Todo o universo".
 
+**Rolda 9:** revisión visual das 48 fotos en follas de contacto (substituídas leite e sal) e segunda
+ruta de experto, "O lume, a fondo" 🔬. **Total: 21 rutas (14 primaria + 5 secundaria + 2 experto),
+48 paradas con foto, 22 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

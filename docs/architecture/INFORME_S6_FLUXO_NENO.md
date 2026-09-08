@@ -137,6 +137,9 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Mapa "Os meus camiños"** | `MapaUniverso.js`, `App.js`, backend `/journeys/nodos` | Filtro do mapa: esqueleto (galaxias/constelacións) + só os nodos que son parada dunha ruta visible. Por defecto para o alumnado; o botón 🧭 (baixo o 🌌) alterna con todo o universo. Cada estrela dese mapa ten texto, foto, reto e camiño. |
 
+| **Revisión das fotos** | `docs/content/media_atribucions.json` | As 48 fotos revisadas a ollo (follas de contacto con Edge headless). Substituídas: o leite (saía café con leite → vaso de leite) e o sal (marca comercial → sal mariño). Receita para revisar outra vez: xerar unha folla HTML coas URLs do JSON e capturala. |
+| **Experto 2** | `docs/content/rutas_experto_2.seed.mjs` | "O lume, a fondo": poder calorífico e humidade, composición do aire e estequiometría, enerxía de activación e tetraedro do lume, ecuación da combustión e transmisión da calor. |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 
