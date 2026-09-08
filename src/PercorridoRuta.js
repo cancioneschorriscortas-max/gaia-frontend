@@ -329,6 +329,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                         || stopActual?.nodo?.[`label_${idioma}`] || stopActual?.nodo?.label_gl || ''
   const texto            = nodoActual?.content?.primary?.[idioma]   || nodoActual?.content?.primary?.gl   || ''
   const textoSecundario  = nodoActual?.content?.secondary?.[idioma] || nodoActual?.content?.secondary?.gl || ''
+  const textoExperto     = nodoActual?.content?.expert?.[idioma]    || nodoActual?.content?.expert?.gl    || ''
   // Nivel da RUTA (non do nodo): unha ruta 'secondary' reutiliza os mesmos nodos
   // pero le tamén a capa "e por que?" e fai o reto de secundaria (30 XP).
   const nivelRuta        = ruta?.level === 'secondary' || ruta?.level === 'expert' ? ruta.level : 'primary'
@@ -760,6 +761,23 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                     to   { opacity: 1; transform: translateY(0); }
                   }
                 `}</style>
+              </div>
+            )}
+
+            {/* Capa EXPERTA: só nas rutas de nivel expert e se o nodo a ten (ecuacións, técnica) */}
+            {nivelRuta === 'expert' && textoExperto && (
+              <div style={{
+                marginBottom: 20, padding: '16px 20px',
+                background: 'var(--gaia-cosmos-800)', border: '1px solid var(--gaia-cosmos-400)',
+                borderLeft: '3px solid var(--gaia-concept)', borderRadius: 12
+              }}>
+                <div style={{ fontSize: 10, fontFamily: 'var(--gaia-font-mono)', letterSpacing: '0.15em', textTransform: 'uppercase',
+                              color: 'var(--gaia-concept)', fontWeight: 700, marginBottom: 8 }}>
+                  🎓 {t(idioma, 'experto')}
+                </div>
+                <p style={{ fontFamily: 'var(--gaia-font-body)', color: 'var(--gaia-text-primary)', fontSize: 15, lineHeight: 1.7, margin: 0 }}>
+                  <TextoConPortais texto={textoExperto} idioma={idioma} visitados={portaisVistos} onPortal={abrirPortal} />
+                </p>
               </div>
             )}
 

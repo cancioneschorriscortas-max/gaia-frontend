@@ -64,6 +64,9 @@
     { "id": "carta_tempo", "coleccion": "natureza", "emoji": "⛅", "ruta": "de_onde_ven_o_tempo",
       "titulo": { "gl": "O paraugas de Galicia", "es": "El paraguas de Galicia", "en": "Galicia's umbrella" },
       "texto":  { "gl": "Chove en Galicia porque as borrascas do Atlántico chegan aquí primeiro. O primeiro parte do tempo fíxoo en 1861 o capitán do barco de Darwin.", "es": "Llueve en Galicia porque las borrascas del Atlántico llegan aquí primero. El primer parte del tiempo lo hizo en 1861 el capitán del barco de Darwin.", "en": "It rains in Galicia because the Atlantic lows get here first. The first weather forecast was made in 1861 by the captain of Darwin's ship." } },
+    { "id": "carta_50hz", "coleccion": "mundo", "emoji": "🎓", "ruta": "a_luz_a_fondo",
+      "titulo": { "gl": "Un reloxo de 50 Hz", "es": "Un reloj de 50 Hz", "en": "A 50 Hz clock" },
+      "texto":  { "gl": "Todos os xeradores de Europa xiran acompasados a 50 Hz. Se acendes de máis, a frecuencia baixa un chisco: a rede enteira nótao.", "es": "Todos los generadores de Europa giran acompasados a 50 Hz. Si enciendes de más, la frecuencia baja un poco: la red entera lo nota.", "en": "Every generator in Europe spins in step at 50 Hz. Switch on too much and the frequency dips a little: the whole grid feels it." } },
     { "id": "carta_portal", "coleccion": "exploracion", "emoji": "🔭", "evento": "primeiro_portal",
       "titulo": { "gl": "Explorador de atallos", "es": "Explorador de atajos", "en": "Shortcut explorer" },
       "texto":  { "gl": "Saíches do camiño polo primeiro portal. Todo no universo está conectado con algo: seguir un fío é a forma de coñecelo.", "es": "Te saliste del camino por el primer portal. Todo en el universo está conectado con algo: seguir un hilo es la forma de conocerlo.", "en": "You stepped off the path through your first portal. Everything in the universe connects to something: following a thread is how you get to know it." } }
