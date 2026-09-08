@@ -512,6 +512,11 @@ repita cada mes. **29 cartas.**
 a vibración, a gaita, o oído e a gravación, con fotos de Commons e portal ao móbil. **Total: 24 rutas
 (15 primaria + 5 secundaria + 4 experto), 52 paradas con foto, 30 cartas.**
 
+**Rolda 17:** ruta de primaria "A viaxe dunha carta" 📮 (`docs/content/como_funciona_o_mundo_7.seed.mjs`: sobre e
+selo, caixa de correos, centro de clasificación, carteira/carteiro; portal ao móbil) e sexta misión da semana
+"A semana das mensaxes" ✉️ (carta, móbil, música). **Total: 25 rutas (16 primaria + 5 secundaria + 4 experto),
+56 paradas con foto, 32 cartas, 6 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
