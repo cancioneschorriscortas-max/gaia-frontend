@@ -472,7 +472,8 @@ eléctrico). Os tres niveis da Regra 3 xa viven nos mesmos nodos. **Total: 20 ru
 
 **Próximo (ver informe):** voz de Lúa gravada para o espertar (`/assets/lua-intro.mp3` é a
 vella); máis rutas expert coa mesma receita; máis rutas "como funciona" (a música, o diñeiro, o
-reloxo); mapa máis guiado para o neno.
+reloxo). **Mapa guiado (primeiro paso):** "Explorar libre" abre o mapa centrado na parada actual
+do neno, non no universo enteiro.
 
 ---
 

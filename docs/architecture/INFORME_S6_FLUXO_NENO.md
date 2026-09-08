@@ -133,6 +133,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Nivel experto** | `PercorridoRuta.js`, `docs/content/rutas_experto_1.seed.mjs` | `journey.level = expert` → capa `text_expert` visible (bloque 🎓) e `reto_expert` (60 XP). Receita: escribir `text_expert_*` e `reto_expert_*` nos nodos (Editor de nodos, pestana Experto) e crear a journey con nivel Experto. |
 
+| **Explorar libre guiado** | `PortadaNeno.js`, `App.js` | "O universo enteiro" abre o mapa xa centrado na parada actual do neno (`seleccionarNodoConTransicion`), de modo que ve as conexións dun nodo coñecido e os camiños que pasan por el. |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 
