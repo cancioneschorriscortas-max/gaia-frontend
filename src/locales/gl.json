@@ -400,5 +400,10 @@
   "profMisionSenEmpezar": "{0} sen empezar",
   "profMisionChip": "Misión da semana: {0} de {1} camiños",
   "modoProfesorMenu": "Modo profesor",
-  "meuPerfil": "O meu perfil"
+  "meuPerfil": "O meu perfil",
+  "sonoPanTestPrimeiro": "Fixeches A viaxe do pan. Para entrar en Oberón, primeiro cóntame quen es: fai o test de oficios e ábrese a porta.",
+  "sonoFacerTestAbrir": "Facer o test e abrir",
+  "sonoRepetirTest": "Test feito · repetilo",
+  "oberonAdianto": "ADIANTO",
+  "oberonSenTest": "Fai o test de oficios para ver a túa afinidade con estas habilidades."
 }

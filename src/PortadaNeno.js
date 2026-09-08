@@ -206,6 +206,18 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
   const [cartas, setCartas] = useState([])
   const [verCartas, setVerCartas] = useState(false)
   const [verOficio, setVerOficio] = useState(null)   // id de profesión de Oberón aberta
+  // O test de oficios é a chave de Oberón (Biblia §2): sen test, a porta ofrece o test primeiro.
+  const [test, setTest] = useState(null)             // null = sen test · {perfil, top} = feito
+  useEffect(() => {
+    if (!usuario || usuario.explorador) return
+    let vivo = true
+    fetch(`${API}/test/meu`, { headers: authHeaders() })
+      .then(r => r.ok ? r.json() : { test: null })
+      .catch(() => ({ test: null }))
+      .then(d => { if (vivo) setTest(d.test || null) })
+    return () => { vivo = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   useEffect(() => {
     let vivo = true
     fetch(`${API}/cartas`, { headers: authHeaders() })
@@ -586,11 +598,11 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
                               padding: '10px 12px', background: '#0d1424', borderRadius: 10, border: `1px dashed ${oberonId ? C.dourado : C.borde}` }}>
                   <span style={{ fontSize: 22, filter: oberonId ? 'none' : 'grayscale(1) brightness(0.6)' }}>🍞</span>
                   <div style={{ flex: '1 1 200px', fontSize: 12.5, lineHeight: 1.5, color: oberonId ? C.texto : C.secundario }}>
-                    {oberonId ? t(idioma, 'sonoPanAberto') : t(idioma, 'sonoPanBloqueado')}
+                    {oberonId ? (test ? t(idioma, 'sonoPanAberto') : t(idioma, 'sonoPanTestPrimeiro')) : t(idioma, 'sonoPanBloqueado')}
                   </div>
                   {oberonId && (
-                    <button onClick={() => setVerOficio(oberonId)} style={{ ...botonEstilo(C.dourado), background: C.dourado, color: '#412402' }}>
-                      {t(idioma, 'sonoVerOficio')} →
+                    <button onClick={() => test ? setVerOficio(oberonId) : (onTest && onTest())} style={{ ...botonEstilo(C.dourado), background: C.dourado, color: '#412402' }}>
+                      {test ? t(idioma, 'sonoVerOficio') : t(idioma, 'sonoFacerTestAbrir')} →
                     </button>
                   )}
                 </div>
@@ -598,7 +610,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
                 {onTest && (
                   <button onClick={onTest} style={{ background: 'none', border: 'none', color: C.azul, fontSize: 12, cursor: 'pointer',
                                                     textAlign: 'left', padding: 0, fontFamily: 'inherit', textDecoration: 'underline' }}>
-                    {t(idioma, 'sonoTest')}
+                    {test ? t(idioma, 'sonoRepetirTest') : t(idioma, 'sonoTest')}
                   </button>
                 )}
               </div>
@@ -672,7 +684,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
             </button>
             <span style={{ fontSize: 12, color: C.secundario }}>{t(idioma, 'sonoOficio')} · Oberón</span>
           </div>
-          <OberonProfesionVista profesionId={verOficio} />
+          <OberonProfesionVista profesionId={verOficio} perfil={test?.perfil || null} idioma={idioma} />
         </div>
       )}
     </div>

@@ -400,5 +400,10 @@
   "profMisionSenEmpezar": "{0} not started",
   "profMisionChip": "Mission of the week: {0} of {1} paths",
   "modoProfesorMenu": "Teacher mode",
-  "meuPerfil": "My profile"
+  "meuPerfil": "My profile",
+  "sonoPanTestPrimeiro": "You finished The journey of bread. To enter Oberón, first tell me who you are: take the trades test and the door opens.",
+  "sonoFacerTestAbrir": "Take the test and open",
+  "sonoRepetirTest": "Test done · retake it",
+  "oberonAdianto": "PREVIEW",
+  "oberonSenTest": "Take the trades test to see your affinity with these skills."
 }

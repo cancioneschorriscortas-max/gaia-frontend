@@ -1,3 +1,4 @@
+import { t as tr } from './i18n'
 import React, { useEffect, useState } from 'react'
 import VisorMedio from './components/VisorMedio'
 import { API } from './config/api';
@@ -19,15 +20,17 @@ import { API } from './config/api';
 const UMBRAL_ALTA = 70
 const UMBRAL_MEDIA = 50
 
-const AFINIDADE_DEMO = {
-  'atención': 88, 'precisión': 92, 'memoria': 65,
-  'comunicación': 45, 'empatía': 50, 'liderazgo': 30,
-  'análisis': 60, 'resolución_de_problemas': 75,
-  'creatividad': 72, 'planificación': 78,
-  'coordinación': 85, 'resistencia_física': 90,
+// Afinidade REAL: sae do test de oficios do alumno (prop `perfil`, GET /test/meu).
+// Sen test non se inventa nada: calcularAfinidade devolve null e a vista agocha as porcentaxes.
+// (Estado de módulo porque a v6 chama a calcularAfinidade desde moitos sitios; a vista é obsoleta por ADR-006.)
+let perfilActual = null
+const calcularAfinidade = (id) => {
+  if (!perfilActual) return null
+  const vals = Object.values(perfilActual).map(Number).filter(n => !isNaN(n))
+  const max = Math.max(...vals, 1)
+  return Math.round(100 * (Number(perfilActual[id]) || 0) / max)
 }
-const calcularAfinidade = (id) => AFINIDADE_DEMO[id] ?? 50
-const categoriaAfinidade = (p) => p >= UMBRAL_ALTA ? 'alta' : p >= UMBRAL_MEDIA ? 'media' : 'baixa'
+const categoriaAfinidade = (p) => p == null ? 'media' : p >= UMBRAL_ALTA ? 'alta' : p >= UMBRAL_MEDIA ? 'media' : 'baixa'
 
 
 // ═══════════════════════════════════════════════════════════
@@ -140,7 +143,8 @@ function IconoSkill({ skillId, color, size = 12 }) {
 // COMPOÑENTE PRINCIPAL
 // ═══════════════════════════════════════════════════════════
 
-export default function OberonProfesionVista({ profesionId }) {
+export default function OberonProfesionVista({ profesionId, perfil = null, idioma = 'gl' }) {
+  perfilActual = perfil || null
   const [datos, setDatos] = useState(null)
   const [erro, setErro] = useState(null)
   const [tabActiva, setTabActiva] = useState('habilidades')
@@ -194,7 +198,8 @@ export default function OberonProfesionVista({ profesionId }) {
           </nav>
         </div>
         <nav style={S.tabs}>
-          {TABS.map(t => (
+          {/* Só HABILIDADES ten contido; as outras pestanas volverán co motor de Yggdrasil (ADR-006) */}
+          {TABS.filter(x => x.id === 'habilidades').map(t => (
             <button
               key={t.id}
               style={{ ...S.tab, ...(t.id === tabActiva ? S.tabActiva : {}) }}
@@ -203,6 +208,7 @@ export default function OberonProfesionVista({ profesionId }) {
               {t.label}
             </button>
           ))}
+          <span style={S.adianto}>{tr(idioma, 'oberonAdianto')}</span>
         </nav>
         <div style={S.cabeceiraDereita}>
           <span style={S.luaIcono}>🦋</span>
@@ -224,18 +230,11 @@ export default function OberonProfesionVista({ profesionId }) {
       </main>
 
       <footer style={S.barraInferior}>
-        <button style={S.botonInferior}>← VOLVER AO MAPA</button>
         <div style={S.statsCentro}>
-          <Stat label="Profesións visitadas" valor="7 / 56" />
-          <StatSeparador />
-          <Stat label="XP Oberón" valor="1.250" iconoCircular="XP" />
-          <StatSeparador />
-          <Stat label="Afinidade neste oficio" valor={`${calcularAfinidadeOficio(datos.skills)}%`} iconoCircular="❤" />
+          {perfil
+            ? <Stat label="Afinidade neste oficio" valor={`${calcularAfinidadeOficio(datos.skills)}%`} iconoCircular="❤" />
+            : <span style={S.statLabel}>{tr(idioma, 'oberonSenTest')}</span>}
         </div>
-        <button style={S.botonInferiorDestaque}>
-          <span style={{ marginRight: 6 }}>★</span>
-          MARCAR COMO CAMIÑO
-        </button>
       </footer>
     </div>
   )
@@ -283,9 +282,11 @@ function ColEsquerda({ datos }) {
         <Identidade datos={datos} />
       </CaixaDecorada>
 
-      <CaixaDecorada titulo="A TÚA AFINIDADE GLOBAL">
-        <RadarPersoal skills={datos.skills} />
-      </CaixaDecorada>
+      {perfilActual && (
+        <CaixaDecorada titulo="A TÚA AFINIDADE GLOBAL">
+          <RadarPersoal skills={datos.skills} />
+        </CaixaDecorada>
+      )}
 
       <CaixaDecorada titulo="COMO LER ESTE ÁRBORE">
         <LendaAfinidade />
@@ -753,11 +754,6 @@ function Inspector({ microskillSel, datos }) {
   const af = calcularAfinidade(microskillSel.skill_canonica_id)
   const imaxe = microskillSel.imaxe_url || datos.imaxe_escena_url
 
-  const niveis = [
-    { num: 1, label: 'NIVEL 1', estado: 'alcanzado', desc: 'Coñeces a textura básica da masa e amasas con ritmo regular.' },
-    { num: 2, label: 'NIVEL 2 (ACTUAL)', estado: 'actual', desc: 'Adáptaste á humidade do día e á farinha que tes diante.' },
-    { num: 3, label: 'NIVEL 3', estado: 'bloqueado', desc: 'Lograde unha textura perfecta sen necesidade de báscula nin reloxo.' },
-  ]
 
   return (
     <div style={S.inspector}>
@@ -786,37 +782,9 @@ function Inspector({ microskillSel, datos }) {
           />
         </div>
         <h2 style={S.inspectorNome}>{microskillSel.label_gl?.toUpperCase()}</h2>
-        <span style={S.inspectorChipNivel}>NIVEL 2 DE 3</span>
       </div>
 
       <p style={S.inspectorDesc}>{microskillSel.que_significa_gl}</p>
-
-      <div style={S.niveisContedor}>
-        {niveis.map((n, i) => {
-          const cor = n.estado === 'alcanzado' ? '#5dd4a8'
-                    : n.estado === 'actual' ? '#c084d4'
-                    : '#4a4a4a'
-          return (
-            <div key={n.num} style={S.nivelFila}>
-              <div style={S.nivelEsquerda}>
-                <div style={{ ...S.nivelCirculo, borderColor: cor, color: cor }}>
-                  {n.estado === 'alcanzado' ? '✓' : n.num}
-                </div>
-                {i < niveis.length - 1 && (
-                  <div style={{ ...S.nivelLineaVertical, background: cor, opacity: 0.5 }} />
-                )}
-              </div>
-              <div style={S.nivelDereita}>
-                <p style={{ ...S.nivelLabel, color: cor }}>
-                  {n.label}
-                  {n.estado === 'bloqueado' && <span style={{ marginLeft: 6 }}>🔒</span>}
-                </p>
-                <p style={S.nivelDesc}>{n.desc}</p>
-              </div>
-            </div>
-          )
-        })}
-      </div>
 
       <div style={S.inspectorAccion}>
         <p style={S.inspectorAccionLabel}>ACCIÓN CLAVE</p>
@@ -828,25 +796,8 @@ function Inspector({ microskillSel, datos }) {
         </div>
       </div>
 
-      <div style={S.comoMedraSec}>
-        <p style={S.comoMedraTitulo}>COMO MEDRA ESTA HABILIDADE</p>
-        <ul style={S.comoMedraLista}>
-          <li style={S.comoMedraItem}>
-            <span style={S.comoMedraIcono}>💧</span>
-            Practica con humidades diferentes
-          </li>
-          <li style={S.comoMedraItem}>
-            <span style={S.comoMedraIcono}>🌾</span>
-            Coñece distintas variedades de fariña
-          </li>
-          <li style={S.comoMedraItem}>
-            <span style={S.comoMedraIcono}>✋</span>
-            Traballa sen ferramentas auxiliares ocasionalmente
-          </li>
-        </ul>
-      </div>
 
-      <div style={S.afinBloque}>
+      {af != null && <div style={S.afinBloque}>
         <p style={S.afinLabel}>A TÚA AFINIDADE NESTA HABILIDADE</p>
         <div style={S.afinBarraRow}>
           <div style={S.afinBarra}>
@@ -858,7 +809,7 @@ function Inspector({ microskillSel, datos }) {
           </div>
           <span style={S.afinValor}>{af}%</span>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
@@ -888,6 +839,7 @@ function Stat({ label, valor, iconoCircular }) {
   )
 }
 
+// eslint-disable-next-line no-unused-vars
 function StatSeparador() { return <span style={S.statSep}>·</span> }
 
 function FontEmbed() {
@@ -945,6 +897,7 @@ const S = {
   breadcrumb: { display: 'flex', alignItems: 'center', gap: 12,
     fontFamily: '"Cinzel", serif', fontSize: 11, letterSpacing: 3 },
   crumbDestaque: { color: COR.dourado, fontWeight: 600 },
+  adianto: { alignSelf: 'center', marginLeft: 10, padding: '2px 8px', fontSize: 10, letterSpacing: 2, color: '#c084d4', border: '1px solid #c084d4', borderRadius: 4 },
   crumb: { color: COR.textoSuave },
   crumbSep: { color: COR.douradoTenue, fontSize: 10 },
   tabs: { display: 'flex', gap: 4, flex: 1, justifyContent: 'center' },
