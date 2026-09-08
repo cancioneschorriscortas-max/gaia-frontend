@@ -405,5 +405,9 @@
   "sonoFacerTestAbrir": "Take the test and open",
   "sonoRepetirTest": "Test done · retake it",
   "oberonAdianto": "PREVIEW",
-  "oberonSenTest": "Take the trades test to see your affinity with these skills."
+  "oberonSenTest": "Take the trades test to see your affinity with these skills.",
+  "portadaVerTodos": "See all paths ({0})",
+  "portadaVerMenos": "Show fewer",
+  "portadaParaEmpezar": "To get started",
+  "portadaDaMision": "from the mission of the week"
 }

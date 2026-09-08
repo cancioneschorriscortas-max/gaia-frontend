@@ -3,7 +3,7 @@
   "misions": [
     { "id": "semana_mar", "emoji": "🐚", "carta": "carta_semana_mar",
       "titulo": { "gl": "A semana do mar", "es": "La semana del mar", "en": "Sea week" },
-      "texto":  { "gl": "Marea, sal e oficios: tres camiños que cheiran a salitre.", "es": "Marea, sal y oficios: tres caminos que huelen a salitre.", "en": "Tide, salt and trades: three paths that smell of the sea." },
+      "texto":  { "gl": "Marea, peixe e sal: tres camiños que cheiran a salitre.", "es": "Marea, pescado y sal: tres caminos que huelen a salitre.", "en": "Tide, fish and salt: three paths that smell of the sea." },
       "rutas": ["por_que_sobe_e_baixa_o_mar", "a_viaxe_do_peixe_a_mesa", "a_viaxe_do_sal"] },
     { "id": "semana_enerxia", "emoji": "⚡", "carta": "carta_semana_enerxia",
       "titulo": { "gl": "A semana da enerxía", "es": "La semana de la energía", "en": "Energy week" },

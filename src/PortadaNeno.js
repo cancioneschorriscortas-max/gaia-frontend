@@ -166,8 +166,15 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
   const TUTORIAL_ID = 'a_viaxe_do_pan'
   // Orde: tutorial → rutas do nivel do alumno (primaria ou secundaria polo curso) → o resto.
   const nivelAlumno = /prim/.test(usuario?.curso || '') || !usuario?.curso ? 'primary' : 'secondary'
-  const peso = (j) => j.id === TUTORIAL_ID ? 0 : (j.level || 'primary') === nivelAlumno ? 1 : 2
+  // Orde: tutorial → rutas da misión da semana → nivel do alumno → secundaria → experto.
+  const rutasMision = new Set(misionDaSemana().rutas)
+  const ordeNivel = { primary: 0, secondary: 1, expert: 2 }
+  const peso = (j) => j.id === TUTORIAL_ID ? 0 : rutasMision.has(j.id) ? 1 : (j.level || 'primary') === nivelAlumno ? 2 : 3 + (ordeNivel[j.level] || 0)
   const porEmpezar  = catalogo.filter(j => !empezadas.has(j.id)).sort((a, b) => peso(a) - peso(b))
+  // Con 30 rutas o catálogo era un muro (6.600 px nunha conta nova): por defecto só 5,
+  // e "Ver todos" despregа a lista enteira con cabeceiras por nivel.
+  const CATALOGO_CURTO = 5
+  const [verTodos, setVerTodos] = useState(false)
 
   // OLLO: `/journeys` devolve `label` como OBXECTO {gl,es,en,pt},
   // mentres `/progreso/rutas` devólveo como string. Non se tratan igual.
@@ -452,13 +459,21 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
                 fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase',
                 color: C.secundario, marginBottom: 12, fontWeight: 600
               }}>
-                {t(idioma, 'portadaCaminosPodesEmpezar')}
+                {verTodos || porEmpezar.length <= CATALOGO_CURTO ? t(idioma, 'portadaCaminosPodesEmpezar') : t(idioma, 'portadaParaEmpezar')}
               </div>
 
-              {porEmpezar.map(j => {
+              {(verTodos ? porEmpezar : porEmpezar.slice(0, CATALOGO_CURTO)).map((j, idx, arr) => {
                 const realzar = (cor) => (e) => { e.currentTarget.style.borderColor = cor }
+                const nivel = j.level || 'primary'
+                const cabeceiraNivel = verTodos && (idx === 0 || (arr[idx - 1].level || 'primary') !== nivel)
                 return (
-                  <div key={j.id}
+                  <div key={j.id}>
+                  {cabeceiraNivel && (
+                    <div style={{ fontSize: 10, letterSpacing: '0.14em', color: C.azul, fontWeight: 700, margin: '14px 0 8px' }}>
+                      {t(idioma, nivel === 'expert' ? 'nivelExperto' : nivel === 'secondary' ? 'nivelSecundaria' : 'nivelPrimaria')}
+                    </div>
+                  )}
+                  <div
                     {...activable(() => onAbrirRuta && onAbrirRuta(j.id))}
                     aria-label={t(idioma, 'portadaAbrirRutaAria', labelCatalogo(j))}
                     onMouseEnter={realzar(C.dourado)}
@@ -475,18 +490,31 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
                     <span style={{ fontSize: 15, fontWeight: 600, color: C.texto }}>
                       {labelCatalogo(j)}
                     </span>
-                    {(j.level || 'primary') !== 'primary' && (
+                    {(j.level || 'primary') !== 'primary' && !verTodos && (
                       <span style={{ fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: C.azul,
                                      border: `1px solid ${C.azul}`, borderRadius: 8, padding: '2px 7px', fontWeight: 700 }}>
                         {t(idioma, j.level === 'expert' ? 'experto' : 'percorridoSecundaria')}
+                      </span>
+                    )}
+                    {rutasMision.has(j.id) && j.id !== TUTORIAL_ID && (
+                      <span title={t(idioma, 'misionSemana')} style={{ fontSize: 11, color: C.secundario }}>
+                        {misionSemana.emoji} {t(idioma, 'portadaDaMision')}
                       </span>
                     )}
                     <span style={{ marginLeft: 'auto', fontSize: 13, color: C.dourado, fontWeight: 600 }}>
                       {t(idioma, 'portadaComezar')} →
                     </span>
                   </div>
+                  </div>
                 )
               })}
+              {porEmpezar.length > CATALOGO_CURTO && (
+                <button type="button" onClick={() => setVerTodos(v => !v)}
+                  style={{ width: '100%', background: 'none', border: `1px dashed ${C.borde}`, color: C.dourado, borderRadius: 12,
+                           padding: '10px', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', marginTop: 2 }}>
+                  {verTodos ? t(idioma, 'portadaVerMenos') : t(idioma, 'portadaVerTodos', porEmpezar.length)}
+                </button>
+              )}
 
               {/* O secundario á vista pero apagado (só hai un dominante).
                   Se xa hai ruta destacada, o mapa xa ten porta na Zona 3. */}

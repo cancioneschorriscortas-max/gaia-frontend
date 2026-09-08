@@ -405,5 +405,9 @@
   "sonoFacerTestAbrir": "Hacer el test y abrir",
   "sonoRepetirTest": "Test hecho · repetirlo",
   "oberonAdianto": "ADELANTO",
-  "oberonSenTest": "Haz el test de oficios para ver tu afinidad con estas habilidades."
+  "oberonSenTest": "Haz el test de oficios para ver tu afinidad con estas habilidades.",
+  "portadaVerTodos": "Ver todos los caminos ({0})",
+  "portadaVerMenos": "Ver menos",
+  "portadaParaEmpezar": "Para empezar",
+  "portadaDaMision": "de la misión de la semana"
 }

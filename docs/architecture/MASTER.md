@@ -550,6 +550,11 @@ só a pestana HABILIDADES e un selo ADIANTO. **Bug atopado e arranxado no backen
 (o panel do test chamábao desde maio e devolvía 404: ningún test se gardou nunca). Decisión pendente do
 director/arquitecto: integración de Yggdrasil Forge (ADR-006); a v6 segue obsoleta.
 
+**Rolda 24:** fluxo enteiro do neno desde cero cunha conta nova (rexistro → espertar → rol → portada):
+funciona, pero a portada media 6.600 px porque o catálogo listaba as 30 rutas de golpe. Agora "Para empezar"
+mostra 5 (tutorial, as 3 da misión da semana e unha máis) e "Ver todos os camiños (30)" despregа o resto con
+cabeceiras Primaria / Secundaria / Experto; as rutas da misión levan un chip.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
