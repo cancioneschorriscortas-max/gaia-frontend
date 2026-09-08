@@ -542,6 +542,14 @@ de auga, xeo e Q10, conserva e botulinum/F0, leite e pasteurización/UHT) e sét
 (papel, lume, tempo). **Total: 30 rutas (18 primaria + 7 secundaria + 5 experto), 64 paradas con foto, 38 cartas,
 7 misións.**
 
+**Rolda 23 (Oberón honesto, sen assets por decisión do director):** o test de oficios pasa a ser a chave
+da porta de Oberón (Biblia §2): sen test, "O teu soño" ofrece o test primeiro. A vista v6 do panadeiro
+deixa de inventar números: afinidade real co perfil do test (GET /test/meu) ou ningunha; fóra "XP Oberón
+1.250", "7/56", "NIVEL 2 DE 3", os niveis e o "como medra" do amasado copiados en todas as microskills;
+só a pestana HABILIDADES e un selo ADIANTO. **Bug atopado e arranxado no backend: faltaba `POST /test/gardar`**
+(o panel do test chamábao desde maio e devolvía 404: ningún test se gardou nunca). Decisión pendente do
+director/arquitecto: integración de Yggdrasil Forge (ADR-006); a v6 segue obsoleta.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
