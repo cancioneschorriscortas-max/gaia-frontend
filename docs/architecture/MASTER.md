@@ -503,6 +503,11 @@ xenoma do trigo e partes do gran, glute e amidón, fermentación con ecuación, 
 Co tutorial do pan xa hai unha versión experta de cada tema "a fondo": luz, lume, auga e pan.
 **Total: 23 rutas (14 primaria + 5 secundaria + 4 experto), 48 paradas con foto, 28 cartas.**
 
+**Rolda 15:** repaso da Xestión do profesor a 375 px (Nodos, Crear nodo, Relacións, Rutas, Editor):
+formularios e buscas caben; só a táboa de nodos desbordaba (agora métricas fluídas e táboas con scroll
+horizontal no seu marco). Quinta misión da semana, "A semana do prato" 🍽️, para que a rotación non se
+repita cada mes. **29 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
