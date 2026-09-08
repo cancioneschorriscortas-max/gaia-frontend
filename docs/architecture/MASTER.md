@@ -517,6 +517,11 @@ selo, caixa de correos, centro de clasificación, carteira/carteiro; portal ao m
 "A semana das mensaxes" ✉️ (carta, móbil, música). **Total: 25 rutas (16 primaria + 5 secundaria + 4 experto),
 56 paradas con foto, 32 cartas, 6 misións.**
 
+**Rolda 18:** dúas rutas de secundaria sobre as paradas novas, "O son, por dentro" 🔊 (vibración, oído,
+gravación, onda de radio) e "As mensaxes, por dentro" 📨 (sobre, centro de clasificación, mensaxe, cable
+submarino), con retos abertos de cálculo e razoamento (`docs/content/rutas_secundaria_3.seed.mjs`).
+**Total: 27 rutas (16 primaria + 7 secundaria + 4 experto), 56 paradas con foto, 34 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
