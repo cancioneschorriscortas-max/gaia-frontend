@@ -161,8 +161,10 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
   const empezadas   = new Set((rutas || []).map(r => r.id))
   // O tutorial (§3.3) vai sempre primeiro no catálogo: é por onde se empeza.
   const TUTORIAL_ID = 'a_viaxe_do_pan'
-  const porEmpezar  = catalogo.filter(j => !empezadas.has(j.id))
-                              .sort((a, b) => (a.id === TUTORIAL_ID ? -1 : b.id === TUTORIAL_ID ? 1 : 0))
+  // Orde: tutorial → rutas do nivel do alumno (primaria ou secundaria polo curso) → o resto.
+  const nivelAlumno = /prim/.test(usuario?.curso || '') || !usuario?.curso ? 'primary' : 'secondary'
+  const peso = (j) => j.id === TUTORIAL_ID ? 0 : (j.level || 'primary') === nivelAlumno ? 1 : 2
+  const porEmpezar  = catalogo.filter(j => !empezadas.has(j.id)).sort((a, b) => peso(a) - peso(b))
 
   // OLLO: `/journeys` devolve `label` como OBXECTO {gl,es,en,pt},
   // mentres `/progreso/rutas` devólveo como string. Non se tratan igual.
@@ -380,6 +382,12 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
                     <span style={{ fontSize: 15, fontWeight: 600, color: C.texto }}>
                       {labelCatalogo(j)}
                     </span>
+                    {(j.level || 'primary') !== 'primary' && (
+                      <span style={{ fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', color: C.azul,
+                                     border: `1px solid ${C.azul}`, borderRadius: 8, padding: '2px 7px', fontWeight: 700 }}>
+                        {t(idioma, j.level === 'expert' ? 'experto' : 'percorridoSecundaria')}
+                      </span>
+                    )}
                     <span style={{ marginLeft: 'auto', fontSize: 13, color: C.dourado, fontWeight: 600 }}>
                       {t(idioma, 'portadaComezar')} →
                     </span>

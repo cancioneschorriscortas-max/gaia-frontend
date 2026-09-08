@@ -122,6 +122,8 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
   const [fase, setFase]               = useState('cargando')   // cargando | percorrido | fin | erro
   const [visible, setVisible]         = useState(false)
   const [mostrarMais, setMostrarMais] = useState(false)
+  // Nunha ruta de secundaria a capa "e por que?" vai aberta por defecto en cada paso.
+  const expandirPorDefecto = (r = ruta) => r?.level === 'secondary' || r?.level === 'expert'
   // ── FIN: estados ─────────────────────────────────────
 
   // ── INICIO: cargar_nodo ──────────────────────────────
@@ -157,6 +159,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
       .then(async data => {
         if (!vivo) return
         setRuta(data)
+        setMostrarMais(expandirPorDefecto(data))
         const stopsValidos = (data.stops || []).filter(s => s && s.nodo)
         setStops(stopsValidos)
         if (stopsValidos.length === 0) {   // ruta sen pasos: non hai nada que percorrer
@@ -267,7 +270,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
 // ── INICIO: ir_a ─────────────────────────────────────
  // ── INICIO: ir_a ─────────────────────────────────────
   const irA = async (novoIndice) => {
-    setMostrarMais(false) // BUG ARRANXADO: reseta ao cambiar de paso
+    setMostrarMais(expandirPorDefecto()) // BUG ARRANXADO: reseta ao cambiar de paso
     if (novoIndice >= stops.length) {
       gardarProgreso(stops.length - 1, true)   // ruta completada
       if (!xaCompletada) {                      // premio só a primeira vez
@@ -290,7 +293,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
 
   // ── INICIO: repetir ──────────────────────────────────
   const repetir = async () => {
-    setMostrarMais(false)
+    setMostrarMais(expandirPorDefecto())
     setIndice(0)
     if (stops.length > 0) {
       await cargarNodo(stops[0].nodo.id)
@@ -307,7 +310,12 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                         || stopActual?.nodo?.[`label_${idioma}`] || stopActual?.nodo?.label_gl || ''
   const texto            = nodoActual?.content?.primary?.[idioma]   || nodoActual?.content?.primary?.gl   || ''
   const textoSecundario  = nodoActual?.content?.secondary?.[idioma] || nodoActual?.content?.secondary?.gl || ''
-  const reto             = nodoActual?.retos?.primary?.[idioma]     || nodoActual?.retos?.primary?.gl     || ''
+  // Nivel da RUTA (non do nodo): unha ruta 'secondary' reutiliza os mesmos nodos
+  // pero le tamén a capa "e por que?" e fai o reto de secundaria (30 XP).
+  const nivelRuta        = ruta?.level === 'secondary' || ruta?.level === 'expert' ? ruta.level : 'primary'
+  const retoDoNivel      = nodoActual?.retos?.[nivelRuta]?.[idioma] || nodoActual?.retos?.[nivelRuta]?.gl || ''
+  const reto             = retoDoNivel || nodoActual?.retos?.primary?.[idioma] || nodoActual?.retos?.primary?.gl || ''
+  const nivelReto        = retoDoNivel ? nivelRuta : 'primary'
   const rutaLabel        = ruta?.label?.[idioma] || ruta?.label?.gl || ''
   const eUltimoPaso      = indice + 1 >= stops.length
   // ── FIN: derivados ───────────────────────────────────
@@ -752,7 +760,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
                 nodoId={stopActual.nodo.id}
                 nodoLabel={titulo}
                 pregunta={reto}
-                nivel="primary"
+                nivel={nivelReto}
                 idioma={idioma}
               />
             )}

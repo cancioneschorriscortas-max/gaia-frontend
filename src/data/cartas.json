@@ -37,6 +37,12 @@
     { "id": "carta_sal", "coleccion": "oficios", "emoji": "🧂", "ruta": "a_viaxe_do_sal",
       "titulo": { "gl": "O sal garda o tempo", "es": "La sal guarda el tiempo", "en": "Salt keeps time" },
       "texto":  { "gl": "Antes das neveiras, o sal era a maneira de que o peixe durase meses. As latas de conserva galegas seguen sendo mar gardado.", "es": "Antes de las neveras, la sal era la manera de que el pescado durase meses. Las latas de conserva gallegas siguen siendo mar guardado.", "en": "Before fridges, salt was how fish lasted for months. Galician tins of preserves are still the sea, kept." } },
+    { "id": "carta_faraday", "coleccion": "mundo", "emoji": "🧲", "ruta": "a_luz_por_dentro",
+      "titulo": { "gl": "O imán de Faraday", "es": "El imán de Faraday", "en": "Faraday's magnet" },
+      "texto":  { "gl": "En 1831 Faraday moveu un imán preto dun cable e naceu unha corrente. Todo o que enchufas hoxe segue vivindo dese xesto.", "es": "En 1831 Faraday movió un imán cerca de un cable y nació una corriente. Todo lo que enchufas hoy sigue viviendo de ese gesto.", "en": "In 1831 Faraday moved a magnet near a wire and a current was born. Everything you plug in today still lives off that gesture." } },
+    { "id": "carta_combustion", "coleccion": "mundo", "emoji": "🧪", "ruta": "o_lume_por_dentro",
+      "titulo": { "gl": "Arder é reaccionar", "es": "Arder es reaccionar", "en": "Burning is reacting" },
+      "texto":  { "gl": "O lume non é unha cousa: é unha reacción. Carbono e osíxeno xúntanse, sae CO₂, auga e calor. A mesma que fai o teu corpo, sen chama.", "es": "El fuego no es una cosa: es una reacción. Carbono y oxígeno se juntan, sale CO₂, agua y calor. La misma que hace tu cuerpo, sin llama.", "en": "Fire is not a thing: it is a reaction. Carbon and oxygen meet, out come CO₂, water and heat. The same one your body runs, without a flame." } },
     { "id": "carta_portal", "coleccion": "exploracion", "emoji": "🔭", "evento": "primeiro_portal",
       "titulo": { "gl": "Explorador de atallos", "es": "Explorador de atajos", "en": "Shortcut explorer" },
       "texto":  { "gl": "Saíches do camiño polo primeiro portal. Todo no universo está conectado con algo: seguir un fío é a forma de coñecelo.", "es": "Te saliste del camino por el primer portal. Todo en el universo está conectado con algo: seguir un hilo es la forma de conocerlo.", "en": "You stepped off the path through your first portal. Everything in the universe connects to something: following a thread is how you get to know it." } }
