@@ -527,6 +527,11 @@ montaña nevada) por traballadores recollendo sal. Receita nova: as miniaturas p
 (`iiurlwidth=320`) e descárganse en local antes de capturar, porque o host de miniaturas devolve 400 a
 anchuras non xeradas.
 
+**Rolda 20:** ruta de primaria "A viaxe do peixe á mesa" 🐟 (`docs/content/como_funciona_o_mundo_8.seed.mjs`:
+o barco, a lonxa e a poxa á baixa, o xeo e a cadea de frío, a peixaría; portal ao mariñeiro). Entra na misión
+"A semana do mar" no lugar dos oficios do mar. **Total: 28 rutas (17 primaria + 7 secundaria + 4 experto),
+60 paradas con foto, 35 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
