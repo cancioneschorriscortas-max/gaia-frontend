@@ -388,5 +388,10 @@
   "nodoCaminosPasan": "Paths that go through here",
   "nodoAbrirCamino": "Go to the path",
   "mapaSoCaminos": "My paths",
-  "mapaTodoUniverso": "The whole universe"
+  "mapaTodoUniverso": "The whole universe",
+  "misionSemana": "Mission of the week",
+  "misionSemanaProgreso": "{0} of {1} paths done",
+  "misionSemanaPremio": "Finish all three: special card and +50 XP",
+  "misionSemanaFeita": "Mission of the week complete!",
+  "cartasComoMision": "Complete a mission of the week to earn it"
 }

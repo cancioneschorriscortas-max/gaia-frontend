@@ -1,0 +1,21 @@
+{
+  "_comentario": "Misión da semana: un tema que xunta 3 rutas. Rota pola semana do ano (determinista). Completar as 3 dá a carta da misión e +50 XP (XP_ACCIONS.MISION_SEMANA), unha soa vez.",
+  "misions": [
+    { "id": "semana_mar", "emoji": "🐚", "carta": "carta_semana_mar",
+      "titulo": { "gl": "A semana do mar", "es": "La semana del mar", "en": "Sea week" },
+      "texto":  { "gl": "Marea, sal e oficios: tres camiños que cheiran a salitre.", "es": "Marea, sal y oficios: tres caminos que huelen a salitre.", "en": "Tide, salt and trades: three paths that smell of the sea." },
+      "rutas": ["por_que_sobe_e_baixa_o_mar", "a_viaxe_do_sal", "oficios_do_mar"] },
+    { "id": "semana_enerxia", "emoji": "⚡", "carta": "carta_semana_enerxia",
+      "titulo": { "gl": "A semana da enerxía", "es": "La semana de la energía", "en": "Energy week" },
+      "texto":  { "gl": "Vento, lume e tempo: de onde sae a forza que move todo.", "es": "Viento, fuego y tiempo: de dónde sale la fuerza que mueve todo.", "en": "Wind, fire and weather: where the force that moves everything comes from." },
+      "rutas": ["a_viaxe_da_luz", "como_arde_o_lume", "de_onde_ven_o_tempo"] },
+    { "id": "semana_terra", "emoji": "🌱", "carta": "carta_semana_terra",
+      "titulo": { "gl": "A semana da terra", "es": "La semana de la tierra", "en": "Land week" },
+      "texto":  { "gl": "Pan, leite e pataca: o que a terra dá se alguén a traballa.", "es": "Pan, leche y patata: lo que la tierra da si alguien la trabaja.", "en": "Bread, milk and potato: what the land gives if someone works it." },
+      "rutas": ["a_viaxe_do_pan", "de_onde_ven_o_leite", "a_viaxe_da_pataca"] },
+    { "id": "semana_maquina", "emoji": "🔧", "carta": "carta_semana_maquina",
+      "titulo": { "gl": "A semana de como funciona", "es": "La semana de cómo funciona", "en": "How-it-works week" },
+      "texto":  { "gl": "Auga, lixo e móbil: tres máquinas invisibles que usas cada día.", "es": "Agua, basura y móvil: tres máquinas invisibles que usas cada día.", "en": "Water, rubbish and phone: three invisible machines you use every day." },
+      "rutas": ["a_viaxe_da_auga", "a_viaxe_do_lixo", "como_chega_a_mensaxe_ao_mobil"] }
+  ]
+}

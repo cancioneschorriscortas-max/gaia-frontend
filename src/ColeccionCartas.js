@@ -54,7 +54,7 @@ export default function ColeccionCartas({ idioma = 'gl', tidas = [], onPechar })
                         {ten ? (c.titulo[idioma] || c.titulo.gl) : '· · ·'}
                       </div>
                       <div style={{ fontSize: 11.5, lineHeight: 1.5, color: ten ? '#c9d6ef' : '#5d6c8f' }}>
-                        {ten ? (c.texto[idioma] || c.texto.gl) : t(idioma, c.ruta ? 'cartasComoRuta' : 'cartasComoPortal')}
+                        {ten ? (c.texto[idioma] || c.texto.gl) : t(idioma, c.ruta ? 'cartasComoRuta' : c.evento === 'mision_semana' ? 'cartasComoMision' : 'cartasComoPortal')}
                       </div>
                     </div>
                   )

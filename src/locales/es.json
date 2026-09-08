@@ -388,5 +388,10 @@
   "nodoCaminosPasan": "Caminos que pasan por aquí",
   "nodoAbrirCamino": "Ir al camino",
   "mapaSoCaminos": "Mis caminos",
-  "mapaTodoUniverso": "Todo el universo"
+  "mapaTodoUniverso": "Todo el universo",
+  "misionSemana": "Misión de la semana",
+  "misionSemanaProgreso": "{0} de {1} caminos hechos",
+  "misionSemanaPremio": "Al terminar los tres: carta especial y +50 XP",
+  "misionSemanaFeita": "¡Misión de la semana completa!",
+  "cartasComoMision": "Completa una misión de la semana para conseguirla"
 }

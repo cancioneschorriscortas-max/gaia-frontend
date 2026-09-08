@@ -20,6 +20,9 @@ import { API } from './config/api'
 import { t } from './i18n'
 import { fraseLua } from './lua'
 import CARTAS from './data/cartas.json'
+import MISIONS from './data/misions.json'
+import { CartaRevelada } from './PercorridoRuta'
+import { sonXP } from './sistemaAudio'
 import ColeccionCartas from './ColeccionCartas'
 import { ROLES } from './roles'
 import OberonProfesionVista from './OberonProfesionVista'
@@ -111,7 +114,7 @@ function Tarxeta({ titulo, children, onClick, style }) {
 // ── FIN: tarxeta ────────────────────────────────────────
 
 export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, onEscollerCamino, onTest }) {
-  const { usuario, xp, nivel, authHeaders } = useUser()
+  const { usuario, xp, nivel, authHeaders, rexistrarXP } = useUser()
 
   // ── INICIO: estado ────────────────────────────────────
   const [rutas,    setRutas]    = useState(null)   // null = cargando · [] = ningunha
@@ -213,6 +216,46 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   // ── FIN: cartas ───────────────────────────────────────
+
+  // ── INICIO: mision_da_semana ──────────────────────────
+  // Un tema por semana (rota pola semana do ano, determinista: o mesmo
+  // para toda a clase). Completar as 3 rutas dá a carta da misión e +50 XP,
+  // unha soa vez: o backend só devolve nova=true a primeira vez que se
+  // garda a carta, e o XP colga desa resposta.
+  const semanaDoAno = (() => {
+    const d = new Date(); const ini = new Date(d.getFullYear(), 0, 1)
+    return Math.floor((d - ini) / 864e5 / 7)
+  })()
+  const misionSemana      = MISIONS.misions[semanaDoAno % MISIONS.misions.length]
+  const feitasSet   = new Set((rutas || []).filter(r => r.completada).map(r => r.id))
+  const misionRutas = misionSemana.rutas.map(id => {
+    const j = catalogo.find(x => x.id === id)
+    const r = (rutas || []).find(x => x.id === id)
+    return { id, feita: feitasSet.has(id), label: (j && labelCatalogo(j)) || r?.[`label_${idioma}`] || r?.label || id }
+  })
+  const misionFeitas   = misionRutas.filter(r => r.feita).length
+  const misionCompleta = misionFeitas === misionSemana.rutas.length
+  const [cartaMision, setCartaMision] = useState(null)   // carta acabada de gañar (celebración)
+  useEffect(() => {
+    if (!misionCompleta || !usuario || usuario.explorador) return
+    if (cartas.includes(misionSemana.carta)) return
+    let vivo = true
+    fetch(`${API}/cartas/${misionSemana.carta}`, { method: 'POST', headers: authHeaders() })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (!vivo || !d) return
+        setCartas(c => c.includes(misionSemana.carta) ? c : [...c, misionSemana.carta])
+        if (d.nova) {
+          rexistrarXP('MISION_SEMANA', misionSemana.id)
+          try { sonXP(50) } catch (e) {}
+          setCartaMision(CARTAS.cartas.find(c => c.id === misionSemana.carta) || null)
+        }
+      })
+      .catch(() => {})
+    return () => { vivo = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [misionCompleta, cartas.length])
+  // ── FIN: mision_da_semana ─────────────────────────────
 
   const indice     = Math.min(destacada?.indice || 0, Math.max(0, stops.length - 1))
 
@@ -449,6 +492,59 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
           )}
         </Tarxeta>
         {/* ── FIN: zona_2_camiño ─────────────────────────── */}
+
+        {/* ── INICIO: zona_misión_semana ─────────────────── */}
+        {/* Misión da semana: 3 rutas dun tema, carta especial + XP ao rematar (src/data/misions.json). */}
+        <Tarxeta titulo={t(idioma, 'misionSemana')} style={{ marginBottom: 14 }}>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+            <div style={{ fontSize: 34, lineHeight: 1, flexShrink: 0 }} aria-hidden="true">{misionSemana.emoji}</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontFamily: 'Georgia, serif', fontSize: 17, color: C.texto, marginBottom: 4 }}>
+                {misionSemana.titulo[idioma] || misionSemana.titulo.gl}
+              </div>
+              <div style={{ fontSize: 13, color: C.secundario, lineHeight: 1.5, marginBottom: 10 }}>
+                {misionSemana.texto[idioma] || misionSemana.texto.gl}
+              </div>
+              <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 6 }}
+                aria-label={t(idioma, 'misionSemanaProgreso', misionFeitas, misionSemana.rutas.length)}>
+                {misionRutas.map(r => (
+                  <li key={r.id}>
+                    <button type="button" onClick={() => onAbrirRuta && onAbrirRuta(r.id)}
+                      style={{
+                        display: 'flex', alignItems: 'center', gap: 8, width: '100%', textAlign: 'left',
+                        background: r.feita ? '#1a2d24' : '#101a30', border: `1px solid ${r.feita ? '#2f6b4a' : '#22304f'}`,
+                        borderRadius: 10, padding: '7px 10px', color: r.feita ? '#8fe0b0' : C.texto,
+                        fontSize: 13.5, cursor: 'pointer', fontFamily: 'inherit'
+                      }}>
+                      <span aria-hidden="true" style={{ width: 18, textAlign: 'center' }}>{r.feita ? '✅' : '○'}</span>
+                      <span style={{ flex: 1, textDecoration: r.feita ? 'line-through' : 'none', opacity: r.feita ? 0.85 : 1 }}>{r.label}</span>
+                      {!r.feita && <span aria-hidden="true" style={{ color: C.secundario }}>→</span>}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <div style={{ marginTop: 10, fontSize: 12.5, color: misionCompleta ? '#8fe0b0' : C.secundario }}>
+                {misionCompleta ? `🃏 ${t(idioma, 'misionSemanaFeita')}` : `${t(idioma, 'misionSemanaProgreso', misionFeitas, misionSemana.rutas.length)} · ${t(idioma, 'misionSemanaPremio')}`}
+              </div>
+            </div>
+          </div>
+        </Tarxeta>
+        {cartaMision && (
+          <div role="dialog" aria-modal="true" aria-label={t(idioma, 'misionSemanaFeita')} onClick={() => setCartaMision(null)}
+            style={{ position: 'fixed', inset: 0, zIndex: 60, background: 'rgba(5,9,20,0.86)', display: 'grid', placeItems: 'center', padding: 20 }}>
+            <div onClick={e => e.stopPropagation()} style={{ maxWidth: 360, width: '100%' }}>
+              <div style={{ textAlign: 'center', color: '#8fe0b0', fontFamily: 'Georgia, serif', fontSize: 18, marginBottom: 12 }}>
+                {t(idioma, 'misionSemanaFeita')}
+              </div>
+              <CartaRevelada carta={cartaMision} idioma={idioma} />
+              <button type="button" onClick={() => setCartaMision(null)} autoFocus
+                style={{ marginTop: 14, width: '100%', background: '#e2b96a', color: '#111', border: 'none', borderRadius: 22, padding: '10px', fontWeight: 700, fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }}>
+                {t(idioma, 'pechar')}
+              </button>
+            </div>
+          </div>
+        )}
+        {/* ── FIN: zona_misión_semana ────────────────────── */}
 
         {/* ── INICIO: zona_3_tarxetas ────────────────────── */}
         {/* O teu soño — v1 ESTÁTICA (placeholder de Oberón, sen endpoint).
