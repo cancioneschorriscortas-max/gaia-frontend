@@ -491,6 +491,10 @@ feita e non hai camiño activo, dío) e terceira ruta de experto, "A auga, a fon
 fronte a EDAR, presión da rede). **Total: 22 rutas (14 primaria + 5 secundaria + 3 experto), 48 paradas
 con foto, 27 cartas.**
 
+**Rolda 12:** a misión da semana chega ao profesor: na lapela de alumnado, panel co tema da semana
+e contadores (completa / a medias / sen empezar) e chip por alumno (`src/misions.js` compartido;
+backend `/centro/:centro/alumnos` devolve `rutasFeitas`).
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
