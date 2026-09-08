@@ -24,6 +24,10 @@
     { "id": "semana_mensaxes", "emoji": "✉️", "carta": "carta_semana_mensaxes",
       "titulo": { "gl": "A semana das mensaxes", "es": "La semana de los mensajes", "en": "Messages week" },
       "texto":  { "gl": "Carta, móbil e música: tres xeitos de que algo teu chegue lonxe.", "es": "Carta, móvil y música: tres maneras de que algo tuyo llegue lejos.", "en": "Letter, phone and music: three ways for something of yours to travel far." },
-      "rutas": ["a_viaxe_dunha_carta", "como_chega_a_mensaxe_ao_mobil", "de_onde_ven_a_musica"] }
+      "rutas": ["a_viaxe_dunha_carta", "como_chega_a_mensaxe_ao_mobil", "de_onde_ven_a_musica"] },
+    { "id": "semana_bosque", "emoji": "🌲", "carta": "carta_semana_bosque",
+      "titulo": { "gl": "A semana do bosque", "es": "La semana del bosque", "en": "Forest week" },
+      "texto":  { "gl": "Papel, lume e chuvia: o que o monte dá e o que o mantén vivo.", "es": "Papel, fuego y lluvia: lo que el monte da y lo que lo mantiene vivo.", "en": "Paper, fire and rain: what the hills give and what keeps them alive." },
+      "rutas": ["de_onde_ven_o_papel", "como_arde_o_lume", "de_onde_ven_o_tempo"] }
   ]
 }
