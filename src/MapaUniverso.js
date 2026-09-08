@@ -6,6 +6,7 @@ import MAPA_CONFIG from './mapaConfig'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import { sonClickNodo, sonZoom, sonHover } from './sistemaAudio'
 import { API } from './config/api';
+import { t } from './i18n'
 
 
 // Xeometrías fóra do compoñente — evita fugas de memoria
@@ -22,11 +23,16 @@ const GEO = {
 const MapaUniverso = forwardRef(function MapaUniverso({
   onNodoSeleccionado, nivel, nodoFoco, config, onConfigChange,
   modoUsuario, idioma = 'gl', lupaActiva = false, centroFiltro = '',
-  pauseAnimation = false
+  pauseAnimation = false,
+  nodosCaminos = null,            // Set de ids que son parada dalgunha ruta (modo "os meus camiños")
+  soCaminosPorDefecto = false
 }, ref) {
 
   const graphRef       = useRef(null)
   const [universoActivo, setUniversoActivo] = useState('gaia')
+  // Modo camiños: só o esqueleto (galaxias/constelacións) + as paradas das rutas.
+  // Para o neno é o mapa por defecto: pequeno, con contido e foto en cada estrela.
+  const [soCaminos, setSoCaminos] = useState(soCaminosPorDefecto)
   const [nodosAbertos, setNodosAbertos] = useState(new Set())
   const [universosDispoñibles, setUniversosDispoñibles] = useState(['gaia'])
   const engineStopRef  = useRef(false)
@@ -86,6 +92,7 @@ const MapaUniverso = forwardRef(function MapaUniverso({
       .filter(n => {
         const type = n.id === 'gaia' ? 'origin' : (n.type || 'concept')
         if (SEMPRE.has(type)) return true            // esqueleto: sempre
+        if (soCaminos && nodosCaminos) return nodosCaminos.has(n.id)   // modo camiños: só paradas de rutas
         const pai = paiDe[n.id]
         if (!pai) return true                        // sen pai: defensivo, mostrar
         return nodosAbertos.has(pai)                 // fillo: só se o pai está aberto
@@ -109,7 +116,7 @@ const MapaUniverso = forwardRef(function MapaUniverso({
         tipo: r.tipo, strength: r.strength || 'medium'
       }))
     return { nodes, links }
-  }, [universoActivo, nodosAbertos])
+  }, [universoActivo, nodosAbertos, soCaminos, nodosCaminos])
   // ── FIN: lod_multiverso ──────────────────────────────
 
   useEffect(() => { setTimeout(() => setModoVisible(true), 100) }, [])
@@ -580,6 +587,20 @@ bloomPass.threshold = cfg.rendemento?.bloom_threshold  || 0.1
       >
         🌌 {universoActivo.toUpperCase()}
       </button>
+      {nodosCaminos && nodosCaminos.size > 0 && (
+        <button
+          onClick={() => setSoCaminos(v => !v)}
+          aria-pressed={soCaminos}
+          style={{
+            position: 'absolute', top: 98, left: 12, zIndex: 50,
+            padding: '6px 14px', borderRadius: 20, border: `1px solid ${soCaminos ? '#5dd4a8' : '#5d6c8f'}`,
+            background: 'rgba(10,16,32,.85)', color: soCaminos ? '#5dd4a8' : '#8fa3c8', cursor: 'pointer',
+            fontWeight: 600, fontSize: 13
+          }}
+        >
+          🧭 {soCaminos ? t(idioma, 'mapaSoCaminos') : t(idioma, 'mapaTodoUniverso')}
+        </button>
+      )}
       {lupaActiva && !modo3D && (
         <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none', background: 'rgba(4,3,2,0.18)', backdropFilter: 'blur(0.8px)', WebkitBackdropFilter: 'blur(0.8px)', transition: 'opacity 400ms ease' }} />
       )}

@@ -386,5 +386,7 @@
   "editorPecharPrevisualizacion": "← Close preview",
   "constructorPublicarXa": "Publish now (visible to pupils)",
   "nodoCaminosPasan": "Paths that go through here",
-  "nodoAbrirCamino": "Go to the path"
+  "nodoAbrirCamino": "Go to the path",
+  "mapaSoCaminos": "My paths",
+  "mapaTodoUniverso": "The whole universe"
 }

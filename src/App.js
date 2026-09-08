@@ -157,7 +157,7 @@ const IconoEnvio    = ({ size = 14 }) => Svg(<><line x1="22" y1="2" x2="11" y2="
 function App() {
 
   // ── INICIO: contextos ────────────────────────────────
-  const { usuario, xp, nivel: nivelUsuario, logout, esProfesor, esArquitecto, nivelContido } = useUser()
+  const { usuario, xp, nivel: nivelUsuario, logout, esProfesor, esArquitecto, nivelContido, authHeaders } = useUser()
   console.log('esArquitecto:', esArquitecto, 'usuario:', usuario?.arquitecto)
   const {
     nodos, nodoActivo, relacions, journeys,
@@ -203,6 +203,17 @@ function App() {
   )
   // Portada do neno — null | 'portada' | { ruta: journeyId }
   const [portadaNeno, setPortadaNeno] = useState(null)
+  // Nodos que son parada dalgunha ruta visible: o mapa "os meus camiños" do neno
+  const [nodosCaminos, setNodosCaminos] = useState(null)
+  useEffect(() => {
+    let vivo = true
+    fetch(`${API}/journeys/nodos`, { headers: authHeaders() })
+      .then(r => r.ok ? r.json() : { ids: [] })
+      .catch(() => ({ ids: [] }))
+      .then(d => { if (vivo) setNodosCaminos(new Set(d.ids || [])) })
+    return () => { vivo = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [usuario?.id])
   // O alumnado empeza o día na súa portada (bucle diario, EXPERIENCIA_NENO §3.4);
   // desde alí sae ao mapa con "Volver ao mapa". Profesores e exploradores sen
   // conta seguen entrando polo mapa. Só a primeira vez por sesión.
@@ -988,7 +999,8 @@ function App() {
             lupaActiva={lupaActiva}
             centroFiltro={centroFiltro}
             pauseAnimation={paneis.arbol}
-            
+            nodosCaminos={nodosCaminos}
+            soCaminosPorDefecto={!!usuario && !esProfesor && !usuario.explorador}
           />
            
         </div>
@@ -1016,6 +1028,8 @@ function App() {
         modoUsuario={true} idioma={idioma}
         lupaActiva={false} centroFiltro={centroFiltro}
         isMobile={true} pauseAnimation={paneis.arbol}
+        nodosCaminos={nodosCaminos}
+        soCaminosPorDefecto={!!usuario && !esProfesor && !usuario.explorador}
       />
       {nodoActivo && !paneis.visor && (
         <BottomSheet

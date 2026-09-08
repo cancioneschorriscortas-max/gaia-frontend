@@ -386,5 +386,7 @@
   "editorPecharPrevisualizacion": "← Cerrar la previsualización",
   "constructorPublicarXa": "Publicar ya (visible para el alumnado)",
   "nodoCaminosPasan": "Caminos que pasan por aquí",
-  "nodoAbrirCamino": "Ir al camino"
+  "nodoAbrirCamino": "Ir al camino",
+  "mapaSoCaminos": "Mis caminos",
+  "mapaTodoUniverso": "Todo el universo"
 }
