@@ -43,6 +43,25 @@ npm start
 
 ---
 
+## Desenvolvemento local (pila enteira)
+
+Para probar o fluxo do neno fai falla o backend e Neo4j:
+
+```bash
+# 1. Neo4j (instalación de Windows, non Docker) — xanela propia
+C:\neo4j-community-5.26.22\bin\neo4j.bat console
+# 2. Backend (repo gaia-backend)
+cd D:\gaia-backend && node index.js          # http://localhost:4000
+# 3. Frontend, apuntando ao backend local
+echo REACT_APP_API=http://localhost:4000 > .env.local   # ignorado por git
+npm start
+```
+
+Contido do neno (rutas, retos, portais, imaxes): os ficheiros `docs/content/*.seed.mjs` son a
+fonte de verdade e cárganse cun login de profesor. As imaxes das paradas están en
+`docs/content/media_atribucions.json` (só licenzas libres, sempre con atribución).
+Estado, decisións e backlog: `docs/architecture/MASTER.md` e `docs/architecture/INFORME_S6_FLUXO_NENO.md`.
+
 ## Variables de entorno
 
 Defínense en `.env` (nunca se commitea; ver `.env.example`).

@@ -119,6 +119,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Rutas de secundaria** | `PercorridoRuta.js`, `PortadaNeno.js`, `docs/content/rutas_secundaria_1.seed.mjs` | `journey.level` manda: en `secondary` a capa "e por que?" vai aberta e o reto é `reto_secondary` (pregunta aberta, 30 XP; cae a primary se falta). Catálogo con chip e orde por curso (`usuario.curso`: `*prim` → primaria primeiro). Receita para máis: escribir `reto_secondary_*` nos nodos e crear a journey con `level: 'secondary'`. |
 
+| **Camiños a medias / feitos** | `PortadaNeno.js` | Debaixo do destacado, os outros camiños empezados (parada x de y, Continuar) e os completos (Volver percorrer). Antes un segundo camiño empezado facía desaparecer o primeiro da portada. A carta nova soa (`sonXP`). |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 
