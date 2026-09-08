@@ -349,6 +349,42 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
 
           {/* Camiños por empezar: SEMPRE que existan, tanto se hai
               ruta destacada arriba como se non. Vai debaixo. */}
+          {/* Os OUTROS camiños empezados (a medias ou feitos) que non son o destacado:
+              antes desaparecían da portada e o neno perdíaos de vista. */}
+          {(() => {
+            const outros = (rutas || []).filter(r => r.id !== destacada?.id)
+            const aMedias = outros.filter(r => !r.completada)
+            const feitos  = outros.filter(r => r.completada)
+            const fila = (r, feito) => (
+              <div key={r.id}
+                {...activable(() => onAbrirRuta && onAbrirRuta(r.id))}
+                aria-label={t(idioma, 'portadaContinuarRutaAria', r[`label_${idioma}`] || r.label || r.id)}
+                style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', marginBottom: 8,
+                         background: '#0d1729', border: `1px solid ${C.borde}`, borderRadius: 12, cursor: 'pointer',
+                         opacity: feito ? 0.8 : 1 }}>
+                <span style={{ fontSize: 20 }}>{r.icono || '📚'}</span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: C.texto, flex: 1, minWidth: 0 }}>
+                  {r[`label_${idioma}`] || r.label || r.id}
+                </span>
+                <span style={{ fontSize: 11.5, color: C.secundario }}>
+                  {feito ? '🌟' : t(idioma, 'portadaParadaDe', Math.min((r.indice || 0) + 1, r.totalPasos || 1), r.totalPasos || '?')}
+                </span>
+                <span style={{ fontSize: 12.5, color: feito ? C.verde : C.dourado, fontWeight: 600 }}>
+                  {feito ? t(idioma, 'portadaVolverPercorrer') : t(idioma, 'portadaContinuar')} →
+                </span>
+              </div>
+            )
+            const seccion = (titulo, lista, feito) => lista.length > 0 && (
+              <div style={{ marginTop: 18, paddingTop: 14, borderTop: `1px solid ${C.borde}` }}>
+                <div style={{ fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', color: C.secundario, marginBottom: 10, fontWeight: 600 }}>
+                  {t(idioma, titulo)}
+                </div>
+                {lista.map(r => fila(r, feito))}
+              </div>
+            )
+            return <>{seccion('portadaCaminosAMedias', aMedias, false)}{seccion('portadaCaminosFeitos', feitos, true)}</>
+          })()}
+
           {porEmpezar.length > 0 && (
             <div style={{
               marginTop: destacada ? 22 : 6,

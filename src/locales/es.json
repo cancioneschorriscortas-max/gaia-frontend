@@ -373,5 +373,9 @@
   "sonoVerOficio": "Ver el oficio por dentro",
   "sonoTest": "Hacer el test de oficios",
   "sonoPanadeiro": "Panadera/o",
-  "sonoVolverPortada": "← Volver a mi viaje"
+  "sonoVolverPortada": "← Volver a mi viaje",
+  "portadaCaminosAMedias": "Caminos a medias",
+  "portadaContinuar": "Continuar",
+  "portadaCaminosFeitos": "Caminos que ya hiciste",
+  "portadaContinuarRutaAria": "Continuar el camino {0}"
 }

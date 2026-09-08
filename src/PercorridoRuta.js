@@ -6,6 +6,7 @@ import { t } from './i18n'
 import { TextoConPortais } from './portais'
 import { fraseLua } from './lua'
 import CARTAS from './data/cartas.json'
+import { sonXP } from './sistemaAudio'
 
 // ═══════════════════════════════════════════════════════════
 // PercorridoRuta — Pantalla completa para percorrer unha ruta
@@ -230,6 +231,7 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
       const r = await fetch(`${API}/cartas/${cartaId}`, { method: 'POST', headers: authHeaders() })
       if (!r.ok) return null
       const d = await r.json()
+      if (d.nova) { try { sonXP(25) } catch (e) {} }   // a carta soa: recompensa = celebración
       return d.nova ? carta : null
     } catch { return null }
   }

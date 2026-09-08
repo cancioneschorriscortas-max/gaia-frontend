@@ -373,5 +373,9 @@
   "sonoVerOficio": "See the trade from the inside",
   "sonoTest": "Take the trades test",
   "sonoPanadeiro": "Baker",
-  "sonoVolverPortada": "← Back to my journey"
+  "sonoVolverPortada": "← Back to my journey",
+  "portadaCaminosAMedias": "Paths half-way",
+  "portadaContinuar": "Continue",
+  "portadaCaminosFeitos": "Paths you already walked",
+  "portadaContinuarRutaAria": "Continue the path {0}"
 }
