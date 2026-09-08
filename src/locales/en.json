@@ -362,5 +362,16 @@
   "rolLuaConstrutor": "Builders see an idea and make it real with their hands. If you like making, fixing and inventing, this one is yours.",
   "rolEspecialidade": "Choose your speciality",
   "rolEspecialidadeSub": "You can explore every area later.",
-  "rolEspecialidadeNota": "You can pick a speciality later from your profile."
+  "rolEspecialidadeNota": "You can pick a speciality later from your profile.",
+  "sonoOficio": "Your trade",
+  "sonoCamino": "Your path",
+  "sonoSenCamino": "You haven't chosen a path yet.",
+  "sonoEscoller": "Choose my path",
+  "sonoCambiar": "Change",
+  "sonoPanBloqueado": "Finish The journey of bread and you'll get a peek at your first trade.",
+  "sonoPanAberto": "You finished The journey of bread. Want to see what a baker's trade looks like from the inside?",
+  "sonoVerOficio": "See the trade from the inside",
+  "sonoTest": "Take the trades test",
+  "sonoPanadeiro": "Baker",
+  "sonoVolverPortada": "← Back to my journey"
 }

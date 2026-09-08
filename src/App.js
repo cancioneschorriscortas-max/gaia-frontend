@@ -209,9 +209,12 @@ function App() {
   useEffect(() => {
     if (aterrouNaPortada.current || !usuario || usuario.explorador || esProfesor) return
     if (usuario.rol && usuario.rol !== 'alumno') return
+    // Non antes de escoller camiño: a portada píntase por riba de SeleccionRol
+    // (early return) e tapábaa a metade da elección.
+    if (!rolVisto) return
     aterrouNaPortada.current = true
     setPortadaNeno('portada')
-  }, [usuario, esProfesor])
+  }, [usuario, esProfesor, rolVisto])
   // ── FIN: estado_local ────────────────────────────────
 
   // ── INICIO: refs ─────────────────────────────────────
@@ -1231,6 +1234,13 @@ function App() {
         idioma={idioma}
         onAbrirRuta={(id) => setPortadaNeno({ ruta: id })}
         onExplorar={() => setPortadaNeno(null)}
+        onEscollerCamino={() => {
+          // Volver á elección de camiño (SeleccionRol); ao rematar volve á portada.
+          localStorage.removeItem('gaia_rol_visto')
+          setRolVisto(false)
+          setPortadaNeno(null)
+        }}
+        onTest={() => { setPortadaNeno(null); abrirPanel('oberonTest') }}
       />
     )
   }

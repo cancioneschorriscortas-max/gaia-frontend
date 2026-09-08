@@ -21,6 +21,18 @@ import { t } from './i18n'
 import { fraseLua } from './lua'
 import CARTAS from './data/cartas.json'
 import ColeccionCartas from './ColeccionCartas'
+import { ROLES } from './roles'
+import OberonProfesionVista from './OberonProfesionVista'
+
+// Oficios que xa teñen árbore real en Oberón (GET /oberon/profesion/:id/completa)
+const OFICIOS_OBERON = { panadeiro: 'panadeiro' }
+
+function atoparProfesion(id) {
+  for (const r of ROLES) for (const b of r.bloques || []) for (const p of b.profesions || []) {
+    if (p.id === id) return { ...p, rol: r, bloque: b }
+  }
+  return null
+}
 
 // ── INICIO: paleta ──────────────────────────────────────
 const C = {
@@ -98,7 +110,7 @@ function Tarxeta({ titulo, children, onClick, style }) {
 }
 // ── FIN: tarxeta ────────────────────────────────────────
 
-export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) {
+export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, onEscollerCamino, onTest }) {
   const { usuario, xp, nivel, authHeaders } = useUser()
 
   // ── INICIO: estado ────────────────────────────────────
@@ -188,6 +200,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
   // ── INICIO: cartas ────────────────────────────────────
   const [cartas, setCartas] = useState([])
   const [verCartas, setVerCartas] = useState(false)
+  const [verOficio, setVerOficio] = useState(null)   // id de profesión de Oberón aberta
   useEffect(() => {
     let vivo = true
     fetch(`${API}/cartas`, { headers: authHeaders() })
@@ -394,18 +407,59 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
         {/* ── INICIO: zona_3_tarxetas ────────────────────── */}
         {/* O teu soño — v1 ESTÁTICA (placeholder de Oberón, sen endpoint).
             Leva a marca "proximamente" para que non pareza tocable. */}
-        <Tarxeta titulo={`${t(idioma, 'portadaOTeuSono')} · ${t(idioma, 'portadaProximamente')}`} style={{ marginBottom: 14, opacity: 0.85 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }} aria-disabled="true">
-            <div style={{ fontSize: 30 }}>🥖</div>
-            <div>
-              <div style={{ fontSize: 15, fontWeight: 600, color: C.rosa }}>
-                {t(idioma, 'portadaSonoOficio')}
+        <Tarxeta titulo={t(idioma, 'portadaOTeuSono')} style={{ marginBottom: 14 }}>
+          {(() => {
+            // O soño v1: o oficio escollido (SeleccionRol) ou o camiño; e a porta a
+            // Oberón para o oficio que xa ten árbore real (panadeiro), que se abre
+            // ao completar o tutorial do pan. Sen endpoint novo: todo é datos que xa hai.
+            const prof = usuario?.profesion_personaxe ? atoparProfesion(usuario.profesion_personaxe) : null
+            const rol  = ROLES.find(r => r.id === usuario?.rol_personaxe)
+            const panFeito = (rutas || []).some(r => r.id === 'a_viaxe_do_pan' && r.completada)
+            const oberonId = (prof && OFICIOS_OBERON[prof.id]) || (panFeito ? 'panadeiro' : null)
+            const botonEstilo = (cor) => ({
+              background: 'none', border: `1px solid ${cor}`, color: cor, borderRadius: 18,
+              padding: '7px 14px', fontSize: 12.5, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit'
+            })
+            return (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                  <div style={{ fontSize: 30 }}>{prof ? prof.icono : rol ? rol.icono : '✨'}</div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 15, fontWeight: 600, color: rol?.cor || C.rosa }}>
+                      {prof ? prof.label : rol ? rol.label : t(idioma, 'sonoSenCamino')}
+                    </div>
+                    <div style={{ fontSize: 12, color: C.secundario, marginTop: 3 }}>
+                      {prof ? `${t(idioma, 'sonoOficio')} · ${rol?.label || ''}` : rol ? t(idioma, 'sonoCamino') : ''}
+                    </div>
+                  </div>
+                  <button onClick={() => onEscollerCamino && onEscollerCamino()} style={botonEstilo(C.secundario)}>
+                    {rol ? t(idioma, 'sonoCambiar') : t(idioma, 'sonoEscoller')}
+                  </button>
+                </div>
+
+                {/* A porta a Oberón: o oficio de panadeiro, desbloqueado polo tutorial */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap',
+                              padding: '10px 12px', background: '#0d1424', borderRadius: 10, border: `1px dashed ${oberonId ? C.dourado : C.borde}` }}>
+                  <span style={{ fontSize: 22, filter: oberonId ? 'none' : 'grayscale(1) brightness(0.6)' }}>🍞</span>
+                  <div style={{ flex: '1 1 200px', fontSize: 12.5, lineHeight: 1.5, color: oberonId ? C.texto : C.secundario }}>
+                    {oberonId ? t(idioma, 'sonoPanAberto') : t(idioma, 'sonoPanBloqueado')}
+                  </div>
+                  {oberonId && (
+                    <button onClick={() => setVerOficio(oberonId)} style={{ ...botonEstilo(C.dourado), background: C.dourado, color: '#412402' }}>
+                      {t(idioma, 'sonoVerOficio')} →
+                    </button>
+                  )}
+                </div>
+
+                {onTest && (
+                  <button onClick={onTest} style={{ background: 'none', border: 'none', color: C.azul, fontSize: 12, cursor: 'pointer',
+                                                    textAlign: 'left', padding: 0, fontFamily: 'inherit', textDecoration: 'underline' }}>
+                    {t(idioma, 'sonoTest')}
+                  </button>
+                )}
               </div>
-              <div style={{ fontSize: 12, color: C.secundario, marginTop: 3 }}>
-                {t(idioma, 'portadaSonoOberon')}
-              </div>
-            </div>
-          </div>
+            )
+          })()}
         </Tarxeta>
 
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
@@ -459,6 +513,21 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
 
       {verCartas && (
         <ColeccionCartas idioma={idioma} tidas={cartas} onPechar={() => setVerCartas(false)} />
+      )}
+
+      {/* O oficio por dentro: a vista de Oberón envolta cunha barra de volta */}
+      {verOficio && (
+        <div role="dialog" aria-modal="true" style={{ position: 'fixed', inset: 0, zIndex: 170, background: '#050a14', overflowY: 'auto' }}>
+          <div style={{ position: 'sticky', top: 0, zIndex: 2, display: 'flex', alignItems: 'center', gap: 12,
+                        padding: '10px 16px', background: 'rgba(5,10,20,0.92)', borderBottom: `1px solid ${C.borde}` }}>
+            <button onClick={() => setVerOficio(null)}
+              style={{ background: 'none', border: 'none', color: C.dourado, fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>
+              {t(idioma, 'sonoVolverPortada')}
+            </button>
+            <span style={{ fontSize: 12, color: C.secundario }}>{t(idioma, 'sonoOficio')} · Oberón</span>
+          </div>
+          <OberonProfesionVista profesionId={verOficio} />
+        </div>
       )}
     </div>
   )

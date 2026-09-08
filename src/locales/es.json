@@ -362,5 +362,16 @@
   "rolLuaConstrutor": "Los constructores ven una idea y la hacen real con las manos. Si te gusta hacer, arreglar e inventar, este es el tuyo.",
   "rolEspecialidade": "Elige tu especialidad",
   "rolEspecialidadeSub": "Puedes explorar todas las áreas más tarde.",
-  "rolEspecialidadeNota": "Puedes elegir especialidad más tarde desde tu perfil."
+  "rolEspecialidadeNota": "Puedes elegir especialidad más tarde desde tu perfil.",
+  "sonoOficio": "Tu oficio",
+  "sonoCamino": "Tu camino",
+  "sonoSenCamino": "Todavía no elegiste camino.",
+  "sonoEscoller": "Elegir mi camino",
+  "sonoCambiar": "Cambiar",
+  "sonoPanBloqueado": "Completa El viaje del pan y podrás asomarte a tu primer oficio.",
+  "sonoPanAberto": "Hiciste El viaje del pan. ¿Quieres ver cómo es el oficio de panadera o panadero por dentro?",
+  "sonoVerOficio": "Ver el oficio por dentro",
+  "sonoTest": "Hacer el test de oficios",
+  "sonoPanadeiro": "Panadera/o",
+  "sonoVolverPortada": "← Volver a mi viaje"
 }
