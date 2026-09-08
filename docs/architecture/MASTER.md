@@ -537,6 +537,11 @@ a árbore (eucalipto e monte galego), a pasta (kraft, Lourizán), a máquina de 
 e o caderno (reciclaxe, portal ao contedor azul). **Total: 29 rutas (18 primaria + 7 secundaria + 4 experto),
 64 paradas con foto, 36 cartas.**
 
+**Rolda 22:** quinto experto "Conservar, a fondo" 🧪🎓 (`docs/content/rutas_experto_5.seed.mjs`: sal e actividade
+de auga, xeo e Q10, conserva e botulinum/F0, leite e pasteurización/UHT) e sétima misión "A semana do bosque" 🌲
+(papel, lume, tempo). **Total: 30 rutas (18 primaria + 7 secundaria + 5 experto), 64 paradas con foto, 38 cartas,
+7 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
