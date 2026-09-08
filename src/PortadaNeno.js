@@ -274,7 +274,13 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
     // Metrónomo (§3.4): se o último avance foi hoxe, Lúa dío e non apura.
     hoxe: !!(activa?.ts && new Date(activa.ts).toDateString() === new Date().toDateString())
   })
-  const fraseDoDia = [saudo, mision].filter(Boolean).join(' ')
+  // Misión da semana: se queda unha soa ruta, Lúa empúxaa; se xa está feita e non hai
+  // camiño activo, dío. Se non, a misión do día de sempre.
+  const pendenteSemana = misionRutas.find(r => !r.feita)
+  const misionSemanal = !usuario?.explorador && misionFeitas === 2 && pendenteSemana
+    ? fraseLua({ idioma, nome, hora: -1, misionFalta: 1, ruta: pendenteSemana.label })
+    : (misionCompleta && !activa ? fraseLua({ idioma, nome, hora: -1, misionFalta: 0 }) : '')
+  const fraseDoDia = [saudo, misionSemanal || mision].filter(Boolean).join(' ')
   // ── FIN: frase_do_dia ─────────────────────────────────
   const completada = destacada?.completada === true
   const labelRuta  = destacada

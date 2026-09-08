@@ -57,6 +57,12 @@
     { "id": "fin_sesion_2",      "cando": { "evento": "ruta_completa" },
       "gl": "Do principio ao final{, nome}. Agora sabes como funciona.", "es": "Del principio al final{, nome}. Ahora sabes cómo funciona.", "en": "From start to finish{, nome}. Now you know how it works." },
 
+    { "id": "semana_falta_unha",  "cando": { "misionFalta": 1 },
+      "gl": "Só che queda {ruta} para rematar a misión da semana. A carta está case túa!", "es": "Solo te queda {ruta} para terminar la misión de la semana. ¡La carta está casi tuya!", "en": "Only {ruta} left to finish the mission of the week. The card is almost yours!" },
+    { "id": "semana_falta_unha_2", "cando": { "misionFalta": 1 },
+      "gl": "A misión da semana está a un paso: {ruta}. Vas a por ela?", "es": "La misión de la semana está a un paso: {ruta}. ¿Vas a por ella?", "en": "The mission of the week is one step away: {ruta}. Going for it?" },
+    { "id": "semana_feita",       "cando": { "misionFalta": 0 },
+      "gl": "A misión da semana xa está feita{, nome}. O que fagas agora é regalo.", "es": "La misión de la semana ya está hecha{, nome}. Lo que hagas ahora es regalo.", "en": "The mission of the week is done{, nome}. Anything you do now is a bonus." },
     { "id": "carta_nova",        "cando": { "evento": "carta_nova" },
       "gl": "Unha carta nova para a túa colección!", "es": "¡Una carta nueva para tu colección!", "en": "A new card for your collection!" }
   ]
