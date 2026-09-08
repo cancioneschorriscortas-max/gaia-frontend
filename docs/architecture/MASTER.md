@@ -565,6 +565,10 @@ seguinte título (se vai polo 60 %) ou as cartas que leva (días pares). Ruta de
 dentro" 🏭 (barco e cotas, poxa, pasta kraft, máquina de papel). **Total: 31 rutas (18 primaria + 8 secundaria
 + 5 experto), 64 paradas con foto, 39 cartas, 7 misións.**
 
+**Rolda 27:** resumo semanal para o profesor no Dashboard: alumnos activos, camiños completados, retos
+respondidos con nota media, XP gañados, actividade por día e últimos camiños completados (backend
+`GET /centro/:centro/semana`, só lectura, últimos 7 días).
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

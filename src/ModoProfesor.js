@@ -220,6 +220,17 @@ function ModoProfesor({
   const [vistaXestion,    setVistaXestion]    = useState('nodos')
   const [alumnos,         setAlumnos]         = useState([])
   const [alumnosCargando, setAlumnosCargando] = useState(true)
+  // Resumo semanal (GET /centro/:centro/semana): o que pasou nos últimos 7 días
+  const [semana, setSemana] = useState(null)
+  useEffect(() => {
+    if (!usuario?.centro) return
+    let vivo = true
+    fetch(`${API}/centro/${encodeURIComponent(usuario.centro)}/semana`, { headers: authHeaders() })
+      .then(r => r.ok ? r.json() : null).catch(() => null)
+      .then(d => { if (vivo) setSemana(d) })
+    return () => { vivo = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [usuario?.centro])
   // Detalle dun alumno: os seus camiños un a un (cárganse ao abrir a tarxeta)
   const [alumnoAberto,    setAlumnoAberto]    = useState(null)
   const [rutasAlumno,     setRutasAlumno]     = useState({})   // id → lista | 'cargando'
@@ -628,6 +639,65 @@ function ModoProfesor({
             </div>
           ))}
         </div>
+
+        {/* ── INICIO: resumo_semanal ─────────────────────── */}
+        {semana && (
+          <section aria-label={t(idioma, 'profSemana')} style={{
+            padding: '16px 18px', marginBottom: 20,
+            background: 'var(--gaia-cosmos-800)', border: '1px solid var(--gaia-cosmos-400)',
+            borderLeft: '3px solid var(--gaia-accent)', borderRadius: 10
+          }}>
+            <div style={{ fontSize: 10, fontFamily: 'var(--gaia-font-mono)', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gaia-text-tertiary)', marginBottom: 12 }}>
+              {t(idioma, 'profSemana')}
+            </div>
+            {semana.alumnosActivos === 0 ? (
+              <div style={{ fontSize: 13, color: 'var(--gaia-text-secondary)' }}>{t(idioma, 'profSemanaNada')}</div>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: anchura < 760 ? '1fr' : '1fr 1fr', gap: 18 }}>
+                <div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: 10, marginBottom: 14 }}>
+                    {[
+                      [`${semana.alumnosActivos}/${semana.alumnosTotal}`, t(idioma, 'profSemanaActivos'), TAB_COR.alumnos],
+                      [String(semana.rutasCompletadas), t(idioma, 'profSemanaRutas'), 'var(--gaia-constellation)'],
+                      [String(semana.retos), t(idioma, 'profSemanaRetos'), TAB_COR.entrada],
+                      [String(semana.xp), t(idioma, 'profSemanaXP'), 'var(--gaia-accent)'],
+                    ].map(([valor, label, cor]) => (
+                      <div key={label} style={{ padding: '10px 12px', background: 'rgba(10,16,32,0.5)', borderRadius: 8, border: '1px solid var(--gaia-cosmos-400)' }}>
+                        <div style={{ fontSize: 22, fontWeight: 700, fontFamily: 'var(--gaia-font-display)', color: cor, lineHeight: 1.1 }}>{valor}</div>
+                        <div style={{ fontSize: 11, color: 'var(--gaia-text-secondary)', marginTop: 4 }}>{label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  {semana.retosMedia != null && (
+                    <div style={{ fontSize: 12, color: 'var(--gaia-text-secondary)', marginBottom: 12 }}>{t(idioma, 'profSemanaMedia', semana.retosMedia)}</div>
+                  )}
+                  <div style={{ fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--gaia-text-tertiary)', marginBottom: 6 }}>{t(idioma, 'profSemanaPorDia')}</div>
+                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: 6, height: 54 }} role="img" aria-label={t(idioma, 'profSemanaPorDia')}>
+                    {(() => { const max = Math.max(1, ...semana.porDia.map(d => d.eventos)); return semana.porDia.map(d => (
+                      <div key={d.dia} title={`${d.dia}: ${d.eventos}`} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
+                        <div style={{ width: '100%', height: Math.max(3, Math.round(40 * d.eventos / max)), background: d.eventos ? 'var(--gaia-accent)' : 'var(--gaia-cosmos-400)', borderRadius: 3 }} />
+                        <div style={{ fontSize: 9, color: 'var(--gaia-text-tertiary)', fontFamily: 'var(--gaia-font-mono)' }}>{d.dia.slice(8)}</div>
+                      </div>
+                    )) })()}
+                  </div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 10, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--gaia-text-tertiary)', marginBottom: 8 }}>{t(idioma, 'profSemanaUltimos')}</div>
+                  {semana.ultimasRutas.length === 0
+                    ? <div style={{ fontSize: 12, color: 'var(--gaia-text-tertiary)' }}>—</div>
+                    : semana.ultimasRutas.slice(0, 6).map((r, i) => (
+                      <div key={i} style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 12.5, padding: '5px 0', borderBottom: '1px solid var(--gaia-cosmos-400)' }}>
+                        <span aria-hidden="true">{r.icono || '🧭'}</span>
+                        <span style={{ color: 'var(--gaia-text-primary)', flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.ruta}</span>
+                        <span style={{ color: 'var(--gaia-text-secondary)' }}>{r.nome}</span>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+        {/* ── FIN: resumo_semanal ────────────────────────── */}
 
         <div style={{
           display: 'grid',

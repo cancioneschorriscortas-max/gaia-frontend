@@ -409,5 +409,14 @@
   "portadaVerTodos": "See all paths ({0})",
   "portadaVerMenos": "Show fewer",
   "portadaParaEmpezar": "To get started",
-  "portadaDaMision": "from the mission of the week"
+  "portadaDaMision": "from the mission of the week",
+  "profSemana": "This week",
+  "profSemanaActivos": "active pupils",
+  "profSemanaRutas": "paths completed",
+  "profSemanaRetos": "challenges answered",
+  "profSemanaXP": "XP earned",
+  "profSemanaMedia": "average challenge score: {0}",
+  "profSemanaNada": "No pupil signed in this week.",
+  "profSemanaUltimos": "Latest paths completed",
+  "profSemanaPorDia": "Activity per day (XP events)"
 }

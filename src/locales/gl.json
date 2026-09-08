@@ -409,5 +409,14 @@
   "portadaVerTodos": "Ver todos os camiños ({0})",
   "portadaVerMenos": "Ver menos",
   "portadaParaEmpezar": "Para empezar",
-  "portadaDaMision": "da misión da semana"
+  "portadaDaMision": "da misión da semana",
+  "profSemana": "Esta semana",
+  "profSemanaActivos": "alumnos activos",
+  "profSemanaRutas": "camiños completados",
+  "profSemanaRetos": "retos respondidos",
+  "profSemanaXP": "XP gañados",
+  "profSemanaMedia": "nota media dos retos: {0}",
+  "profSemanaNada": "Ningún alumno entrou esta semana.",
+  "profSemanaUltimos": "Últimos camiños completados",
+  "profSemanaPorDia": "Actividade por día (eventos de XP)"
 }
