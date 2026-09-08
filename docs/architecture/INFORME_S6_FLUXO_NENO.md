@@ -114,6 +114,9 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **"O teu soño" v1** | `PortadaNeno.js` | Oficio escollido (de `roles.js`) ou camiño do usuario, "Cambiar"/"Escoller" (reabre SeleccionRol), "Facer o test de oficios" (PanelOberonTest). Ao completar o tutorial: "Ver o oficio por dentro" abre `OberonProfesionVista('panadeiro')` nun overlay. Só o panadeiro ten árbore en Oberón; a táboa `OFICIOS_OBERON` no ficheiro é onde se engaden os seguintes. |
 
+| **Contido (3ª entrega)** | `docs/content/como_funciona_o_mundo_3.seed.mjs` | Como arde o lume (leña → aire → chispa → lume; triángulo do lume, incendios, 112) e A viaxe do sal (mar salgado → salina → sal → conserva; salina romana de Vigo, conserveiras). 8 fotos (32 en total). |
+| **Metrónomo de Lúa** | `frasesLua.json`, `PortadaNeno.js` | Se o último avance da ruta activa foi hoxe (`ts` de `/progreso/rutas`), Lúa di que a misión do día está feita e non apura (§3.4). |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 

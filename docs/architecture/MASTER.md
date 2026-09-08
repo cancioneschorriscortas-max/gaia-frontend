@@ -433,6 +433,9 @@ estender). Informe completo con achados e backlog en `docs/architecture/INFORME_
   cambialo (reabre SeleccionRol) e facer o test de oficios; ao completar "A viaxe do pan"
   desbloquea "Ver o oficio por dentro" → a vista de Oberón do panadeiro, dentro da portada.
   Arranxado en Neo4j o `epigrafe_gl` pendente ("harina" → "fariña").
+- **+2 rutas: Como arde o lume 🔥 e A viaxe do sal 🧂** (triángulo do lume; salinas romanas de
+  Vigo e conserveiras). **Total: 10 rutas, 32 paradas con foto, 11 cartas.** Lúa co metrónomo:
+  se hoxe xa avanzaches, dío e non apura.
 
 **Próximo (ver informe):** o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha
 afirmación institucional que o director debe confirmar ou retirar; "O teu soño" real con Oberón;
