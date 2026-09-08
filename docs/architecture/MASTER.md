@@ -555,6 +555,11 @@ funciona, pero a portada media 6.600 px porque o catálogo listaba as 30 rutas d
 mostra 5 (tutorial, as 3 da misión da semana e unha máis) e "Ver todos os camiños (30)" despregа o resto con
 cabeceiras Primaria / Secundaria / Experto; as rutas da misión levan un chip.
 
+**Rolda 25:** o mesmo fluxo a 375 px (benvida, login, espertar, rol, especialidade, portada, senda, pasos):
+sen desbordamentos; foto e reto caben; dous enlaces de texto pasan a ter zona táctil de 36 px. A vista de
+Oberón (v6) no móbil tiña o centro a 0 px e a cabeceira a 785 px: agora apila as tres columnas por baixo
+de 760 px.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

@@ -145,6 +145,10 @@ function IconoSkill({ skillId, color, size = 12 }) {
 
 export default function OberonProfesionVista({ profesionId, perfil = null, idioma = 'gl' }) {
   perfilActual = perfil || null
+  // Móbil: as tres columnas apílanse (a v6 nacera só para escritorio e o centro quedaba a 0 px)
+  const [anchura, setAnchura] = useState(window.innerWidth)
+  useEffect(() => { const f = () => setAnchura(window.innerWidth); window.addEventListener('resize', f); return () => window.removeEventListener('resize', f) }, [])
+  const estreito = anchura < 760
   const [datos, setDatos] = useState(null)
   const [erro, setErro] = useState(null)
   const [tabActiva, setTabActiva] = useState('habilidades')
@@ -186,10 +190,10 @@ export default function OberonProfesionVista({ profesionId, perfil = null, idiom
       <FontEmbed />
       <div style={S.ruido} />
 
-      <header style={S.cabeceira}>
-        <div style={S.cabeceiraEsquerda}>
+      <header style={{ ...S.cabeceira, ...(estreito ? { flexWrap: 'wrap', gap: 8, padding: '10px 12px' } : {}) }}>
+        <div style={{ ...S.cabeceiraEsquerda, ...(estreito ? { flex: '1 1 100%', minWidth: 0 } : {}) }}>
           <button style={S.botonVolver} onClick={() => window.history.back()}>←</button>
-          <nav style={S.breadcrumb}>
+          <nav style={{ ...S.breadcrumb, ...(estreito ? { flexWrap: 'wrap', gap: 6 } : {}) }}>
             <span style={S.crumbDestaque}>OBERÓN</span>
             <span style={S.crumbSep}>✧</span>
             <span style={S.crumb}>{rolLabel}</span>
@@ -216,13 +220,15 @@ export default function OberonProfesionVista({ profesionId, perfil = null, idiom
         </div>
       </header>
 
-      <main style={S.corpo}>
+      <main style={{ ...S.corpo, ...(estreito ? { gridTemplateColumns: 'minmax(0, 1fr)', overflow: 'auto' } : {}) }}>
         <ColEsquerda datos={datos} />
+        <div style={estreito ? { minHeight: 460, display: 'flex', minWidth: 0 } : { display: 'contents' }}>
         <ColCentro
           datos={datos}
           microskillSel={microskillSel}
           onSeleccionar={setMicroskillSel}
         />
+        </div>
         <ColDereita
           microskillSel={microskillSel}
           datos={datos}

@@ -524,7 +524,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
                     style={{
                       background: 'none', border: 'none', color: C.secundario,
                       fontSize: 13, cursor: 'pointer', textDecoration: 'underline',
-                      textUnderlineOffset: 3, fontFamily: 'inherit'
+                      textUnderlineOffset: 3, fontFamily: 'inherit', padding: '10px 12px'   // zona táctil ≥ 36 px
                     }}>
                     {t(idioma, 'portadaExplorarSecundario')}
                   </button>
@@ -637,7 +637,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
 
                 {onTest && (
                   <button onClick={onTest} style={{ background: 'none', border: 'none', color: C.azul, fontSize: 12, cursor: 'pointer',
-                                                    textAlign: 'left', padding: 0, fontFamily: 'inherit', textDecoration: 'underline' }}>
+                                                    textAlign: 'left', padding: '10px 0', fontFamily: 'inherit', textDecoration: 'underline' }}>
                     {test ? t(idioma, 'sonoRepetirTest') : t(idioma, 'sonoTest')}
                   </button>
                 )}
