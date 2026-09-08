@@ -43,6 +43,12 @@
     { "id": "carta_combustion", "coleccion": "mundo", "emoji": "🧪", "ruta": "o_lume_por_dentro",
       "titulo": { "gl": "Arder é reaccionar", "es": "Arder es reaccionar", "en": "Burning is reacting" },
       "texto":  { "gl": "O lume non é unha cousa: é unha reacción. Carbono e osíxeno xúntanse, sae CO₂, auga e calor. A mesma que fai o teu corpo, sen chama.", "es": "El fuego no es una cosa: es una reacción. Carbono y oxígeno se juntan, sale CO₂, agua y calor. La misma que hace tu cuerpo, sin llama.", "en": "Fire is not a thing: it is a reaction. Carbon and oxygen meet, out come CO₂, water and heat. The same one your body runs, without a flame." } },
+    { "id": "carta_movil", "coleccion": "mundo", "emoji": "📱", "ruta": "como_chega_a_mensaxe_ao_mobil",
+      "titulo": { "gl": "Un \"ola\" de uns e ceros", "es": "Un \"hola\" de unos y ceros", "en": "A \"hi\" made of ones and zeros" },
+      "texto":  { "gl": "A túa mensaxe non voa: vai como luz por un cable no fondo do mar. En Galicia eses cables saen do mar en Sada.", "es": "Tu mensaje no vuela: va como luz por un cable en el fondo del mar. En Galicia esos cables salen del mar en Sada.", "en": "Your message does not fly: it travels as light through a cable on the sea floor. In Galicia those cables come ashore at Sada." } },
+    { "id": "carta_pataca", "coleccion": "oficios", "emoji": "🥔", "ruta": "a_viaxe_da_pataca",
+      "titulo": { "gl": "Un ano nunha cunca", "es": "Un año en un cuenco", "en": "A year in a bowl" },
+      "texto":  { "gl": "A pataca chegou dos Andes e salvou a Galicia de moitas fames. Nunha cunca de caldo hai de marzo a setembro de traballo.", "es": "La patata llegó de los Andes y salvó a Galicia de muchas hambres. En un cuenco de caldo hay de marzo a septiembre de trabajo.", "en": "The potato came from the Andes and saved Galicia from many famines. A bowl of broth holds March to September of work." } },
     { "id": "carta_portal", "coleccion": "exploracion", "emoji": "🔭", "evento": "primeiro_portal",
       "titulo": { "gl": "Explorador de atallos", "es": "Explorador de atajos", "en": "Shortcut explorer" },
       "texto":  { "gl": "Saíches do camiño polo primeiro portal. Todo no universo está conectado con algo: seguir un fío é a forma de coñecelo.", "es": "Te saliste del camino por el primer portal. Todo en el universo está conectado con algo: seguir un hilo es la forma de conocerlo.", "en": "You stepped off the path through your first portal. Everything in the universe connects to something: following a thread is how you get to know it." } }
