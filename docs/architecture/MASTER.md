@@ -576,6 +576,10 @@ todos os niveis, e o modelo deu por bo un cálculo errado (6 km cando son 2). Ag
 modelo resolve a pregunta antes de puntuar, "acertou" só leva o que está ben, máis regras de galego
 (lembra/afonda/morren, sen ¿ ¡) e 600 tokens no experto.
 
+**Rolda 29:** a gran misión do curso: dentro da tarxeta da misión da semana, as sete semanas cos seus emojis
+(acesas as que xa teñen carta) e, ao ter as sete, a carta "Mestre do Ano" 🏆 e +100 XP unha soa vez
+(`XP_ACCIONS.GRAN_MISION`). **40 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

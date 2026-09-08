@@ -88,5 +88,6 @@ export const XP_ACCIONS = {
   // Rutas
   RUTA_COMPLETADA:    { tipo: 'exploracion', base: 25, motivo: 'Ruta completada'             },
   MISION_SEMANA:      { tipo: 'exploracion', base: 50, motivo: 'Misión da semana completa'   },
+  GRAN_MISION:        { tipo: 'exploracion', base: 100, motivo: 'Gran misión do curso completa' },
 }
 // ── FIN: xp_por_accion ───────────────────────────────

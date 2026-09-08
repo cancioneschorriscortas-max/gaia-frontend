@@ -21,6 +21,7 @@ import { t } from './i18n'
 import { fraseLua } from './lua'
 import CARTAS from './data/cartas.json'
 import { misionDaSemana } from './misions'
+import MISIONS from './data/misions.json'
 import { CartaRevelada } from './PercorridoRuta'
 import { sonXP } from './sistemaAudio'
 import ColeccionCartas from './ColeccionCartas'
@@ -270,6 +271,33 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
     return () => { vivo = false }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [misionCompleta, cartas.length])
+
+  // ── INICIO: gran_mision ───────────────────────────────
+  // A gran misión do curso: as 7 cartas de misión da semana → carta "Mestre do Ano" e +100 XP,
+  // unha soa vez (mesmo mecanismo idempotente: só se a carta é nova).
+  const GRAN_CARTA = 'carta_gran_mision'
+  const semanasFeitas = MISIONS.misions.filter(m => cartas.includes(m.carta)).length
+  const granCompleta  = semanasFeitas === MISIONS.misions.length
+  useEffect(() => {
+    if (!granCompleta || !usuario || usuario.explorador) return
+    if (cartas.includes(GRAN_CARTA)) return
+    let vivo = true
+    fetch(`${API}/cartas/${GRAN_CARTA}`, { method: 'POST', headers: authHeaders() })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (!vivo || !d) return
+        setCartas(c => c.includes(GRAN_CARTA) ? c : [...c, GRAN_CARTA])
+        if (d.nova) {
+          rexistrarXP('GRAN_MISION')
+          try { sonXP(100) } catch (e) {}
+          setCartaMision(CARTAS.cartas.find(c => c.id === GRAN_CARTA) || null)
+        }
+      })
+      .catch(() => {})
+    return () => { vivo = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [granCompleta, cartas.length])
+  // ── FIN: gran_mision ──────────────────────────────────
   // ── FIN: mision_da_semana ─────────────────────────────
 
   const indice     = Math.min(destacada?.indice || 0, Math.max(0, stops.length - 1))
@@ -580,13 +608,34 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
               </div>
             </div>
           </div>
+          {/* A gran misión do curso: as sete semanas, acesas as que xa teñen carta */}
+          <div style={{ marginTop: 12, paddingTop: 10, borderTop: `1px solid ${C.borde}` }}>
+            <div style={{ fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', color: C.secundario, fontWeight: 600, marginBottom: 6 }}>
+              {t(idioma, 'granMision')}
+            </div>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexWrap: 'wrap' }}
+              role="img" aria-label={t(idioma, 'granMisionProgreso', semanasFeitas, MISIONS.misions.length)}>
+              {MISIONS.misions.map(m => (
+                <span key={m.id} title={m.titulo[idioma] || m.titulo.gl}
+                  style={{ fontSize: 18, filter: cartas.includes(m.carta) ? 'none' : 'grayscale(1) brightness(0.45)' }}>
+                  {m.emoji}
+                </span>
+              ))}
+              <span style={{ fontSize: 12, color: granCompleta ? '#8fe0b0' : C.secundario, marginLeft: 6 }}>
+                {granCompleta ? `🏆 ${t(idioma, 'granMisionFeita')}` : t(idioma, 'granMisionProgreso', semanasFeitas, MISIONS.misions.length)}
+              </span>
+            </div>
+            {!granCompleta && (
+              <div style={{ fontSize: 11.5, color: C.secundario, marginTop: 4 }}>{t(idioma, 'granMisionPremio')}</div>
+            )}
+          </div>
         </Tarxeta>
         {cartaMision && (
-          <div role="dialog" aria-modal="true" aria-label={t(idioma, 'misionSemanaFeita')} onClick={() => setCartaMision(null)}
+          <div role="dialog" aria-modal="true" aria-label={t(idioma, cartaMision.id === 'carta_gran_mision' ? 'granMisionFeita' : 'misionSemanaFeita')} onClick={() => setCartaMision(null)}
             style={{ position: 'fixed', inset: 0, zIndex: 60, background: 'rgba(5,9,20,0.86)', display: 'grid', placeItems: 'center', padding: 20 }}>
             <div onClick={e => e.stopPropagation()} style={{ maxWidth: 360, width: '100%' }}>
               <div style={{ textAlign: 'center', color: '#8fe0b0', fontFamily: 'Georgia, serif', fontSize: 18, marginBottom: 12 }}>
-                {t(idioma, 'misionSemanaFeita')}
+                {t(idioma, cartaMision.id === 'carta_gran_mision' ? 'granMisionFeita' : 'misionSemanaFeita')}
               </div>
               <CartaRevelada carta={cartaMision} idioma={idioma} />
               <button type="button" onClick={() => setCartaMision(null)} autoFocus

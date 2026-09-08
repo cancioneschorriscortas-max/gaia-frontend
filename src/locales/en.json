@@ -418,5 +418,10 @@
   "profSemanaMedia": "average challenge score: {0}",
   "profSemanaNada": "No pupil signed in this week.",
   "profSemanaUltimos": "Latest paths completed",
-  "profSemanaPorDia": "Activity per day (XP events)"
+  "profSemanaPorDia": "Activity per day (XP events)",
+  "granMision": "The great mission of the year",
+  "granMisionProgreso": "{0} of {1} weeks complete",
+  "granMisionPremio": "Complete all seven weeks to earn the Master of the Year card and +100 XP",
+  "granMisionFeita": "Great mission complete! Master of the Year.",
+  "cartasComoGranMision": "Complete all seven missions of the week to earn it"
 }

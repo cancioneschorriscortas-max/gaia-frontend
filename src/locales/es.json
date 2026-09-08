@@ -418,5 +418,10 @@
   "profSemanaMedia": "nota media de los retos: {0}",
   "profSemanaNada": "Ningún alumno entró esta semana.",
   "profSemanaUltimos": "Últimos caminos completados",
-  "profSemanaPorDia": "Actividad por día (eventos de XP)"
+  "profSemanaPorDia": "Actividad por día (eventos de XP)",
+  "granMision": "La gran misión del curso",
+  "granMisionProgreso": "{0} de {1} semanas completas",
+  "granMisionPremio": "Completa las siete semanas y gana la carta de Maestro del Año y +100 XP",
+  "granMisionFeita": "¡Gran misión completa! Maestro del Año.",
+  "cartasComoGranMision": "Completa las siete misiones de la semana para conseguirla"
 }

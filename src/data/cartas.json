@@ -121,6 +121,9 @@
     { "id": "carta_semana_bosque", "coleccion": "exploracion", "emoji": "🌲", "evento": "mision_semana",
       "titulo": { "gl": "Semana do bosque", "es": "Semana del bosque", "en": "Forest week" },
       "texto":  { "gl": "O monte dá papel e dá leña, e a chuvia que o mantén vén do mar. Tres camiños e un só bosque.", "es": "El monte da papel y da leña, y la lluvia que lo mantiene viene del mar. Tres caminos y un solo bosque.", "en": "The hills give paper and firewood, and the rain that keeps them comes from the sea. Three paths and one forest." } },
+    { "id": "carta_gran_mision", "coleccion": "exploracion", "emoji": "🏆", "evento": "gran_mision",
+      "titulo": { "gl": "Mestre do Ano", "es": "Maestro del Año", "en": "Master of the Year" },
+      "texto":  { "gl": "Sete semanas, sete temas, vinte e un camiños. Sabes como funciona o mundo mellor ca a maioría dos maiores.", "es": "Siete semanas, siete temas, veintiún caminos. Sabes cómo funciona el mundo mejor que la mayoría de los mayores.", "en": "Seven weeks, seven themes, twenty-one paths. You know how the world works better than most grown-ups." } },
     { "id": "carta_portal", "coleccion": "exploracion", "emoji": "🔭", "evento": "primeiro_portal",
       "titulo": { "gl": "Explorador de atallos", "es": "Explorador de atajos", "en": "Shortcut explorer" },
       "texto":  { "gl": "Saíches do camiño polo primeiro portal. Todo no universo está conectado con algo: seguir un fío é a forma de coñecelo.", "es": "Te saliste del camino por el primer portal. Todo en el universo está conectado con algo: seguir un hilo es la forma de conocerlo.", "en": "You stepped off the path through your first portal. Everything in the universe connects to something: following a thread is how you get to know it." } }
