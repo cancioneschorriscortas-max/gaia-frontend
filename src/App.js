@@ -1124,7 +1124,11 @@ function App() {
             {/* Accións */}
             <MenuItemMovil onClick={() => { abrirPanel('arbol');    pecharPanel('menuMovil') }} Icono={IconoArbol}      label={t(idioma, 'arquivoRutas')} />
             <MenuItemMovil onClick={() => { setIntroConAudio(true); setPrimeiroContactoVisto(false); pecharPanel('menuMovil') }} Icono={IconoEstrela} label={t(idioma, 'verIntroduccion')} />
-            <MenuItemMovil onClick={() => { abrirPanel('perfil');   pecharPanel('menuMovil') }} Icono={IconoUsuario}    label="O meu perfil" />
+            {/* Profesorado: entrada ao Modo profesor tamén desde o móbil (antes só había botón no escritorio) */}
+            {esProfesor && (
+              <MenuItemMovil onClick={() => { setModoUsuario(false); pecharPanel('menuMovil') }} Icono={IconoAxustes} label={t(idioma, 'modoProfesorMenu')} color={S.colorGold} />
+            )}
+            <MenuItemMovil onClick={() => { abrirPanel('perfil');   pecharPanel('menuMovil') }} Icono={IconoUsuario}    label={t(idioma, 'meuPerfil')} />
             <MenuItemMovil onClick={() => { abrirPanel('historial'); pecharPanel('menuMovil') }} Icono={IconoHistorial}  label={t(idioma, 'meuHistorial')} />
             <MenuItemMovil onClick={() => { const m = toggleMute(); setMutado(m) }} Icono={mutado ? IconoSonOff : IconoSonOn} label={mutado ? t(idioma, 'activarSon') : t(idioma, 'silenciar')} color={mutado ? 'var(--gaia-danger)' : undefined} />
             <MenuItemMovil onClick={() => { logoutCompleto(); pecharPanel('menuMovil') }} Icono={IconoLogout} label={t(idioma, 'cerrarSesion')} color="var(--gaia-danger)" />

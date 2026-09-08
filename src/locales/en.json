@@ -398,5 +398,7 @@
   "profMisionCompleta": "{0} mission complete",
   "profMisionAMedias": "{0} in progress",
   "profMisionSenEmpezar": "{0} not started",
-  "profMisionChip": "Mission of the week: {0} of {1} paths"
+  "profMisionChip": "Mission of the week: {0} of {1} paths",
+  "modoProfesorMenu": "Teacher mode",
+  "meuPerfil": "My profile"
 }

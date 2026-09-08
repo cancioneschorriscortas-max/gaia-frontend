@@ -201,6 +201,16 @@ function ModoProfesor({
 
   // ── INICIO: estados ──────────────────────────────────
   const [tab,             setTab]             = useState('dashboard')
+  // Anchura reactiva: cabeceira e grellas adáptanse ao móbil (entrada desde o menú móbil).
+  const [anchura, setAnchura] = useState(() => window.innerWidth)
+  useEffect(() => {
+    const onResize = () => setAnchura(window.innerWidth)
+    window.addEventListener('resize', onResize)
+    const mq = window.matchMedia('(max-width: 760px)')
+    mq.addEventListener?.('change', onResize)
+    return () => { window.removeEventListener('resize', onResize); mq.removeEventListener?.('change', onResize) }
+  }, [])
+  const estreito = anchura < 760
   const [dashboard,       setDashboard]       = useState(null)
   const [propuestas,      setPropuestas]      = useState([])
   const [propCargando,    setPropCargando]    = useState(true)
@@ -312,8 +322,10 @@ function ModoProfesor({
   // ═══ CABECEIRA ═══════════════════════════════════════
   const renderCabeceira = () => (
     <div style={{
-      padding: '0 24px',
-      height: 64,
+      padding: estreito ? '10px 12px' : '0 24px',
+      height: estreito ? 'auto' : 64,
+      flexWrap: estreito ? 'wrap' : 'nowrap',
+      rowGap: estreito ? 8 : 0,
       flexShrink: 0,
       background: 'rgba(15, 23, 41, 0.85)',
       backdropFilter: 'blur(12px)',
@@ -393,13 +405,14 @@ function ModoProfesor({
         }
       `}</style>
 
-      {/* Tabs centrais */}
+      {/* Tabs centrais (no móbil: liña enteira con scroll horizontal) */}
       <div style={{
         display: 'flex', gap: 2,
         background: 'var(--gaia-cosmos-800)',
         border: '1px solid var(--gaia-cosmos-400)',
         borderRadius: 10,
-        padding: 3
+        padding: 3,
+        ...(estreito ? { order: 3, width: '100%', overflowX: 'auto', WebkitOverflowScrolling: 'touch' } : {})
       }}>
         {TABS.map(t => {
           const activo = tab === t.id
@@ -407,7 +420,8 @@ function ModoProfesor({
           return (
             <button key={t.id} onClick={() => setTab(t.id)} style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
-              padding: '7px 14px',
+              padding: estreito ? '7px 10px' : '7px 14px',
+              flexShrink: 0, whiteSpace: 'nowrap',
               fontSize: 12,
               fontFamily: 'var(--gaia-font-body)',
               cursor: 'pointer',
@@ -429,7 +443,7 @@ function ModoProfesor({
 
       {/* Accións dereita */}
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
-        <button onClick={onModoArquitecto} style={{
+        {!estreito && <button onClick={onModoArquitecto} style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
           padding: '7px 12px',
           fontSize: 11,
@@ -451,7 +465,7 @@ function ModoProfesor({
         }}>
           <IconoArquitecto size={11} />
           Arquitecto
-        </button>
+        </button>}
         <button onClick={onModoUsuario} style={{
           display: 'inline-flex', alignItems: 'center', gap: 6,
           padding: '7px 14px',
@@ -617,7 +631,7 @@ function ModoProfesor({
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: window.innerWidth < 960 ? '1fr' : '1fr 1fr',
+          gridTemplateColumns: anchura < 960 ? '1fr' : '1fr 1fr',
           gap: 20,
           marginBottom: 20
         }}>
@@ -1460,7 +1474,7 @@ function ModoProfesor({
     // ── FIN: mision_semana_profesor ────────────────────
 
     return (
-      <div style={{ flex: 1, overflowY: 'auto', padding: '28px 32px' }}>
+      <div style={{ flex: 1, overflowY: 'auto', padding: estreito ? '16px 12px' : '28px 32px' }}>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -1818,14 +1832,16 @@ function ModoProfesor({
 
   // ═══ XESTIÓN ═════════════════════════════════════════
   const renderXestion = () => (
-    <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: estreito ? 'column' : 'row', overflow: 'hidden' }}>
       <div style={{
-        width: 200,
-        borderRight: '1px solid var(--gaia-cosmos-400)',
-        padding: '20px 12px',
+        width: estreito ? '100%' : 200,
+        borderRight: estreito ? 'none' : '1px solid var(--gaia-cosmos-400)',
+        borderBottom: estreito ? '1px solid var(--gaia-cosmos-400)' : 'none',
+        padding: estreito ? '10px 12px' : '20px 12px',
         flexShrink: 0,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: estreito ? 'row' : 'column',
+        flexWrap: estreito ? 'wrap' : 'nowrap',
         gap: 4,
         background: 'rgba(10, 16, 32, 0.3)'
       }}>

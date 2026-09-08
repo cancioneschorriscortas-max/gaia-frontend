@@ -398,5 +398,7 @@
   "profMisionCompleta": "{0} coa misión completa",
   "profMisionAMedias": "{0} a medias",
   "profMisionSenEmpezar": "{0} sen empezar",
-  "profMisionChip": "Misión da semana: {0} de {1} camiños"
+  "profMisionChip": "Misión da semana: {0} de {1} camiños",
+  "modoProfesorMenu": "Modo profesor",
+  "meuPerfil": "O meu perfil"
 }
