@@ -538,7 +538,9 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
 
           {/* Explorar libre — mesma acción que "Explorar o universo" */}
           <Tarxeta titulo={t(idioma, 'portadaExplorarLibre')}
-            onClick={() => onExplorar && onExplorar()}
+            /* Explorar libre empeza no nodo onde o neno está (a súa parada actual): o
+               mapa ábrese sobre algo coñecido e coas súas conexións, non sobre 1.800 estrelas. */
+            onClick={() => onExplorar && onExplorar(stops[indice]?.nodo?.id || null)}
             style={{ flex: '1 1 240px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               <svg width="44" height="40" viewBox="0 0 44 40" aria-hidden="true" style={{ flexShrink: 0 }}>

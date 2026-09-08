@@ -1236,7 +1236,11 @@ function App() {
       <PortadaNeno
         idioma={idioma}
         onAbrirRuta={(id) => setPortadaNeno({ ruta: id })}
-        onExplorar={() => setPortadaNeno(null)}
+        onExplorar={(nodoId) => {
+          setPortadaNeno(null)
+          // Se vén cun nodo (a parada actual), o mapa ábrese centrado nel
+          if (nodoId) setTimeout(() => seleccionarNodoConTransicion(nodoId), 150)
+        }}
         onEscollerCamino={() => {
           // Volver á elección de camiño (SeleccionRol); ao rematar volve á portada.
           localStorage.removeItem('gaia_rol_visto')
