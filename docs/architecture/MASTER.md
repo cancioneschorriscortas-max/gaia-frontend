@@ -569,6 +569,13 @@ dentro" 🏭 (barco e cotas, poxa, pasta kraft, máquina de papel). **Total: 31 
 respondidos con nota media, XP gañados, actividade por día e últimos camiños completados (backend
 `GET /centro/:centro/semana`, só lectura, últimos 7 días).
 
+**Rolda 28:** probado o avaliador real de Lúa (backend `/avaliar-reto`, Haiku) con respostas boas, malas e
+parciais de secundaria e experto. Fallo atopado: "sé xeneroso" e a regra de opción múltiple aplicábanse a
+todos os niveis, e o modelo deu por bo un cálculo errado (6 km cando son 2). Agora hai RIGOR por nivel
+(primaria xenerosa; secundaria e experto penalizan cifras e conceptos errados e partes sen responder), o
+modelo resolve a pregunta antes de puntuar, "acertou" só leva o que está ben, máis regras de galego
+(lembra/afonda/morren, sen ¿ ¡) e 600 tokens no experto.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
