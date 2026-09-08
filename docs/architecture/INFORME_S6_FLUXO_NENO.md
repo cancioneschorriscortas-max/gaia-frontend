@@ -131,6 +131,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Explorar → senda** | `BottomSheet.js`, backend `/nodo/:id/journeys` | Na folla móbil dun nodo, "Camiños que pasan por aquí" lista as rutas publicadas que o inclúen e "Ir ao camiño" abre a senda. Así o mapa libre devolve o neno ás rutas (Regra 2). |
 
+| **Nivel experto** | `PercorridoRuta.js`, `docs/content/rutas_experto_1.seed.mjs` | `journey.level = expert` → capa `text_expert` visible (bloque 🎓) e `reto_expert` (60 XP). Receita: escribir `text_expert_*` e `reto_expert_*` nos nodos (Editor de nodos, pestana Experto) e crear a journey con nivel Experto. |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 

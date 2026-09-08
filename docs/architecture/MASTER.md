@@ -465,8 +465,14 @@ EditorRutas con "Ver como neno" (RutaNeno nun overlay sen saír do editor). **Po
 na folla móbil do nodo, "Camiños que pasan por aquí" abre RutaNeno (`/nodo/:id/journeys`, coa
 mesma visibilidade ca `/journeys`).
 
+**Rolda 8:** primeira ruta de nivel **experto**, "A luz, a fondo" 🎓 (capa `text_expert` e
+`reto_expert` nos 4 nodos da luz: Coriolis/Betz, Faraday-Lenz, I²R e rede síncrona, cadro
+eléctrico). Os tres niveis da Regra 3 xa viven nos mesmos nodos. **Total: 20 rutas (14 primaria +
+5 secundaria + 1 experto), 21 cartas.**
+
 **Próximo (ver informe):** voz de Lúa gravada para o espertar (`/assets/lua-intro.mp3` é a
-vella); rutas expert; máis rutas "como funciona" (a música, o diñeiro, o reloxo).
+vella); máis rutas expert coa mesma receita; máis rutas "como funciona" (a música, o diñeiro, o
+reloxo); mapa máis guiado para o neno.
 
 ---
 
