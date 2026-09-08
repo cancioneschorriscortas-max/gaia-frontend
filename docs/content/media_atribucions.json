@@ -278,5 +278,61 @@
   "lic": "CC BY-SA 2.0",
   "artist": "Juan Mejuto",
   "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Caldo_gallego_-_juantiagues.jpg"
+ },
+ "a_boca": {
+  "title": "File:Jente spiser eplekake.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Jente_spiser_eplekake.JPG",
+  "lic": "CC BY-SA 3.0",
+  "artist": "Øyvind Holmstad",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Jente_spiser_eplekake.JPG/1280px-Jente_spiser_eplekake.JPG"
+ },
+ "o_estomago": {
+  "title": "File:Blausen 0316 DigestiveSystem.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Blausen_0316_DigestiveSystem.png",
+  "lic": "CC BY 3.0",
+  "artist": "BruceBlaus. When using this image in external sources it can",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Blausen_0316_DigestiveSystem.png/1280px-Blausen_0316_DigestiveSystem.png"
+ },
+ "o_intestino": {
+  "title": "File:Blausen 0817 SmallIntestine Anatomy.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Blausen_0817_SmallIntestine_Anatomy.png",
+  "lic": "CC BY 3.0",
+  "artist": "BruceBlaus. When using this image in external sources it can",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Blausen_0817_SmallIntestine_Anatomy.png/1280px-Blausen_0817_SmallIntestine_Anatomy.png"
+ },
+ "o_sangue": {
+  "title": "File:Red White Blood cells.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Red_White_Blood_cells.png",
+  "lic": "Public domain",
+  "artist": "Red_White_Blood_cells.jpg: Electron Microscopy Facility at T",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Red_White_Blood_cells.png"
+ },
+ "o_sol_quenta": {
+  "title": "File:DFC 4111 Golden hush the sun melts into the sea as boats drift beneath a quiet rosy sky.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:DFC_4111_Golden_hush_the_sun_melts_into_the_sea_as_boats_drift_beneath_a_quiet_rosy_sky.jpg",
+  "lic": "CC BY-SA 4.0",
+  "artist": "PattayaPatrol",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/DFC_4111_Golden_hush_the_sun_melts_into_the_sea_as_boats_drift_beneath_a_quiet_rosy_sky.jpg/1280px-DFC_4111_Golden_hush_the_sun_melts_into_the_sea_as_boats_drift_beneath_a_quiet_rosy_sky.jpg"
+ },
+ "a_borrasca": {
+  "title": "File:Large Mid-Latitude Cyclone Develops in North Atlantic (CIRA 2023-12-08).png",
+  "page": "https://commons.wikimedia.org/wiki/File:Large_Mid-Latitude_Cyclone_Develops_in_North_Atlantic_(CIRA_2023-12-08).png",
+  "lic": "Public domain",
+  "artist": "GOES imagery: CSU/CIRA &amp; NOAA",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Large_Mid-Latitude_Cyclone_Develops_in_North_Atlantic_%28CIRA_2023-12-08%29.png/1280px-Large_Mid-Latitude_Cyclone_Develops_in_North_Atlantic_%28CIRA_2023-12-08%29.png"
+ },
+ "o_anticiclon": {
+  "title": "File:Clear Sky , Amazing Summer.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Clear_Sky_,_Amazing_Summer.jpg",
+  "lic": "CC0",
+  "artist": "Antiidistorian",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Clear_Sky_%2C_Amazing_Summer.jpg/1280px-Clear_Sky_%2C_Amazing_Summer.jpg"
+ },
+ "o_parte_do_tempo": {
+  "title": "File:Weather radar dome on Holehead - geograph.org.uk - 5668882.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Weather_radar_dome_on_Holehead_-_geograph.org.uk_-_5668882.jpg",
+  "lic": "CC BY-SA 2.0",
+  "artist": "Alan O'Dowd",
+  "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Weather_radar_dome_on_Holehead_-_geograph.org.uk_-_5668882.jpg/1280px-Weather_radar_dome_on_Holehead_-_geograph.org.uk_-_5668882.jpg"
  }
 }
