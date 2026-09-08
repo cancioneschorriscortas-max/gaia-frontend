@@ -20,6 +20,10 @@
     { "id": "semana_prato", "emoji": "🍽️", "carta": "carta_semana_prato",
       "titulo": { "gl": "A semana do prato", "es": "La semana del plato", "en": "Plate week" },
       "texto":  { "gl": "O que comes, de onde vén e que fai dentro de ti: tres camiños con fame.", "es": "Lo que comes, de dónde viene y qué hace dentro de ti: tres caminos con hambre.", "en": "What you eat, where it comes from and what it does inside you: three hungry paths." },
-      "rutas": ["galicia_no_prato", "a_viaxe_da_comida_polo_corpo", "a_viaxe_do_sal"] }
+      "rutas": ["galicia_no_prato", "a_viaxe_da_comida_polo_corpo", "a_viaxe_do_sal"] },
+    { "id": "semana_mensaxes", "emoji": "✉️", "carta": "carta_semana_mensaxes",
+      "titulo": { "gl": "A semana das mensaxes", "es": "La semana de los mensajes", "en": "Messages week" },
+      "texto":  { "gl": "Carta, móbil e música: tres xeitos de que algo teu chegue lonxe.", "es": "Carta, móvil y música: tres maneras de que algo tuyo llegue lejos.", "en": "Letter, phone and music: three ways for something of yours to travel far." },
+      "rutas": ["a_viaxe_dunha_carta", "como_chega_a_mensaxe_ao_mobil", "de_onde_ven_a_musica"] }
   ]
 }
