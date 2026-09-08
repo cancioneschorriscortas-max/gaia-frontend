@@ -440,6 +440,9 @@ estender). Informe completo con achados e backlog en `docs/architecture/INFORME_
   reutilizan os nodos (Regra 8: composable, non duplicar) coa capa "e por que?" aberta e
   `reto_secondary` aberto (30 XP). O catálogo ordena polo curso do alumno e marca "Secundaria".
   **Total: 12 rutas (10 primaria + 2 secundaria), 13 cartas.**
+- **+2 rutas de primaria: Como chega a mensaxe ao móbil 📱 e A viaxe da pataca 🥔.** A portada
+  lista tamén os camiños a medias e os feitos (antes un segundo camiño facía desaparecer o
+  primeiro). **Total: 14 rutas, 40 paradas con foto, 15 cartas.**
 
 **Próximo (ver informe):** o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha
 afirmación institucional que o director debe confirmar ou retirar; "O teu soño" real con Oberón;

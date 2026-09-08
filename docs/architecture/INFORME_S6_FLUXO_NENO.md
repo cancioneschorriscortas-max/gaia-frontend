@@ -121,6 +121,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Camiños a medias / feitos** | `PortadaNeno.js` | Debaixo do destacado, os outros camiños empezados (parada x de y, Continuar) e os completos (Volver percorrer). Antes un segundo camiño empezado facía desaparecer o primeiro da portada. A carta nova soa (`sonXP`). |
 
+| **Contido (4ª entrega)** | `docs/content/como_funciona_o_mundo_4.seed.mjs` | Como chega a mensaxe ao móbil (mensaxe → onda de radio → antena → cable submarino; binario, celas, Sada) e A viaxe da pataca (semente → leira → colleita → caldo; Andes, A Limia, solanina). 8 fotos (40 en total). |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 
