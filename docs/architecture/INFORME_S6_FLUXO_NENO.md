@@ -117,6 +117,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 | **Contido (3ª entrega)** | `docs/content/como_funciona_o_mundo_3.seed.mjs` | Como arde o lume (leña → aire → chispa → lume; triángulo do lume, incendios, 112) e A viaxe do sal (mar salgado → salina → sal → conserva; salina romana de Vigo, conserveiras). 8 fotos (32 en total). |
 | **Metrónomo de Lúa** | `frasesLua.json`, `PortadaNeno.js` | Se o último avance da ruta activa foi hoxe (`ts` de `/progreso/rutas`), Lúa di que a misión do día está feita e non apura (§3.4). |
 
+| **Rutas de secundaria** | `PercorridoRuta.js`, `PortadaNeno.js`, `docs/content/rutas_secundaria_1.seed.mjs` | `journey.level` manda: en `secondary` a capa "e por que?" vai aberta e o reto é `reto_secondary` (pregunta aberta, 30 XP; cae a primary se falta). Catálogo con chip e orde por curso (`usuario.curso`: `*prim` → primaria primeiro). Receita para máis: escribir `reto_secondary_*` nos nodos e crear a journey con `level: 'secondary'`. |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 

@@ -436,6 +436,10 @@ estender). Informe completo con achados e backlog en `docs/architecture/INFORME_
 - **+2 rutas: Como arde o lume 🔥 e A viaxe do sal 🧂** (triángulo do lume; salinas romanas de
   Vigo e conserveiras). **Total: 10 rutas, 32 paradas con foto, 11 cartas.** Lúa co metrónomo:
   se hoxe xa avanzaches, dío e non apura.
+- **Rutas de SECUNDARIA (primeiras dúas):** "A luz, por dentro" 🧲 e "O lume, por dentro" 🧪
+  reutilizan os nodos (Regra 8: composable, non duplicar) coa capa "e por que?" aberta e
+  `reto_secondary` aberto (30 XP). O catálogo ordena polo curso do alumno e marca "Secundaria".
+  **Total: 12 rutas (10 primaria + 2 secundaria), 13 cartas.**
 
 **Próximo (ver informe):** o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha
 afirmación institucional que o director debe confirmar ou retirar; "O teu soño" real con Oberón;
