@@ -96,7 +96,9 @@ const IconoFlechaDer = ({ size = 14 }) => (
 )
 // ── FIN: iconos_svg ──────────────────────────────────
 
-function BottomSheet({ nodoId, idioma = 'gl', nivel = 'primary', onCambiarNivel, onVolver, onExplorar, seleccionarNodo }) {
+function BottomSheet({ nodoId, idioma = 'gl', nivel = 'primary', onCambiarNivel, onVolver, onExplorar, seleccionarNodo, onAbrirRuta }) {
+  // Camiños (journeys) que pasan por este nodo: a ponte entre explorar libre e a senda.
+  const [journeys, setJourneys] = useState([])
 
   const { esProfesor } = useUser()
 
@@ -118,10 +120,12 @@ function BottomSheet({ nodoId, idioma = 'gl', nivel = 'primary', onCambiarNivel,
     setSeccion('contido')
     Promise.all([
       fetch(`${API}/nodo/${nodoId}`).then(r => r.json()),
-      fetch(`${API}/nodo/${nodoId}/relacions`).then(r => r.json())
-    ]).then(([nodoData, relData]) => {
+      fetch(`${API}/nodo/${nodoId}/relacions`).then(r => r.json()),
+      fetch(`${API}/nodo/${nodoId}/journeys`).then(r => r.ok ? r.json() : { journeys: [] }).catch(() => ({ journeys: [] }))
+    ]).then(([nodoData, relData, jData]) => {
       setNodo(nodoData)
       setRelacions(relData.relacions || [])
+      setJourneys(jData.journeys || [])
       setCargando(false)
     })
   }, [nodoId])
@@ -556,6 +560,29 @@ function BottomSheet({ nodoId, idioma = 'gl', nivel = 'primary', onCambiarNivel,
                       </div>
                     )
                   })}
+                  {/* Camiños que pasan por aquí → RutaNeno (Regra 2: varias rutas por nodo) */}
+                  {journeys.length > 0 && onAbrirRuta && (
+                    <div style={{ marginTop: 14, paddingTop: 12, borderTop: '1px solid var(--gaia-cosmos-400)' }}>
+                      <div style={{ fontSize: 10, fontFamily: 'var(--gaia-font-mono)', letterSpacing: '0.12em', textTransform: 'uppercase',
+                                    color: 'var(--gaia-text-tertiary)', fontWeight: 700, marginBottom: 8 }}>
+                        🧭 {t(idioma, 'nodoCaminosPasan')}
+                      </div>
+                      {journeys.map(jn => (
+                        <button key={jn.id} onClick={() => onAbrirRuta(jn.id)}
+                          style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', textAlign: 'left',
+                                   padding: '9px 12px', marginBottom: 6, background: 'var(--gaia-cosmos-800)',
+                                   border: '1px solid var(--gaia-cosmos-400)', borderRadius: 10, cursor: 'pointer',
+                                   color: 'var(--gaia-text-primary)', fontFamily: 'var(--gaia-font-body)', fontSize: 13 }}>
+                          <span style={{ fontSize: 18 }}>{jn.icono || '📚'}</span>
+                          <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {jn.label?.[idioma] || jn.label?.gl || jn[`label_${idioma}`] || jn.label_gl || jn.id}
+                          </span>
+                          <span style={{ fontSize: 12, color: 'var(--gaia-accent)', fontWeight: 600 }}>{t(idioma, 'nodoAbrirCamino')} →</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
                   {!haiContido && (
                     <div style={{
                       textAlign: 'center',

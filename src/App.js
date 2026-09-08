@@ -1025,6 +1025,7 @@ function App() {
           onVolver={() => volverAoMapa()}
           onExplorar={() => abrirPanel('visor')}
           seleccionarNodo={seleccionarNodoConTransicion}
+          onAbrirRuta={(id) => setPortadaNeno({ ruta: id })}
         />
       )}
       {/* TEMPORAL (onMinaViaxe): acceso portada neno — a integración definitiva virá co onboarding */}

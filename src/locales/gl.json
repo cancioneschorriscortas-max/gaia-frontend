@@ -384,5 +384,7 @@
   "editorPortaisAxuda": "Portais: escribe [[palabra|id_do_nodo]] para que esa palabra salte a outro nodo.",
   "editorVerComoNeno": "Ver como neno",
   "editorPecharPrevisualizacion": "← Pechar a previsualización",
-  "constructorPublicarXa": "Publicar xa (visible para o alumnado)"
+  "constructorPublicarXa": "Publicar xa (visible para o alumnado)",
+  "nodoCaminosPasan": "Camiños que pasan por aquí",
+  "nodoAbrirCamino": "Ir ao camiño"
 }

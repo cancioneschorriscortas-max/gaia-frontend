@@ -384,5 +384,7 @@
   "editorPortaisAxuda": "Portals: write [[word|node_id]] so that word jumps to another node.",
   "editorVerComoNeno": "View as a child",
   "editorPecharPrevisualizacion": "← Close preview",
-  "constructorPublicarXa": "Publish now (visible to pupils)"
+  "constructorPublicarXa": "Publish now (visible to pupils)",
+  "nodoCaminosPasan": "Paths that go through here",
+  "nodoAbrirCamino": "Go to the path"
 }
