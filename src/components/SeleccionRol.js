@@ -114,7 +114,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
             textTransform: 'uppercase',
             fontWeight: 500
           }}>
-            Arquivo GAIA
+            {t(idioma, 'rolKicker')}
           </div>
           <h1 style={{
             fontFamily: 'var(--gaia-font-display)',
@@ -126,7 +126,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
             lineHeight: 1.1,
             textShadow: '0 0 30px rgba(232, 165, 71, 0.3)'
           }}>
-            Escolle o teu camiño
+            {t(idioma, 'rolTitulo')}
           </h1>
           <p style={{
             fontSize: 13,
@@ -134,8 +134,27 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
             color: 'var(--gaia-text-secondary)',
             margin: 0
           }}>
-            Podes cambialo cando queiras.
+            {t(idioma, 'rolSubtitulo')}
           </p>
+
+          {/* Lúa conta o camiño tocado (EXPERIENCIA_NENO §3.2: "elixe o teu starter") */}
+          <div role="status" aria-live="polite" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 12, marginTop: 22,
+            maxWidth: 560, textAlign: 'left'
+          }}>
+            <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true" style={{ flexShrink: 0 }}>
+              <path d="M 17 4 a 13 13 0 1 0 0 26 a 10 13 0 1 1 0 -26 Z" fill="#e8f0ff" />
+              <circle cx="14.5" cy="15" r="1.3" fill="#0a1020" />
+              <path d="M 11.5 20 q 3.5 3 7 0" stroke="#0a1020" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+            </svg>
+            <div style={{
+              background: 'var(--gaia-cosmos-800)', border: `1px solid ${rol?.cor || 'var(--gaia-cosmos-400)'}`,
+              borderRadius: 12, padding: '10px 16px', fontSize: 14, lineHeight: 1.5,
+              color: 'var(--gaia-text-primary)', transition: 'border-color 300ms ease'
+            }}>
+              {rol ? t(idioma, 'rolLua' + rol.id.charAt(0).toUpperCase() + rol.id.slice(1)) : t(idioma, 'rolLuaEscolle')}
+            </div>
+          </div>
         </div>
 
         {/* ═══ CARDS DE ROL ═══ */}
@@ -260,7 +279,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
                         minWidth: 54
                       }}>
                         <span style={{ fontSize: 16 }}>{r.iconosHab[i]}</span>
-                        {h}
+                        {t(idioma, h)}
                       </div>
                     ))}
                   </div>
@@ -293,7 +312,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
               e.currentTarget.style.borderColor = 'var(--gaia-cosmos-400)'
               e.currentTarget.style.color = 'var(--gaia-text-tertiary)'
             }}>
-            Decidir máis tarde
+            {t(idioma, 'rolMaisTarde')}
           </button>
 
           {rolSeleccionado && (
@@ -324,7 +343,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
                 e.currentTarget.style.transform = 'translateY(0)'
                 e.currentTarget.style.boxShadow = `0 0 24px ${rol?.cor || '#e8a547'}44`
               }}>
-              Continuar como {rol?.label}
+              {t(idioma, 'rolEsteSonEu')}
               <IconoFlechaDerecha />
             </button>
           )}
@@ -396,7 +415,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
             letterSpacing: '-0.01em',
             lineHeight: 1.15
           }}>
-            Escolle a túa especialidade
+            {t(idioma, 'rolEspecialidade')}
           </h2>
           <p style={{
             fontSize: 13,
@@ -404,7 +423,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
             color: 'var(--gaia-text-secondary)',
             margin: 0
           }}>
-            Podes explorar todas as áreas máis tarde.
+            {t(idioma, 'rolEspecialidadeSub')}
           </p>
         </div>
 
@@ -593,7 +612,7 @@ function SeleccionRol({ onFin, idioma = 'gl' }) {
           color: 'var(--gaia-text-disabled)',
           letterSpacing: '0.03em'
         }}>
-          Podes escoller especialidade máis tarde dende o teu perfil.
+          {t(idioma, 'rolEspecialidadeNota')}
         </div>
       </div>
     </div>

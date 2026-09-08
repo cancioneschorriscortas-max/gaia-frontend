@@ -200,8 +200,18 @@ function App() {
   const [rolVisto, setRolVisto] = useState(
     !!localStorage.getItem('gaia_rol_visto')
   )
-  // TEMPORAL: acceso portada neno — null | 'portada' | { ruta: journeyId }
+  // Portada do neno — null | 'portada' | { ruta: journeyId }
   const [portadaNeno, setPortadaNeno] = useState(null)
+  // O alumnado empeza o día na súa portada (bucle diario, EXPERIENCIA_NENO §3.4);
+  // desde alí sae ao mapa con "Volver ao mapa". Profesores e exploradores sen
+  // conta seguen entrando polo mapa. Só a primeira vez por sesión.
+  const aterrouNaPortada = useRef(false)
+  useEffect(() => {
+    if (aterrouNaPortada.current || !usuario || usuario.explorador || esProfesor) return
+    if (usuario.rol && usuario.rol !== 'alumno') return
+    aterrouNaPortada.current = true
+    setPortadaNeno('portada')
+  }, [usuario, esProfesor])
   // ── FIN: estado_local ────────────────────────────────
 
   // ── INICIO: refs ─────────────────────────────────────
@@ -1253,6 +1263,9 @@ function App() {
           onFin={() => {
             localStorage.setItem('gaia_rol_visto', '1')
             setRolVisto(true)
+            // Tras escoller camiño, o neno aterra na SÚA portada (a misión do
+            // día), non no mapa enteiro (EXPERIENCIA_NENO §3.3-3.4).
+            setPortadaNeno('portada')
           }}
           idioma={idioma}
         />

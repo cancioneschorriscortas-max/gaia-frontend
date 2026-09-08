@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { iniciarMusica, sonZoom } from './sistemaAudio'
+import { t } from './i18n'
 
 // ═══════════════════════════════════════════════════════════
 // PrimeiroContacto — Onboarding narrativo de LÚA
@@ -15,14 +16,16 @@ import { iniciarMusica, sonZoom } from './sistemaAudio'
 // ═══════════════════════════════════════════════════════════
 
 // ── INICIO: config_escenas ───────────────────────────
+// O ESPERTAR (EXPERIENCIA_NENO §3.1): tres frases de Lúa sobre o universo,
+// unha a unha, e a pregunta que leva á elección do camiño. Os textos son
+// claves i18n (locales/*.json); tocar en calquera sitio avanza.
 const ESCENAS = [
-  { id: 'silencio',     duracion: 2800, texto: null,                                        subtexto: null,                                        fondo: 'negro' },
-  { id: 'escoitas',     duracion: 3200, texto: 'Escoitas iso?',                             subtexto: null,                                        fondo: 'negro' },
-  { id: 'conhecemento', duracion: 4000, texto: 'É o coñecemento de Galicia.',               subtexto: 'Todo el. Dende sempre.',                    fondo: 'estrelas' },
-  { id: 'grafo',        duracion: 4000, texto: 'Cada estrela é unha idea.',                 subtexto: 'Cada liña, unha conexión.',                 fondo: 'grafo' },
-  { id: 'persoas',      duracion: 4000, texto: 'Algúns foron postos aquí',                  subtexto: 'por persoas coma ti.',                      fondo: 'grafo' },
-  { id: 'lua',          duracion: 4500, texto: 'Son LÚA.',                                  subtexto: 'Non che dou respostas. Axúdoche a velas.',   fondo: 'lua', mostrarLua: true },
-  { id: 'entrar',       duracion: null, texto: 'Comeza por algo que che chame a atención.', subtexto: null,                                        fondo: 'entrar', mostrarBoton: true }
+  { id: 'silencio', duracion: 2600, texto: null,        subtexto: null,          fondo: 'negro' },
+  { id: 'todo',     duracion: 4200, texto: 'intro1',    subtexto: 'intro1sub',   fondo: 'grafo' },
+  { id: 'ninguen',  duracion: 4200, texto: 'intro2',    subtexto: 'intro2sub',   fondo: 'grafo' },
+  { id: 'lua',      duracion: 4500, texto: 'introLua',  subtexto: 'introLuaSub', fondo: 'lua', mostrarLua: true },
+  { id: 'camino',   duracion: 4200, texto: 'intro3',    subtexto: 'intro3sub',   fondo: 'lua', mostrarLua: true },
+  { id: 'entrar',   duracion: null, texto: 'introEntrar', subtexto: null,        fondo: 'entrar', mostrarBoton: true }
 ]
 // ── FIN: config_escenas ──────────────────────────────
 
@@ -333,7 +336,7 @@ function PrimeiroContacto({ onFin, idioma = 'gl', conAudio = false }) {
               ? '0 0 40px rgba(125, 211, 252, 0.6)'
               : '0 0 30px rgba(255, 255, 255, 0.15)'
           }}>
-            {escena.texto}
+            {t(idioma, escena.texto)}
           </div>
         )}
 
@@ -349,7 +352,7 @@ function PrimeiroContacto({ onFin, idioma = 'gl', conAudio = false }) {
             fontStyle: 'italic',
             lineHeight: 1.5
           }}>
-            {escena.subtexto}
+            {t(idioma, escena.subtexto)}
           </div>
         )}
 
@@ -386,7 +389,7 @@ function PrimeiroContacto({ onFin, idioma = 'gl', conAudio = false }) {
               e.currentTarget.style.boxShadow = 'none'
             }}
           >
-            Entrar
+            {t(idioma, 'introBoton')}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />

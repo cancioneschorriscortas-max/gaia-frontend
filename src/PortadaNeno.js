@@ -147,7 +147,10 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar }) 
 
   // Camiños POR EMPEZAR = os que non teñen PROGRESO do usuario.
   const empezadas   = new Set((rutas || []).map(r => r.id))
+  // O tutorial (§3.3) vai sempre primeiro no catálogo: é por onde se empeza.
+  const TUTORIAL_ID = 'a_viaxe_do_pan'
   const porEmpezar  = catalogo.filter(j => !empezadas.has(j.id))
+                              .sort((a, b) => (a.id === TUTORIAL_ID ? -1 : b.id === TUTORIAL_ID ? 1 : 0))
 
   // OLLO: `/journeys` devolve `label` como OBXECTO {gl,es,en,pt},
   // mentres `/progreso/rutas` devólveo como string. Non se tratan igual.
