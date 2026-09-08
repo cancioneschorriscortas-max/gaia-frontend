@@ -295,7 +295,17 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
   const misionSemanal = !usuario?.explorador && misionFeitas === 2 && pendenteSemana
     ? fraseLua({ idioma, nome, hora: -1, misionFalta: 1, ruta: pendenteSemana.label })
     : (misionCompleta && !activa ? fraseLua({ idioma, nome, hora: -1, misionFalta: 0 }) : '')
-  const fraseDoDia = [saudo, misionSemanal || mision].filter(Boolean).join(' ')
+  // Gancho (§ adicción sa): cando non hai misión da semana a punto, Lúa remata cun dato que tira:
+  // o XP que falta para o seguinte título (se xa vai polo 60 %), ou as cartas que leva (días pares).
+  const faltanXP = nivel?.xpSeguinte != null ? Math.max(0, nivel.xpSeguinte - (nivel.xpTotal || 0)) : null
+  const diaPar = new Date().getDate() % 2 === 0
+  const gancho = usuario?.explorador || misionSemanal ? ''
+    : (faltanXP != null && (nivel?.progreso || 0) >= 60 && nivel?.tituloSeguinte)
+      ? fraseLua({ idioma, hora: -1, gancho: 'xp', n: faltanXP, ruta: nivel.tituloSeguinte })
+      : (cartas.length > 0 && diaPar)
+        ? fraseLua({ idioma, hora: -1, gancho: 'cartas', n: cartas.length, total: CARTAS.cartas.length })
+        : ''
+  const fraseDoDia = [saudo, misionSemanal || mision, gancho].filter(Boolean).join(' ')
   // ── FIN: frase_do_dia ─────────────────────────────────
   const completada = destacada?.completada === true
   const labelRuta  = destacada

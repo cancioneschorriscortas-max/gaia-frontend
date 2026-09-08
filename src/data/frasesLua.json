@@ -63,6 +63,14 @@
       "gl": "A misión da semana está a un paso: {ruta}. Vas a por ela?", "es": "La misión de la semana está a un paso: {ruta}. ¿Vas a por ella?", "en": "The mission of the week is one step away: {ruta}. Going for it?" },
     { "id": "semana_feita",       "cando": { "misionFalta": 0 },
       "gl": "A misión da semana xa está feita{, nome}. O que fagas agora é regalo.", "es": "La misión de la semana ya está hecha{, nome}. Lo que hagas ahora es regalo.", "en": "The mission of the week is done{, nome}. Anything you do now is a bonus." },
+    { "id": "gancho_xp",         "cando": { "gancho": "xp" },
+      "gl": "Só che faltan {n} XP para ser {ruta}.", "es": "Solo te faltan {n} XP para ser {ruta}.", "en": "Only {n} XP to go before you are {ruta}." },
+    { "id": "gancho_xp_2",       "cando": { "gancho": "xp" },
+      "gl": "{n} XP máis e serás {ruta}. Case está.", "es": "{n} XP más y serás {ruta}. Casi está.", "en": "{n} more XP and you will be {ruta}. Almost there." },
+    { "id": "gancho_cartas",     "cando": { "gancho": "cartas" },
+      "gl": "Levas {n} cartas de {total}. A colección medra.", "es": "Llevas {n} cartas de {total}. La colección crece.", "en": "You have {n} of {total} cards. The collection is growing." },
+    { "id": "gancho_cartas_2",   "cando": { "gancho": "cartas" },
+      "gl": "{n} de {total} cartas. Sabes cal é a seguinte?", "es": "{n} de {total} cartas. ¿Sabes cuál es la siguiente?", "en": "{n} of {total} cards. Do you know which one is next?" },
     { "id": "carta_nova",        "cando": { "evento": "carta_nova" },
       "gl": "Unha carta nova para a túa colección!", "es": "¡Una carta nueva para tu colección!", "en": "A new card for your collection!" }
   ]

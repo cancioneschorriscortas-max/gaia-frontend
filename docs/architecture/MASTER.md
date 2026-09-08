@@ -560,6 +560,11 @@ sen desbordamentos; foto e reto caben; dous enlaces de texto pasan a ter zona t�
 Oberón (v6) no móbil tiña o centro a 0 px e a cabeceira a 785 px: agora apila as tres columnas por baixo
 de 760 px.
 
+**Rolda 26:** Lúa remata a frase do día cun gancho cando non hai misión a punto: o XP que falta para o
+seguinte título (se vai polo 60 %) ou as cartas que leva (días pares). Ruta de secundaria "A industria, por
+dentro" 🏭 (barco e cotas, poxa, pasta kraft, máquina de papel). **Total: 31 rutas (18 primaria + 8 secundaria
++ 5 experto), 64 paradas con foto, 39 cartas, 7 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
