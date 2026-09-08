@@ -209,6 +209,19 @@ function ModoProfesor({
   const [vistaXestion,    setVistaXestion]    = useState('nodos')
   const [alumnos,         setAlumnos]         = useState([])
   const [alumnosCargando, setAlumnosCargando] = useState(true)
+  // Detalle dun alumno: os seus camiños un a un (cárganse ao abrir a tarxeta)
+  const [alumnoAberto,    setAlumnoAberto]    = useState(null)
+  const [rutasAlumno,     setRutasAlumno]     = useState({})   // id → lista | 'cargando'
+  const abrirAlumno = (a) => {
+    const id = alumnoAberto === a.id ? null : a.id
+    setAlumnoAberto(id)
+    if (!id || rutasAlumno[id]) return
+    setRutasAlumno(prev => ({ ...prev, [id]: 'cargando' }))
+    fetch(`${API}/centro/${encodeURIComponent(usuario?.centro || '')}/alumnos/${id}/rutas`, { headers: authHeaders() })
+      .then(r => r.ok ? r.json() : { rutas: [] })
+      .catch(() => ({ rutas: [] }))
+      .then(d => setRutasAlumno(prev => ({ ...prev, [id]: d.rutas || [] })))
+  }
   const [filtroCurso,     setFiltroCurso]     = useState('')
   const [filtroRol,       setFiltroRol]       = useState('')
   // ── FIN: estados ─────────────────────────────────────
@@ -1594,6 +1607,9 @@ function ModoProfesor({
                   cursor: 'pointer',
                   transition: 'all 150ms ease'
                 }}
+                role="button" tabIndex={0} aria-expanded={alumnoAberto === a.id}
+                onClick={() => abrirAlumno(a)}
+                onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrirAlumno(a) } }}
                 onMouseEnter={e => e.currentTarget.style.background = 'var(--gaia-cosmos-700)'}
                 onMouseLeave={e => e.currentTarget.style.background = 'var(--gaia-cosmos-800)'}>
 
@@ -1716,6 +1732,33 @@ function ModoProfesor({
                       transition: 'width 600ms ease'
                     }} />
                   </div>
+
+                  {/* Detalle: os camiños do alumno, un a un */}
+                  {alumnoAberto === a.id && (
+                    <div style={{ marginTop: 12, paddingTop: 10, borderTop: '1px solid var(--gaia-cosmos-400)' }}>
+                      <div style={{ fontSize: 10, fontFamily: 'var(--gaia-font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase',
+                                    color: 'var(--gaia-text-tertiary)', marginBottom: 8 }}>
+                        {t(idioma, 'profRutasAlumno', a.nome.split(' ')[0])}
+                      </div>
+                      {rutasAlumno[a.id] === 'cargando' || !rutasAlumno[a.id] ? (
+                        <div style={{ fontSize: 11, color: 'var(--gaia-text-tertiary)' }}>{t(idioma, 'cargando')}</div>
+                      ) : rutasAlumno[a.id].length === 0 ? (
+                        <div style={{ fontSize: 11.5, color: 'var(--gaia-text-tertiary)' }}>{t(idioma, 'profSenRutas')}</div>
+                      ) : rutasAlumno[a.id].map(r => (
+                        <div key={r.id} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, padding: '4px 0',
+                                                 fontFamily: 'var(--gaia-font-body)', color: 'var(--gaia-text-primary)' }}>
+                          <span>{r.icono}</span>
+                          <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {r[`label_${idioma}`] || r.label_gl || r.id}
+                          </span>
+                          <span style={{ fontFamily: 'var(--gaia-font-mono)', fontSize: 10.5,
+                                         color: r.completada ? 'var(--gaia-success)' : 'var(--gaia-text-tertiary)' }}>
+                            {r.completada ? '✓' : `${Math.min((r.indice || 0) + 1, r.totalPasos || 1)}/${r.totalPasos || '?'}`}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

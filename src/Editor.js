@@ -844,6 +844,12 @@ function Editor({
                         onFocus={e => e.currentTarget.style.borderColor = cor.accent}
                         onBlur={e => e.currentTarget.style.borderColor = 'var(--gaia-cosmos-400)'}
                       />
+                      {/* Axuda dos portais (Regra 6): sintaxe [[palabra|id_do_nodo]] */}
+                      {nivel === 'primary' && (
+                        <div style={{ fontSize: 10.5, color: 'var(--gaia-text-tertiary)', marginTop: 6, fontStyle: 'italic' }}>
+                          {t(idioma, 'editorPortaisAxuda')}
+                        </div>
+                      )}
                     </div>
                   )
                 })}

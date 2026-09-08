@@ -296,8 +296,8 @@
   "arquivoActivos": "active",
   "arquivoEstado": "Status",
   "arquivoOperativo": "Operational",
-  "arquivoInstitucion": "Xunta de Galicia · 2026",
-  "arquivoAcceso": "Institutional access",
+  "arquivoInstitucion": "GAIA project · 2026",
+  "arquivoAcceso": "Open access",
   "arquivoModulosCon": "Knowledge modules",
   "arquivoSenRutas": "No routes created yet.",
   "arquivoCreaRutas": "Create routes in the editor and assign them a module.",
@@ -305,7 +305,7 @@
   "arquivoNRutas": "{0} routes",
   "arquivoSelecciona": "Pick a module and a route",
   "arquivoPe": "GAIA Archive · Preserving and passing on knowledge",
-  "arquivoPeDereita": "Xunta de Galicia · Consellería de educación · 2026",
+  "arquivoPeDereita": "GAIA · Galician knowledge graph · 2026",
   "arquivoVolverGaia": "Back to GAIA",
   "arquivoVolverLista": "← All routes",
   "arquivoCargandoPasos": "Loading steps...",
@@ -378,5 +378,8 @@
   "portadaContinuar": "Continue",
   "portadaCaminosFeitos": "Paths you already walked",
   "portadaContinuarRutaAria": "Continue the path {0}",
-  "profCaminosTitulo": "Paths completed / started · cards"
+  "profCaminosTitulo": "Paths completed / started · cards",
+  "profRutasAlumno": "{0}'s paths",
+  "profSenRutas": "No paths started yet.",
+  "editorPortaisAxuda": "Portals: write [[word|node_id]] so that word jumps to another node."
 }

@@ -296,8 +296,8 @@
   "arquivoActivos": "activos",
   "arquivoEstado": "Estado",
   "arquivoOperativo": "Operativo",
-  "arquivoInstitucion": "Xunta de Galicia · 2026",
-  "arquivoAcceso": "Acceso institucional",
+  "arquivoInstitucion": "Proxecto GAIA · 2026",
+  "arquivoAcceso": "Acceso aberto",
   "arquivoModulosCon": "Módulos de coñecemento",
   "arquivoSenRutas": "Sen rutas creadas aínda.",
   "arquivoCreaRutas": "Crea rutas dende o editor e asígnalles un módulo.",
@@ -305,7 +305,7 @@
   "arquivoNRutas": "{0} rutas",
   "arquivoSelecciona": "Selecciona un módulo e unha ruta",
   "arquivoPe": "Arquivo GAIA · Preservación e transmisión do coñecemento",
-  "arquivoPeDereita": "Xunta de Galicia · Consellería de educación · 2026",
+  "arquivoPeDereita": "GAIA · grafo de coñecemento galego · 2026",
   "arquivoVolverGaia": "Volver a GAIA",
   "arquivoVolverLista": "← Todas as rutas",
   "arquivoCargandoPasos": "Cargando pasos...",
@@ -378,5 +378,8 @@
   "portadaContinuar": "Continuar",
   "portadaCaminosFeitos": "Camiños que xa fixeches",
   "portadaContinuarRutaAria": "Continuar o camiño {0}",
-  "profCaminosTitulo": "Camiños completados / empezados · cartas"
+  "profCaminosTitulo": "Camiños completados / empezados · cartas",
+  "profRutasAlumno": "Camiños de {0}",
+  "profSenRutas": "Aínda non empezou ningún camiño.",
+  "editorPortaisAxuda": "Portais: escribe [[palabra|id_do_nodo]] para que esa palabra salte a outro nodo."
 }

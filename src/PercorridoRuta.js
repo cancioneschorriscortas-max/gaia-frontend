@@ -222,6 +222,23 @@ function PercorridoRuta({ journeyId, idioma = 'gl', onPechar, pasoInicial = null
   }
   // ── FIN: pechar ──────────────────────────────────────
 
+  // ── INICIO: teclado ──────────────────────────────────
+  // Escape pecha; ← → cambian de paso (só cando non se está escribindo
+  // no reto e non hai un desvío aberto, que xa ten o seu Escape).
+  useEffect(() => {
+    const onKey = (e) => {
+      const escribindo = ['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)
+      if (e.key === 'Escape' && !desvio) { pechar(); return }
+      if (escribindo || desvio || fase !== 'percorrido') return
+      if (e.key === 'ArrowRight') irA(indice + 1)
+      if (e.key === 'ArrowLeft' && indice > 0) irA(indice - 1)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indice, fase, desvio, stops])
+  // ── FIN: teclado ─────────────────────────────────────
+
   // ── INICIO: cartas ───────────────────────────────────
   // Garda a carta no backend; se é nova, devólvea para celebrala.
   const gañarCarta = async (cartaId) => {

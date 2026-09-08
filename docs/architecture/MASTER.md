@@ -446,10 +446,15 @@ estender). Informe completo con achados e backlog en `docs/architecture/INFORME_
 - **Profesor:** a lista de alumnos do centro mostra camiños completados/empezados e cartas
   (`/centro/:centro/alumnos` amplía a consulta con PROGRESO e `u.cartas`).
 
-**Próximo (ver informe):** o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha
-afirmación institucional que o director debe confirmar ou retirar; "O teu soño" real con Oberón;
-rutas `secondary` reutilizando nodos; máis rutas "como funciona" (o lume, o sal, o móbil, o
-tempo/meteoroloxía); voz de Lúa gravada para o espertar (`/assets/lua-intro.mp3` é a vella).
+**Rolda 5 (8 set 2026):** o director mandou retirar o pé "Xunta de Galicia" do Arquivo (agora
+"GAIA · grafo de coñecemento galego · 2026", "Proxecto GAIA", "Acceso aberto"). Teclado no
+percorrido (Escape, ← →). Editor coa axuda da sintaxe de portais. Panel do profesor: tocar un
+alumno despraza os seus camiños un a un (`GET /centro/:centro/alumnos/:id/rutas`). +3 rutas de
+secundaria (auga, marea, sal "por dentro") e 3 cartas. **Total: 17 rutas (12 primaria + 5
+secundaria), 40 paradas con foto, 18 cartas.**
+
+**Próximo (ver informe):** voz de Lúa gravada para o espertar (`/assets/lua-intro.mp3` é a
+vella); máis rutas "como funciona" (o tempo/meteoroloxía, o corpo, a música); rutas expert.
 
 ---
 
