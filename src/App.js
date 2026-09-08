@@ -42,6 +42,7 @@ import OberonProfesionVista from './OberonProfesionVista'
 //ruta neno
 import RutaNeno from './RutaNeno'
 import PortadaNeno from './PortadaNeno'
+import { TextoConPortais } from './portais'
 import './App.css'
 //import ProbaYggdrasil from './ProbaYggdrasil'
 import { API } from './config/api';
@@ -350,7 +351,8 @@ function App() {
               {t(idioma, n === 'primary' ? 'nivelPrimaria' : n === 'secondary' ? 'nivelSecundaria' : 'nivelExperto')}
             </div>
             <p style={{ lineHeight: 1.75, fontSize: S.bodySize, margin: 0, color: S.colorText }}>
-              {texto}
+              {/* Portais (Regra 6): [[palabra|nodo]] → salto ao nodo destino */}
+              <TextoConPortais texto={texto} idioma={idioma} onPortal={seleccionarNodoConTransicion} />
             </p>
           </div>
         )

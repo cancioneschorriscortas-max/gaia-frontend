@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { t } from './i18n'
 import { useUser } from './contexts/UserContext'
 import { API } from './config/api';
+import { TextoConPortais } from './portais'
 
 // ═══════════════════════════════════════════════════════════
 // BottomSheet — Panel inferior deslizante (móbil)
@@ -548,7 +549,9 @@ function BottomSheet({ nodoId, idioma = 'gl', nivel = 'primary', onCambiarNivel,
                           lineHeight: 1.7,
                           margin: 0
                         }}>
-                          {tx}
+                          {/* Portais (Regra 6): [[palabra|nodo]] → salto ao nodo destino */}
+                          <TextoConPortais texto={tx} idioma={idioma}
+                                           onPortal={(id) => seleccionarNodo && seleccionarNodo(id)} />
                         </p>
                       </div>
                     )
