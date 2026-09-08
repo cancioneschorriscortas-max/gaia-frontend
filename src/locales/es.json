@@ -377,5 +377,6 @@
   "portadaCaminosAMedias": "Caminos a medias",
   "portadaContinuar": "Continuar",
   "portadaCaminosFeitos": "Caminos que ya hiciste",
-  "portadaContinuarRutaAria": "Continuar el camino {0}"
+  "portadaContinuarRutaAria": "Continuar el camino {0}",
+  "profCaminosTitulo": "Caminos completados / empezados · cartas"
 }

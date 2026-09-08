@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useUser } from './contexts/UserContext'
+import { t } from './i18n'
 import MapaUniverso from './MapaUniverso'
 import Editor from './Editor'
 import Constructor from './Constructor'
@@ -1689,6 +1690,11 @@ function ModoProfesor({
                   }}>
                     <span style={{ color: 'var(--gaia-text-tertiary)' }}>
                       {String(a.totalRetos || 0)} retos
+                    </span>
+                    {/* Camiños do neno: completados / empezados, e cartas */}
+                    <span style={{ color: 'var(--gaia-constellation)' }} title={t(idioma, 'profCaminosTitulo')}>
+                      🧭 {String(a.rutasCompletadas || 0)}/{String(a.rutasEmpezadas || 0)}
+                      {a.cartas > 0 && <span style={{ marginLeft: 8, color: 'var(--gaia-text-tertiary)' }}>🃏 {String(a.cartas)}</span>}
                     </span>
                     <span style={{ color: 'var(--gaia-accent)', fontWeight: 600 }}>
                       {String(a.xp_total || 0)} XP

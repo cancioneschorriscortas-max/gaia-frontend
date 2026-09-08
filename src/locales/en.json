@@ -377,5 +377,6 @@
   "portadaCaminosAMedias": "Paths half-way",
   "portadaContinuar": "Continue",
   "portadaCaminosFeitos": "Paths you already walked",
-  "portadaContinuarRutaAria": "Continue the path {0}"
+  "portadaContinuarRutaAria": "Continue the path {0}",
+  "profCaminosTitulo": "Paths completed / started · cards"
 }
