@@ -125,6 +125,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Rolda 5: cómodo e útil** | varios | Pé do Arquivo sen afirmación institucional (decisión do director). Teclado no percorrido (Escape, ← →). Axuda da sintaxe de portais no Editor. **Profesor:** chip 🧭 completados/empezados e 🃏 cartas en cada alumno; tocar a tarxeta despraza os seus camiños un a un (`GET /centro/:centro/alumnos/:id/rutas`). +3 rutas de secundaria (auga, marea, sal) e 3 cartas. Total: 17 rutas, 18 cartas. |
 
+| **Rolda 6** | `docs/content/como_funciona_o_mundo_5.seed.mjs`, `EditorRutas.js` | A viaxe da comida polo corpo (boca → estómago → intestino → sangue) e De onde vén o tempo (Sol → borrasca → anticiclón → parte do tempo, con portais a `o_vento` e `a_chuvia`: as rutas empezan a cruzarse). **EditorRutas:** "Pública" mandaba `visibility: validated` (400) e non existía forma de publicar desde a app; agora manda `public` e o status segue á visibilidade. |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 

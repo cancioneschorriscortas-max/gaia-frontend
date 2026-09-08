@@ -196,10 +196,14 @@ function EditorRutas({ idiomasActivos = ['gl', 'es', 'en'], idioma = 'gl' }) {
   // ── INICIO: gardar_ruta ──────────────────────────────
   const gardarRuta = async () => {
     try {
+      // A visibilidade manda no status: pública/destacada → published (o que ven
+      // os nenos en /journeys); privada/borrador → draft. Sen isto o profesor
+      // marcaba "Pública" e a ruta seguía invisible para o alumnado.
+      const publica = form.visibility === 'public' || form.visibility === 'featured'
       const res = await fetch(`${API}/journeys/${rutaActiva.id}`, {
         method: 'PUT',
         headers: { ...authHeaders(), 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
+        body: JSON.stringify({ ...form, status: publica ? 'published' : 'draft' })
       })
 
       if (!res.ok) {
@@ -667,7 +671,8 @@ function EditorRutas({ idiomasActivos = ['gl', 'es', 'en'], idioma = 'gl' }) {
                   <select style={inp} name="visibility" value={form.visibility} onChange={set}>
                     <option value="private">{t(idioma, 'privada') || 'Privada'}</option>
                     <option value="draft">{t(idioma, 'borrador') || 'Borrador'}</option>
-                    <option value="validated">{t(idioma, 'publica') || 'Pública'}</option>
+                    {/* O backend só acepta private/draft/public/featured: 'validated' daba 400 e a ruta nunca se publicaba */}
+                    <option value="public">{t(idioma, 'publica') || 'Pública'}</option>
                     <option value="featured">{t(idioma, 'destacada') || 'Destacada'}</option>
                   </select>
                 </div>

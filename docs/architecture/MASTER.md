@@ -453,8 +453,14 @@ alumno despraza os seus camiños un a un (`GET /centro/:centro/alumnos/:id/rutas
 secundaria (auga, marea, sal "por dentro") e 3 cartas. **Total: 17 rutas (12 primaria + 5
 secundaria), 40 paradas con foto, 18 cartas.**
 
+**Rolda 6:** +2 rutas de primaria (A viaxe da comida polo corpo 🍎, De onde vén o tempo ⛅, con
+portais cara a nodos doutras rutas: vento, chuvia) e 2 cartas. **Bug de EditorRutas arranxado:**
+o selector de visibilidade mandaba `validated` (400 no backend) e non había forma de publicar
+unha ruta desde a app; agora "Pública" → `public` e o `status` segue á visibilidade
+(published/draft). **Total: 19 rutas (14 primaria + 5 secundaria), 48 paradas con foto, 20 cartas.**
+
 **Próximo (ver informe):** voz de Lúa gravada para o espertar (`/assets/lua-intro.mp3` é a
-vella); máis rutas "como funciona" (o tempo/meteoroloxía, o corpo, a música); rutas expert.
+vella); rutas expert; máis rutas "como funciona" (a música, o diñeiro, o reloxo).
 
 ---
 
