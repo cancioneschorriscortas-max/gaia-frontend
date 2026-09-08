@@ -20,7 +20,7 @@ import { API } from './config/api'
 import { t } from './i18n'
 import { fraseLua } from './lua'
 import CARTAS from './data/cartas.json'
-import MISIONS from './data/misions.json'
+import { misionDaSemana } from './misions'
 import { CartaRevelada } from './PercorridoRuta'
 import { sonXP } from './sistemaAudio'
 import ColeccionCartas from './ColeccionCartas'
@@ -222,11 +222,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
   // para toda a clase). Completar as 3 rutas dá a carta da misión e +50 XP,
   // unha soa vez: o backend só devolve nova=true a primeira vez que se
   // garda a carta, e o XP colga desa resposta.
-  const semanaDoAno = (() => {
-    const d = new Date(); const ini = new Date(d.getFullYear(), 0, 1)
-    return Math.floor((d - ini) / 864e5 / 7)
-  })()
-  const misionSemana      = MISIONS.misions[semanaDoAno % MISIONS.misions.length]
+  const misionSemana = misionDaSemana()
   const feitasSet   = new Set((rutas || []).filter(r => r.completada).map(r => r.id))
   const misionRutas = misionSemana.rutas.map(id => {
     const j = catalogo.find(x => x.id === id)

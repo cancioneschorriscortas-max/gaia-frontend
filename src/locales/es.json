@@ -393,5 +393,10 @@
   "misionSemanaProgreso": "{0} de {1} caminos hechos",
   "misionSemanaPremio": "Al terminar los tres: carta especial y +50 XP",
   "misionSemanaFeita": "¡Misión de la semana completa!",
-  "cartasComoMision": "Completa una misión de la semana para conseguirla"
+  "cartasComoMision": "Completa una misión de la semana para conseguirla",
+  "profMisionSemana": "Misión de la semana",
+  "profMisionCompleta": "{0} con la misión completa",
+  "profMisionAMedias": "{0} a medias",
+  "profMisionSenEmpezar": "{0} sin empezar",
+  "profMisionChip": "Misión de la semana: {0} de {1} caminos"
 }

@@ -8,6 +8,7 @@ import TabelaNodos from './TabelaNodos'
 import ConstructorRutas from './ConstructorRutas'
 import ConstructorRelacions from './ConstructorRelacions'
 import { API } from './config/api';
+import { misionDaSemana } from './misions'
 
 // ═══════════════════════════════════════════════════════════
 // ModoProfesor — Modo de xestión docente e validación
@@ -1444,6 +1445,20 @@ function ModoProfesor({
 
     const cursosOrdenados = Object.keys(CURSOS_LABEL).filter(c => porCurso[c])
 
+    // ── INICIO: mision_semana_profesor ─────────────────
+    // O mesmo tema que ve o alumnado (src/misions.js). Con rutasFeitas de cada
+    // alumno calcúlase cantos a levan completa, a medias ou sen empezar.
+    const mision = misionDaSemana()
+    const feitasDe = (a) => mision.rutas.filter(id => (a.rutasFeitas || []).includes(id)).length
+    const misionStats = alumnosFiltrados.reduce((s, a) => {
+      const n = feitasDe(a)
+      if (n === mision.rutas.length) s.completa++
+      else if (n > 0) s.aMedias++
+      else s.senEmpezar++
+      return s
+    }, { completa: 0, aMedias: 0, senEmpezar: 0 })
+    // ── FIN: mision_semana_profesor ────────────────────
+
     return (
       <div style={{ flex: 1, overflowY: 'auto', padding: '28px 32px' }}>
         <div style={{
@@ -1561,6 +1576,33 @@ function ModoProfesor({
               Non hai alumnado con eses filtros.
             </div>
           </div>
+        )}
+
+        {!alumnosCargando && alumnosFiltrados.length > 0 && (
+          <section aria-label={t(idioma, 'profMisionSemana')} style={{
+            display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 14,
+            padding: '12px 16px', marginBottom: 24,
+            background: 'var(--gaia-cosmos-800)', border: '1px solid var(--gaia-cosmos-400)',
+            borderLeft: '3px solid var(--gaia-constellation)', borderRadius: 10
+          }}>
+            <div style={{ fontSize: 26, lineHeight: 1 }} aria-hidden="true">{mision.emoji}</div>
+            <div style={{ flex: 1, minWidth: 200 }}>
+              <div style={{ fontSize: 10, fontFamily: 'var(--gaia-font-mono)', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--gaia-text-tertiary)' }}>
+                {t(idioma, 'profMisionSemana')}
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 700, fontFamily: 'var(--gaia-font-display)', color: 'var(--gaia-text-primary)' }}>
+                {mision.titulo[idioma] || mision.titulo.gl}
+              </div>
+              <div style={{ fontSize: 12, color: 'var(--gaia-text-secondary)' }}>
+                {mision.texto[idioma] || mision.texto.gl}
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: 14, fontSize: 12, fontFamily: 'var(--gaia-font-mono)' }}>
+              <span style={{ color: 'var(--gaia-constellation)' }}>✅ {t(idioma, 'profMisionCompleta', misionStats.completa)}</span>
+              <span style={{ color: 'var(--gaia-accent)' }}>◐ {t(idioma, 'profMisionAMedias', misionStats.aMedias)}</span>
+              <span style={{ color: 'var(--gaia-text-tertiary)' }}>○ {t(idioma, 'profMisionSenEmpezar', misionStats.senEmpezar)}</span>
+            </div>
+          </section>
         )}
 
         {cursosOrdenados.map(curso => (
@@ -1711,6 +1753,12 @@ function ModoProfesor({
                     <span style={{ color: 'var(--gaia-constellation)' }} title={t(idioma, 'profCaminosTitulo')}>
                       🧭 {String(a.rutasCompletadas || 0)}/{String(a.rutasEmpezadas || 0)}
                       {a.cartas > 0 && <span style={{ marginLeft: 8, color: 'var(--gaia-text-tertiary)' }}>🃏 {String(a.cartas)}</span>}
+                      {feitasDe(a) > 0 && (
+                        <span style={{ marginLeft: 8, color: feitasDe(a) === mision.rutas.length ? 'var(--gaia-constellation)' : 'var(--gaia-text-tertiary)' }}
+                          title={t(idioma, 'profMisionChip', feitasDe(a), mision.rutas.length)}>
+                          {mision.emoji} {String(feitasDe(a))}/{String(mision.rutas.length)}
+                        </span>
+                      )}
                     </span>
                     <span style={{ color: 'var(--gaia-accent)', fontWeight: 600 }}>
                       {String(a.xp_total || 0)} XP
