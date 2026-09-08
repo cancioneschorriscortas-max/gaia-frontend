@@ -459,6 +459,10 @@ o selector de visibilidade mandaba `validated` (400 no backend) e non había for
 unha ruta desde a app; agora "Pública" → `public` e o `status` segue á visibilidade
 (published/draft). **Total: 19 rutas (14 primaria + 5 secundaria), 48 paradas con foto, 20 cartas.**
 
+**Rolda 7 (ferramenta cómoda para quen crea):** ConstructorRutas con "Publicar xa" marcado por
+defecto (POST + PUT published/public; probado: a ruta nova aparece no catálogo do neno) e
+EditorRutas con "Ver como neno" (RutaNeno nun overlay sen saír do editor).
+
 **Próximo (ver informe):** voz de Lúa gravada para o espertar (`/assets/lua-intro.mp3` é a
 vella); rutas expert; máis rutas "como funciona" (a música, o diñeiro, o reloxo).
 

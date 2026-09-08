@@ -127,6 +127,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Rolda 6** | `docs/content/como_funciona_o_mundo_5.seed.mjs`, `EditorRutas.js` | A viaxe da comida polo corpo (boca → estómago → intestino → sangue) e De onde vén o tempo (Sol → borrasca → anticiclón → parte do tempo, con portais a `o_vento` e `a_chuvia`: as rutas empezan a cruzarse). **EditorRutas:** "Pública" mandaba `visibility: validated` (400) e non existía forma de publicar desde a app; agora manda `public` e o status segue á visibilidade. |
 
+| **Rolda 7: crear rutas desde a app** | `ConstructorRutas.js`, `EditorRutas.js` | "Publicar xa" (por defecto) fai o segundo PUT que deixa a ruta published/public; "Ver como neno" abre a senda e os pasos reais desde o editor. Receita para o director: Xestión → Rutas → nome + pasos (busca de nodos) → Crear; para portais e imaxes, Editor de nodos (axuda de sintaxe baixo o texto) e `POST /nodo/:id/media`. |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 
