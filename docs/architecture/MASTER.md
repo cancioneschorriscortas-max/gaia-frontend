@@ -508,6 +508,10 @@ formularios e buscas caben; só a táboa de nodos desbordaba (agora métricas fl
 horizontal no seu marco). Quinta misión da semana, "A semana do prato" 🍽️, para que a rotación non se
 repita cada mes. **29 cartas.**
 
+**Rolda 16:** ruta nova de primaria "De onde vén a música" 🎵 (`docs/content/como_funciona_o_mundo_6.seed.mjs`):
+a vibración, a gaita, o oído e a gravación, con fotos de Commons e portal ao móbil. **Total: 24 rutas
+(15 primaria + 5 secundaria + 4 experto), 52 paradas con foto, 30 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
