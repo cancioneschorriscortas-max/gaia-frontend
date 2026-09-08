@@ -129,6 +129,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Rolda 7: crear rutas desde a app** | `ConstructorRutas.js`, `EditorRutas.js` | "Publicar xa" (por defecto) fai o segundo PUT que deixa a ruta published/public; "Ver como neno" abre a senda e os pasos reais desde o editor. Receita para o director: Xestión → Rutas → nome + pasos (busca de nodos) → Crear; para portais e imaxes, Editor de nodos (axuda de sintaxe baixo o texto) e `POST /nodo/:id/media`. |
 
+| **Explorar → senda** | `BottomSheet.js`, backend `/nodo/:id/journeys` | Na folla móbil dun nodo, "Camiños que pasan por aquí" lista as rutas publicadas que o inclúen e "Ir ao camiño" abre a senda. Así o mapa libre devolve o neno ás rutas (Regra 2). |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 

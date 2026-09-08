@@ -461,7 +461,9 @@ unha ruta desde a app; agora "Pública" → `public` e o `status` segue á visib
 
 **Rolda 7 (ferramenta cómoda para quen crea):** ConstructorRutas con "Publicar xa" marcado por
 defecto (POST + PUT published/public; probado: a ruta nova aparece no catálogo do neno) e
-EditorRutas con "Ver como neno" (RutaNeno nun overlay sen saír do editor).
+EditorRutas con "Ver como neno" (RutaNeno nun overlay sen saír do editor). **Ponte explorar → senda:**
+na folla móbil do nodo, "Camiños que pasan por aquí" abre RutaNeno (`/nodo/:id/journeys`, coa
+mesma visibilidade ca `/journeys`).
 
 **Próximo (ver informe):** voz de Lúa gravada para o espertar (`/assets/lua-intro.mp3` é a
 vella); rutas expert; máis rutas "como funciona" (a música, o diñeiro, o reloxo).
