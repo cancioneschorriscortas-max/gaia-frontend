@@ -225,7 +225,9 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
     // 'novas': o empezado está feito pero hai camiños por estrear no catálogo
     ruta: activa ? 'activa' : porEmpezar.length > 0 ? (todasFeitas ? 'novas' : 'ningunha') : todasFeitas ? 'todas' : 'ningunha',
     nodo: activa ? labelStop(stops[indice]) : '',
-    anterior: activa && indice > 0 ? labelStop(stops[indice - 1]) : ''
+    anterior: activa && indice > 0 ? labelStop(stops[indice - 1]) : '',
+    // Metrónomo (§3.4): se o último avance foi hoxe, Lúa dío e non apura.
+    hoxe: !!(activa?.ts && new Date(activa.ts).toDateString() === new Date().toDateString())
   })
   const fraseDoDia = [saudo, mision].filter(Boolean).join(' ')
   // ── FIN: frase_do_dia ─────────────────────────────────

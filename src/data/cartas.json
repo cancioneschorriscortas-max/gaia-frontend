@@ -31,6 +31,12 @@
     { "id": "carta_marea", "coleccion": "natureza", "emoji": "🌊", "ruta": "por_que_sobe_e_baixa_o_mar",
       "titulo": { "gl": "O mar ten reloxo", "es": "El mar tiene reloj", "en": "The sea keeps time" },
       "texto":  { "gl": "A Lúa tira do mar dúas veces ao día. As mariscadoras non miran o reloxo: miran a táboa de mareas.", "es": "La Luna tira del mar dos veces al día. Las mariscadoras no miran el reloj: miran la tabla de mareas.", "en": "The Moon pulls the sea twice a day. Shellfish gatherers don't check the clock: they check the tide table." } },
+    { "id": "carta_lume", "coleccion": "mundo", "emoji": "🔥", "ruta": "como_arde_o_lume",
+      "titulo": { "gl": "O triángulo do lume", "es": "El triángulo del fuego", "en": "The fire triangle" },
+      "texto":  { "gl": "O lume precisa tres cousas: algo que arda, aire e calor. Quítalle unha e apágase. Por iso se sopra unha candea e se tapa unha tixola.", "es": "El fuego necesita tres cosas: algo que arda, aire y calor. Quítale una y se apaga. Por eso se sopla una vela y se tapa una sartén.", "en": "Fire needs three things: something to burn, air and heat. Take one away and it goes out. That is why you blow out a candle and cover a pan." } },
+    { "id": "carta_sal", "coleccion": "oficios", "emoji": "🧂", "ruta": "a_viaxe_do_sal",
+      "titulo": { "gl": "O sal garda o tempo", "es": "La sal guarda el tiempo", "en": "Salt keeps time" },
+      "texto":  { "gl": "Antes das neveiras, o sal era a maneira de que o peixe durase meses. As latas de conserva galegas seguen sendo mar gardado.", "es": "Antes de las neveras, la sal era la manera de que el pescado durase meses. Las latas de conserva gallegas siguen siendo mar guardado.", "en": "Before fridges, salt was how fish lasted for months. Galician tins of preserves are still the sea, kept." } },
     { "id": "carta_portal", "coleccion": "exploracion", "emoji": "🔭", "evento": "primeiro_portal",
       "titulo": { "gl": "Explorador de atallos", "es": "Explorador de atajos", "en": "Shortcut explorer" },
       "texto":  { "gl": "Saíches do camiño polo primeiro portal. Todo no universo está conectado con algo: seguir un fío é a forma de coñecelo.", "es": "Te saliste del camino por el primer portal. Todo en el universo está conectado con algo: seguir un hilo es la forma de conocerlo.", "en": "You stepped off the path through your first portal. Everything in the universe connects to something: following a thread is how you get to know it." } }

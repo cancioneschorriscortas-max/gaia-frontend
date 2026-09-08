@@ -12,6 +12,10 @@
     { "id": "benvida_noite",     "cando": { "hora": [20, 29] },
       "gl": "Boas noites{, nome}! Un anaquiño de universo antes de durmir?", "es": "¡Buenas noches{, nome}! ¿Un trocito de universo antes de dormir?", "en": "Good evening{, nome}! A little piece of universe before bed?" },
 
+    { "id": "mision_feita_hoxe", "cando": { "ruta": "activa", "nodo": true, "hoxe": true },
+      "gl": "A misión de hoxe xa está feita. Podes seguir, ou deixar algo para mañá.", "es": "La misión de hoy ya está hecha. Puedes seguir, o dejar algo para mañana.", "en": "Today's mission is done. You can carry on, or save some for tomorrow." },
+    { "id": "mision_feita_hoxe_2", "cando": { "ruta": "activa", "nodo": true, "hoxe": true },
+      "gl": "Hoxe xa andaches un anaco de camiño. O universo non se move de aí.", "es": "Hoy ya anduviste un trozo de camino. El universo no se mueve de ahí.", "en": "You already walked a bit of path today. The universe isn't going anywhere." },
     { "id": "mision_ruta",       "cando": { "ruta": "activa", "nodo": true },
       "gl": "Hoxe {nodo} espera por ti.", "es": "Hoy {nodo} te espera.", "en": "Today {nodo} is waiting for you." },
     { "id": "mision_ruta_ant",   "cando": { "ruta": "activa", "nodo": true, "anterior": true },
