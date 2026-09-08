@@ -498,6 +498,11 @@ backend `/centro/:centro/alumnos` devolve `rutasFeitas`).
 **Rolda 13:** Modo profesor desde o móbil: entrada no menú móbil e cabeceira/lapelas/Xestión
 adaptadas a menos de 760 px (`ModoProfesor.js` con anchura reactiva).
 
+**Rolda 14:** cuarta ruta de experto, "O pan, a fondo" 🥖🎓 (`docs/content/rutas_experto_4.seed.mjs`:
+xenoma do trigo e partes do gran, glute e amidón, fermentación con ecuación, o forno grao a grao).
+Co tutorial do pan xa hai unha versión experta de cada tema "a fondo": luz, lume, auga e pan.
+**Total: 23 rutas (14 primaria + 5 secundaria + 4 experto), 48 paradas con foto, 28 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
