@@ -88,6 +88,9 @@
     { "id": "carta_semana_maquina", "coleccion": "exploracion", "emoji": "🔧", "evento": "mision_semana",
       "titulo": { "gl": "Semana de como funciona", "es": "Semana de cómo funciona", "en": "How-it-works week" },
       "texto":  { "gl": "A billa, o contedor e o móbil xa non son maxia. Son máquinas, e ti sabes como van por dentro.", "es": "El grifo, el contenedor y el móvil ya no son magia. Son máquinas, y tú sabes cómo van por dentro.", "en": "The tap, the bin and the phone are no longer magic. They are machines, and you know how they work inside." } },
+    { "id": "carta_semana_prato", "coleccion": "exploracion", "emoji": "🍽️", "evento": "mision_semana",
+      "titulo": { "gl": "Semana do prato", "es": "Semana del plato", "en": "Plate week" },
+      "texto":  { "gl": "Un prato galego, o camiño da comida polo corpo e o sal que a garda. Agora comes sabendo.", "es": "Un plato gallego, el camino de la comida por el cuerpo y la sal que la guarda. Ahora comes sabiendo.", "en": "A Galician plate, the food's journey through the body and the salt that keeps it. Now you eat knowing." } },
     { "id": "carta_portal", "coleccion": "exploracion", "emoji": "🔭", "evento": "primeiro_portal",
       "titulo": { "gl": "Explorador de atallos", "es": "Explorador de atajos", "en": "Shortcut explorer" },
       "texto":  { "gl": "Saíches do camiño polo primeiro portal. Todo no universo está conectado con algo: seguir un fío é a forma de coñecelo.", "es": "Te saliste del camino por el primer portal. Todo en el universo está conectado con algo: seguir un hilo es la forma de conocerlo.", "en": "You stepped off the path through your first portal. Everything in the universe connects to something: following a thread is how you get to know it." } }

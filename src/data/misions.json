@@ -16,6 +16,10 @@
     { "id": "semana_maquina", "emoji": "🔧", "carta": "carta_semana_maquina",
       "titulo": { "gl": "A semana de como funciona", "es": "La semana de cómo funciona", "en": "How-it-works week" },
       "texto":  { "gl": "Auga, lixo e móbil: tres máquinas invisibles que usas cada día.", "es": "Agua, basura y móvil: tres máquinas invisibles que usas cada día.", "en": "Water, rubbish and phone: three invisible machines you use every day." },
-      "rutas": ["a_viaxe_da_auga", "a_viaxe_do_lixo", "como_chega_a_mensaxe_ao_mobil"] }
+      "rutas": ["a_viaxe_da_auga", "a_viaxe_do_lixo", "como_chega_a_mensaxe_ao_mobil"] },
+    { "id": "semana_prato", "emoji": "🍽️", "carta": "carta_semana_prato",
+      "titulo": { "gl": "A semana do prato", "es": "La semana del plato", "en": "Plate week" },
+      "texto":  { "gl": "O que comes, de onde vén e que fai dentro de ti: tres camiños con fame.", "es": "Lo que comes, de dónde viene y qué hace dentro de ti: tres caminos con hambre.", "en": "What you eat, where it comes from and what it does inside you: three hungry paths." },
+      "rutas": ["galicia_no_prato", "a_viaxe_da_comida_polo_corpo", "a_viaxe_do_sal"] }
   ]
 }
