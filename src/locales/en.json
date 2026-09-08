@@ -381,5 +381,8 @@
   "profCaminosTitulo": "Paths completed / started · cards",
   "profRutasAlumno": "{0}'s paths",
   "profSenRutas": "No paths started yet.",
-  "editorPortaisAxuda": "Portals: write [[word|node_id]] so that word jumps to another node."
+  "editorPortaisAxuda": "Portals: write [[word|node_id]] so that word jumps to another node.",
+  "editorVerComoNeno": "View as a child",
+  "editorPecharPrevisualizacion": "← Close preview",
+  "constructorPublicarXa": "Publish now (visible to pupils)"
 }

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { t } from './i18n'
 import { useUser } from './contexts/UserContext'
 import { API } from './config/api';
+import RutaNeno from './RutaNeno'
 
 // ═══════════════════════════════════════════════════════════
 // EditorRutas — Edición de rutas pedagóxicas (journeys)
@@ -99,6 +100,7 @@ function EditorRutas({ idiomasActivos = ['gl', 'es', 'en'], idioma = 'gl' }) {
   const [journeys, setJourneys]   = useState([])
   const [nodos, setNodos]         = useState([])
   const [rutaActiva, setRutaActiva] = useState(null)
+  const [previsualizar, setPrevisualizar] = useState(null)   // id da ruta aberta "como neno"
   const [form, setForm]           = useState(null)
   const [stops, setStops]         = useState([])
   const [busca, setBusca]         = useState('')
@@ -735,7 +737,29 @@ function EditorRutas({ idiomasActivos = ['gl', 'es', 'en'], idioma = 'gl' }) {
                 <IconoGardar />
                 {t(idioma, 'gardarMetadatos') || 'Gardar metadatos'}
               </button>
+
+              {/* Ver a ruta exactamente como a verá o neno (senda + pasos), sen saír do editor */}
+              <button onClick={() => setPrevisualizar(rutaActiva.id)} style={{
+                width: '100%', padding: 10, marginTop: 8, background: 'transparent',
+                color: 'var(--gaia-constellation)', border: '1px solid var(--gaia-constellation-border)',
+                borderRadius: 8, fontSize: 12, fontFamily: 'var(--gaia-font-body)', fontWeight: 600, cursor: 'pointer'
+              }}>
+                🧭 {t(idioma, 'editorVerComoNeno')}
+              </button>
             </div>
+
+            {previsualizar && (
+              <div role="dialog" aria-modal="true" style={{ position: 'fixed', inset: 0, zIndex: 250, background: '#050a14', overflowY: 'auto' }}>
+                <button onClick={() => setPrevisualizar(null)} style={{
+                  position: 'sticky', top: 0, zIndex: 2, width: '100%', textAlign: 'left', padding: '10px 16px',
+                  background: 'rgba(5,10,20,0.92)', border: 'none', borderBottom: '1px solid var(--gaia-cosmos-400)',
+                  color: 'var(--gaia-accent)', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--gaia-font-body)'
+                }}>
+                  {t(idioma, 'editorPecharPrevisualizacion')}
+                </button>
+                <RutaNeno journeyId={previsualizar} idioma={idioma} onSair={() => setPrevisualizar(null)} />
+              </div>
+            )}
 
             {/* ═══ PASOS ═══ */}
             <div style={{

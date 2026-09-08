@@ -381,5 +381,8 @@
   "profCaminosTitulo": "Caminos completados / empezados · cartas",
   "profRutasAlumno": "Caminos de {0}",
   "profSenRutas": "Todavía no empezó ningún camino.",
-  "editorPortaisAxuda": "Portales: escribe [[palabra|id_del_nodo]] para que esa palabra salte a otro nodo."
+  "editorPortaisAxuda": "Portales: escribe [[palabra|id_del_nodo]] para que esa palabra salte a otro nodo.",
+  "editorVerComoNeno": "Ver como niño",
+  "editorPecharPrevisualizacion": "← Cerrar la previsualización",
+  "constructorPublicarXa": "Publicar ya (visible para el alumnado)"
 }

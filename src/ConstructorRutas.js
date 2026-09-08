@@ -107,6 +107,9 @@ function ConstructorRutas({ idiomasActivos = ['gl', 'es', 'en'], idioma = 'gl' }
   const [form, setForm]         = useState(xerarFormInicial)
   const [tabIdioma, setTabIdioma] = useState(idiomasActivos[0] || 'gl')
   const [enviando, setEnviando] = useState(false)
+  // Por defecto a ruta nova publícase ao crear: o alumnado só ve rutas
+  // published+public, e o que crea un profesor é para que a vexan.
+  const [publicar, setPublicar] = useState(true)
   const mensaxeTimerRef = useRef(null)
   // ── FIN: estados ─────────────────────────────────────
 
@@ -202,6 +205,16 @@ function ConstructorRutas({ idiomasActivos = ['gl', 'es', 'en'], idioma = 'gl' }
       console.log('[ConstructorRutas] Resposta:', data)
 
       if (data.ok) {
+        if (publicar && data.id) {
+          // POST crea sempre en draft/private; publicar é un segundo PUT cos mesmos metadatos
+          try {
+            await fetch(`${API}/journeys/${data.id}`, {
+              method: 'PUT',
+              headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+              body: JSON.stringify({ ...form, status: 'published', visibility: 'public' })
+            })
+          } catch (e) { console.warn('[ConstructorRutas] Non se puido publicar:', e.message) }
+        }
         mostrarMensaxe('ok', t(idioma, 'rutaCreadaOk', form.label_gl, data.id) || `Ruta "${form.label_gl}" creada`)
         setForm(xerarFormInicial())
         setStops([])
@@ -415,6 +428,12 @@ function ConstructorRutas({ idiomasActivos = ['gl', 'es', 'en'], idioma = 'gl' }
           />
         </div>
       </div>
+
+      <label style={{ display: 'flex', alignItems: 'center', gap: 10, margin: '12px 0 4px', fontSize: 13,
+                      fontFamily: 'var(--gaia-font-body)', color: 'var(--gaia-text-secondary)', cursor: 'pointer' }}>
+        <input type="checkbox" checked={publicar} onChange={e => setPublicar(e.target.checked)} />
+        {t(idioma, 'constructorPublicarXa')}
+      </label>
 
       {/* Lista de pasos */}
       <div style={seccion}>
