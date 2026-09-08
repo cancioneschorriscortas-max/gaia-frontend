@@ -123,6 +123,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Contido (4ª entrega)** | `docs/content/como_funciona_o_mundo_4.seed.mjs` | Como chega a mensaxe ao móbil (mensaxe → onda de radio → antena → cable submarino; binario, celas, Sada) e A viaxe da pataca (semente → leira → colleita → caldo; Andes, A Limia, solanina). 8 fotos (40 en total). |
 
+| **Rolda 5: cómodo e útil** | varios | Pé do Arquivo sen afirmación institucional (decisión do director). Teclado no percorrido (Escape, ← →). Axuda da sintaxe de portais no Editor. **Profesor:** chip 🧭 completados/empezados e 🃏 cartas en cada alumno; tocar a tarxeta despraza os seus camiños un a un (`GET /centro/:centro/alumnos/:id/rutas`). +3 rutas de secundaria (auga, marea, sal) e 3 cartas. Total: 17 rutas, 18 cartas. |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 
