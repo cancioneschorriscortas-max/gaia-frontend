@@ -135,6 +135,8 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Explorar libre guiado** | `PortadaNeno.js`, `App.js` | "O universo enteiro" abre o mapa xa centrado na parada actual do neno (`seleccionarNodoConTransicion`), de modo que ve as conexións dun nodo coñecido e os camiños que pasan por el. |
 
+| **Mapa "Os meus camiños"** | `MapaUniverso.js`, `App.js`, backend `/journeys/nodos` | Filtro do mapa: esqueleto (galaxias/constelacións) + só os nodos que son parada dunha ruta visible. Por defecto para o alumnado; o botón 🧭 (baixo o 🌌) alterna con todo o universo. Cada estrela dese mapa ten texto, foto, reto e camiño. |
+
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 
