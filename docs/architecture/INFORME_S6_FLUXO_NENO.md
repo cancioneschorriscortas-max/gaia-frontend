@@ -139,7 +139,7 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 
 | **Revisión das fotos** | `docs/content/media_atribucions.json` | As 48 fotos revisadas a ollo (follas de contacto con Edge headless). Substituídas: o leite (saía café con leite → vaso de leite) e o sal (marca comercial → sal mariño). Receita para revisar outra vez: xerar unha folla HTML coas URLs do JSON e capturala. |
 | **Experto 2** | `docs/content/rutas_experto_2.seed.mjs` | "O lume, a fondo": poder calorífico e humidade, composición do aire e estequiometría, enerxía de activación e tetraedro do lume, ecuación da combustión e transmisión da calor. |
-| **Misión da semana** | , ,  | Tarxeta "Misión da semana": un tema por semana (rota pola semana do ano, igual para toda a clase) con 3 rutas; marca as feitas, abre as pendentes e ao completar as 3 dá a carta do tema e +50 XP unha soa vez (a carta é idempotente no backend, o XP colga de ). Para cambiar temas ou rutas, editar o JSON; para engadir un tema fai falta a súa carta en  (). |
+| **Misión da semana** | `PortadaNeno.js`, `src/data/misions.json`, `niveis.js` | Tarxeta "Misión da semana": un tema por semana (rota pola semana do ano, igual para toda a clase) con 3 rutas; marca as feitas, abre as pendentes e ao completar as 3 dá a carta do tema e +50 XP unha soa vez (a carta é idempotente no backend, o XP colga de `nova`). Para cambiar temas ou rutas, editar o JSON; para engadir un tema fai falta a súa carta en `cartas.json` (`evento: mision_semana`). |
 
 Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
 contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.

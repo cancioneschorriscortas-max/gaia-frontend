@@ -483,7 +483,7 @@ ruta de experto, "O lume, a fondo" 🔬. **Total: 21 rutas (14 primaria + 5 secu
 **Rolda 10:** **misión da semana** na portada do neno: 4 temas (mar 🐚, enerxía ⚡, terra 🌱,
 como funciona 🔧) que rotan pola semana do ano, cada un con 3 rutas; a tarxeta lista as rutas
 (feitas/pendentes, clic abre a ruta) e, ao rematar as tres, dá unha carta especial e +50 XP unha
-soa vez (, ). **Total: 21 rutas, 48 paradas con foto, 26 cartas.**
+soa vez (`src/data/misions.json`, `XP_ACCIONS.MISION_SEMANA`). **Total: 21 rutas, 48 paradas con foto, 26 cartas.**
 
 ---
 
