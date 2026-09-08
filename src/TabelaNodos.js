@@ -621,7 +621,7 @@ function TabelaNodos({ onEditarNodo, onBorrarNodo, idioma = 'gl' }) {
           ═════════════════════════════════════════ */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '2fr 2fr 1fr 1fr',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',   // móbil: 2 por fila
         gap: 12
       }}>
         {/* Total nodos */}
@@ -862,6 +862,7 @@ function TabelaNodos({ onEditarNodo, onBorrarNodo, idioma = 'gl' }) {
           <div style={{
             flex: 1,
             overflowY: 'auto',
+            overflowX: 'auto',
             borderRadius: '10px 10px 0 0',
             border: '1px solid var(--gaia-cosmos-400)',
             borderBottom: 'none',
@@ -1043,6 +1044,7 @@ function TabelaNodos({ onEditarNodo, onBorrarNodo, idioma = 'gl' }) {
           <div style={{
             flex: 1,
             overflowY: 'auto',
+            overflowX: 'auto',
             borderRadius: '10px 10px 0 0',
             border: '1px solid var(--gaia-cosmos-400)',
             borderBottom: 'none',
