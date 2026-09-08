@@ -429,6 +429,10 @@ estender). Informe completo con achados e backlog en `docs/architecture/INFORME_
 - **2 rutas máis "como funciona o mundo":** A viaxe do lixo ♻️ e Por que sobe e baixa o mar 🌊
   (8 nodos, 21 relacións, 2 cartas, 8 fotos). Total: **8 rutas, 24 paradas con foto, 9 cartas.**
 - Arranxo de paso: as habilidades das cartas de rol saían coa clave i18n en bruto.
+- **"O teu soño" xa é real (v1):** mostra o oficio ou camiño escollido (roles.js), permite
+  cambialo (reabre SeleccionRol) e facer o test de oficios; ao completar "A viaxe do pan"
+  desbloquea "Ver o oficio por dentro" → a vista de Oberón do panadeiro, dentro da portada.
+  Arranxado en Neo4j o `epigrafe_gl` pendente ("harina" → "fariña").
 
 **Próximo (ver informe):** o pé "Xunta de Galicia · Consellería de educación" do Arquivo é unha
 afirmación institucional que o director debe confirmar ou retirar; "O teu soño" real con Oberón;

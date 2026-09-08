@@ -112,8 +112,10 @@ sal, a marea, o móbil, o lixo/reciclaxe.
 | **Rutas publicadas** | backend `/journeys`, `PUT /journeys/:id` | As 8 rutas pasaron a `published`+`public`. `/journeys` filtra por rol (token opcional): quen non é profesor só ve esas. |
 | **Contido** | `docs/content/como_funciona_o_mundo_2.seed.mjs` | A viaxe do lixo (lixo → contedor → planta de reciclaxe → obxecto novo) e Por que sobe e baixa o mar (Lúa no ceo → marea → marisqueo → ameixa). 8 fotos Commons con atribución (`media_atribucions.json`, 24 en total). |
 
-Conta de proba alumna: `Nena Proba` (5º primaria, centro "Centro de proba"); a contrasinal está no
-scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
+| **"O teu soño" v1** | `PortadaNeno.js` | Oficio escollido (de `roles.js`) ou camiño do usuario, "Cambiar"/"Escoller" (reabre SeleccionRol), "Facer o test de oficios" (PanelOberonTest). Ao completar o tutorial: "Ver o oficio por dentro" abre `OberonProfesionVista('panadeiro')` nun overlay. Só o panadeiro ten árbore en Oberón; a táboa `OFICIOS_OBERON` no ficheiro é onde se engaden os seguintes. |
+
+Contas de proba alumnas: `Nena Proba` e `Neno Proba` (5º primaria, centro "Centro de proba"); as
+contrasinais están no scratchpad da sesión. Serve para ver o fluxo enteiro do neno: espertar → elección → portada.
 
 ## 5. Como arrincar a pila local (para a próxima sesión)
 
