@@ -485,6 +485,12 @@ como funciona 🔧) que rotan pola semana do ano, cada un con 3 rutas; a tarxeta
 (feitas/pendentes, clic abre a ruta) e, ao rematar as tres, dá unha carta especial e +50 XP unha
 soa vez (`src/data/misions.json`, `XP_ACCIONS.MISION_SEMANA`). **Total: 21 rutas, 48 paradas con foto, 26 cartas.**
 
+**Rolda 11:** Lúa fala da misión da semana (cando queda unha ruta empúrraa polo nome; cando está
+feita e non hai camiño activo, dío) e terceira ruta de experto, "A auga, a fondo" 💧🎓
+(`docs/content/rutas_experto_3.seed.mjs`: calor latente e chuvia orográfica, bacías e Q=A·v, ETAP
+fronte a EDAR, presión da rede). **Total: 22 rutas (14 primaria + 5 secundaria + 3 experto), 48 paradas
+con foto, 27 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
