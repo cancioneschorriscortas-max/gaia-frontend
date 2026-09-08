@@ -532,6 +532,11 @@ o barco, a lonxa e a poxa á baixa, o xeo e a cadea de frío, a peixaría; porta
 "A semana do mar" no lugar dos oficios do mar. **Total: 28 rutas (17 primaria + 7 secundaria + 4 experto),
 60 paradas con foto, 35 cartas.**
 
+**Rolda 21:** ruta de primaria "De onde vén o papel" 📄 (`docs/content/como_funciona_o_mundo_9.seed.mjs`:
+a árbore (eucalipto e monte galego), a pasta (kraft, Lourizán), a máquina de papel (Fourdrinier, gramaxe, A4)
+e o caderno (reciclaxe, portal ao contedor azul). **Total: 29 rutas (18 primaria + 7 secundaria + 4 experto),
+64 paradas con foto, 36 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
