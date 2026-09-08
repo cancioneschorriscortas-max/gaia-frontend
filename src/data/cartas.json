@@ -25,6 +25,12 @@
     { "id": "carta_leite", "coleccion": "natureza", "emoji": "🐄", "ruta": "de_onde_ven_o_leite",
       "titulo": { "gl": "A vaca é unha fábrica de herba", "es": "La vaca es una fábrica de hierba", "en": "The cow is a grass factory" },
       "texto":  { "gl": "Unha vaca pode beber ata 100 litros de auga nun día de calor. Case todo o que dá leite é herba e auga transformadas.", "es": "Una vaca puede beber hasta 100 litros de agua en un día de calor. Casi todo lo que da leche es hierba y agua transformadas.", "en": "A cow can drink up to 100 litres of water on a hot day. Almost everything that makes milk is grass and water, transformed." } },
+    { "id": "carta_lixo", "coleccion": "mundo", "emoji": "♻️", "ruta": "a_viaxe_do_lixo",
+      "titulo": { "gl": "A roda do lixo", "es": "La rueda de la basura", "en": "The rubbish wheel" },
+      "texto":  { "gl": "Con seis botellas de plástico faise unha camiseta. Pero a mellor botella é a que non se tira: reducir vai antes que reciclar.", "es": "Con seis botellas de plástico se hace una camiseta. Pero la mejor botella es la que no se tira: reducir va antes que reciclar.", "en": "Six plastic bottles make one T-shirt. But the best bottle is the one you never throw away: reduce comes before recycle." } },
+    { "id": "carta_marea", "coleccion": "natureza", "emoji": "🌊", "ruta": "por_que_sobe_e_baixa_o_mar",
+      "titulo": { "gl": "O mar ten reloxo", "es": "El mar tiene reloj", "en": "The sea keeps time" },
+      "texto":  { "gl": "A Lúa tira do mar dúas veces ao día. As mariscadoras non miran o reloxo: miran a táboa de mareas.", "es": "La Luna tira del mar dos veces al día. Las mariscadoras no miran el reloj: miran la tabla de mareas.", "en": "The Moon pulls the sea twice a day. Shellfish gatherers don't check the clock: they check the tide table." } },
     { "id": "carta_portal", "coleccion": "exploracion", "emoji": "🔭", "evento": "primeiro_portal",
       "titulo": { "gl": "Explorador de atallos", "es": "Explorador de atajos", "en": "Shortcut explorer" },
       "texto":  { "gl": "Saíches do camiño polo primeiro portal. Todo no universo está conectado con algo: seguir un fío é a forma de coñecelo.", "es": "Te saliste del camino por el primer portal. Todo en el universo está conectado con algo: seguir un hilo es la forma de conocerlo.", "en": "You stepped off the path through your first portal. Everything in the universe connects to something: following a thread is how you get to know it." } }
