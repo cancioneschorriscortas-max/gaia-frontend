@@ -88,7 +88,7 @@ function RetoInteractivo({ nodoId, nodoLabel, pregunta, nivel = 'primary', idiom
       const res = await fetch(`${API}/avaliar-reto`, {
         method:  'POST',
         headers: authHeaders(),
-        body:    JSON.stringify({ pregunta, resposta, nivel, idioma, nodoLabel })
+        body:    JSON.stringify({ pregunta, resposta, nivel, idioma, nodoLabel, nodoId })   // nodoId: Lúa le a parada como referencia
       })
 
       if (res.status === 401) {

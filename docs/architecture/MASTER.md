@@ -584,6 +584,11 @@ modelo resolve a pregunta antes de puntuar, "acertou" só leva o que está ben, 
 a ovella e o liño galego, o fío que se retorce, o tear (urdime e trama, Jacquard), a tenda (etiqueta, Inditex,
 moda rápida e pegada). **Total: 32 rutas (19 primaria + 8 secundaria + 5 experto), 68 paradas con foto, 41 cartas.**
 
+**Rolda 31:** avaliador de Lúa en castelán e inglés. Fallo: cunha pregunta e resposta en inglés, Lúa
+contestaba en galego (o prompt enteiro está en galego e a regra "Escribe en inglés" non abondaba). Agora a
+regra de idioma vai na lingua destino, esixe TODOS os campos do JSON e repítese ao final do prompt;
+secundaria non esixe datos que a pregunta non pide.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
