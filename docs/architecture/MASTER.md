@@ -602,6 +602,10 @@ e a polinización, a colmea de hexágonos e a encima que fai o mel, o apicultor 
 o mel que non estraga; portal ao sal). **Total: 34 rutas (20 primaria + 8 secundaria + 6 experto), 72 paradas
 con foto, 44 cartas, 8 misións.**
 
+**Rolda 35:** revisión de coherencia do catálogo (34 rutas pola API): dúas rutas anteriores á sesión sen
+etiqueta nin descrición en es/en ("Galicia no Prato", "Oficios Do Mar") e catro iconos repetidos entre rutas.
+Arranxado con `docs/content/rutas_fix_catalogo.seed.mjs` (reexecutable en produción).
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
