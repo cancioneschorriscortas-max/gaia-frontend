@@ -678,6 +678,17 @@ razoamento breve); despois diso as catro probas dan cifras correctas e "Nada est
 parser tolera saltos de liña dentro dos textos (daban 500) e loguea o JSON inválido; max_tokens 900/1100.
 **Total: 37 rutas (21 primaria + 10 secundaria + 6 experto), 82 paradas con foto, 47 cartas, 8 misións.**
 
+**Rolda 48:** os retos de experto pasados polo avaliador co campo "calculo" (un reto con contas por cada unha das seis
+rutas, resposta boa e mala): boas 82–93, malas 25–38, e as doce resolucións de Lúa en "calculo" son correctas
+(180.000 L e 346 días; 15,2 A; 50 km e 80 g; 4 e 2 días; 1,8 kWh; 5.200 kg e 95 persoas). Un só desliz: en
+"acertou" chamoulle correcta a unha división que o seu propio "calculo" desmentía; engadida a regra de que
+ningunha cifra do alumno pode ir como correcta en "acertou" se non coincide coa de "calculo". E contra o crédito
+inventado (seguía atribuíndolle ao alumno ideas que non escribira), regra de citar: cada acerto de "acertou" leva
+unha cita curta «...» da resposta do alumno. Primeira versión mal: citaba o texto da parada como se fose do alumno
+(a resposta mala de primaria subiu a 75); precisado "da RESPOSTA DO ALUMNO, nunca da pregunta nin da parada" volve
+a 35, e á resposta mala de experto dille "Nada.". Ollo nas probas: 20 chamadas/minuto por IP e 25 retos/día por
+alumno; as contas de proba esgótanse rápido (o profesor ten contador propio).
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
