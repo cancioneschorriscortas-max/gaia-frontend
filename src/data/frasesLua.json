@@ -6,7 +6,7 @@
     { "id": "benvida_man_2",     "cando": { "hora": [5, 12] },
       "gl": "Bos días{, nome}! Hoxe hai algo novo que descubrir.", "es": "¡Buenos días{, nome}! Hoy hay algo nuevo que descubrir.", "en": "Good morning{, nome}! There is something new to discover today." },
     { "id": "benvida_tarde",     "cando": { "hora": [12, 20] },
-      "gl": "Boa tarde{, nome}! Quedou algo a medio descubrir?", "es": "¡Buenas tardes{, nome}! ¿Quedó algo a medio descubrir?", "en": "Good afternoon{, nome}! Did something stay half-discovered?" },
+      "gl": "Boa tarde{, nome}! Quedou algo a medio descubrir?", "es": "¡Buenas tardes{, nome}! ¿Quedó algo a medio descubrir?", "en": "Good afternoon{, nome}! Anything left half-discovered?" },
     { "id": "benvida_tarde_2",   "cando": { "hora": [12, 20] },
       "gl": "Boa tarde{, nome}! O universo estivo agardando por ti.", "es": "¡Buenas tardes{, nome}! El universo estuvo esperándote.", "en": "Good afternoon{, nome}! The universe was waiting for you." },
     { "id": "benvida_noite",     "cando": { "hora": [20, 29] },
@@ -27,7 +27,7 @@
     { "id": "mision_novas_2",    "cando": { "ruta": "novas" },
       "gl": "Camiño completo. Que che apetece descubrir hoxe?", "es": "Camino completo. ¿Qué te apetece descubrir hoy?", "en": "Path complete. What do you feel like discovering today?" },
     { "id": "mision_todas",      "cando": { "ruta": "todas" },
-      "gl": "Todos os camiños feitos! Podes volver percorrelos ou explorar libre.", "es": "¡Todos los caminos hechos! Puedes volver a recorrerlos o explorar libre.", "en": "Every path done! You can walk them again or explore freely." },
+      "gl": "Todos os camiños feitos! Podes volver percorrelos ou explorar libre.", "es": "¡Todos los caminos hechos! Puedes volver a recorrerlos o explorar libremente.", "en": "Every path done! You can walk them again or explore freely." },
 
     { "id": "senda_empeza",      "cando": { "evento": "senda_empeza" },
       "gl": "Todo camiño empeza nun primeiro paso{, nome}. Toca a estrela!", "es": "Todo camino empieza con un primer paso{, nome}. ¡Toca la estrella!", "en": "Every path starts with a first step{, nome}. Tap the star!" },

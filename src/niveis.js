@@ -65,6 +65,24 @@ export const calcularNivel = (xpTotal) => {
 }
 // ── FIN: calcular_nivel ──────────────────────────────
 
+// ── INICIO: titulo_nivel_i18n ────────────────────────
+// Os títulos de nivel veñen do backend en galego ("Viaxeiro", "Cartógrafo"…). Para es/en
+// tradúcense aquí polo texto galego; se o backend inventa un título novo, devólvese tal cal.
+const TITULOS_NIVEL = {
+  'Explorador':      { es: 'Explorador',      en: 'Explorer' },
+  'Viaxeiro':        { es: 'Viajero',         en: 'Traveller' },
+  'Cartógrafo':      { es: 'Cartógrafo',      en: 'Cartographer' },
+  'Navegante':       { es: 'Navegante',       en: 'Navigator' },
+  'Astrónomo':       { es: 'Astrónomo',       en: 'Astronomer' },
+  'Gardián':         { es: 'Guardián',        en: 'Guardian' },
+  'Sabio':           { es: 'Sabio',           en: 'Sage' },
+  'Oráculo':         { es: 'Oráculo',         en: 'Oracle' },
+  'Arquitecto':      { es: 'Arquitecto',      en: 'Architect' },
+  'Gardián de GAIA': { es: 'Guardián de GAIA', en: 'Guardian of GAIA' },
+}
+export const tituloNivel = (idioma, titulo) => (titulo && TITULOS_NIVEL[titulo]?.[idioma]) || titulo || ''
+// ── FIN: titulo_nivel_i18n ───────────────────────────
+
 // ── INICIO: xp_accions ───────────────────────────────
 // Fonte única de verdade para cantidades de XP
 // Usada por sistemaXP.js e polo backend

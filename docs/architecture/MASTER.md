@@ -610,6 +610,10 @@ Arranxado con `docs/content/rutas_fix_catalogo.seed.mjs` (reexecutable en produc
 Ciencia, Oficios) e dentro de cada un primeiro primaria, logo secundaria e experto, alfabético. Antes
 "Ciencia" (18 rutas) ía primeiro e mesturaba niveis pola orde alfabética global.
 
+**Rolda 37:** repaso das 33 frases de Lúa en es/en (dous retoques) e títulos de nivel traducidos: o backend
+mándaos en galego ("Viaxeiro", "Cartógrafo") e en es/en saían así na portada, no menú, no panel de XP e no
+perfil; agora `tituloNivel(idioma, titulo)` en `niveis.js`.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

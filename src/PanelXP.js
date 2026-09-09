@@ -1,3 +1,4 @@
+import { tituloNivel } from './niveis'
 import { useEffect } from 'react'
 import { useUser } from './contexts/UserContext'
 
@@ -165,7 +166,7 @@ function PanelXP({ idioma = 'gl', visible, onCerrar }) {
           gap: 6
         }}>
           <IconoEstrela />
-          {nivelUsuario?.titulo || 'Explorador/a'}
+          {tituloNivel(idioma, nivelUsuario?.titulo) || 'Explorador/a'}
         </div>
 
         {/* XP total en grande */}
@@ -322,7 +323,7 @@ function PanelXP({ idioma = 'gl', visible, onCerrar }) {
               }}>
                 Nv.{nivelUsuario.nivel}
               </span>
-              {nivelUsuario.titulo}
+              {tituloNivel(idioma, nivelUsuario.titulo)}
             </div>
             {nivelUsuario.xpSeguinte && (
               <div style={{

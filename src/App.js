@@ -1,3 +1,4 @@
+import { tituloNivel } from './niveis'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { t } from './i18n'
 import { useUser }  from './contexts/UserContext'
@@ -889,7 +890,7 @@ function App() {
             {nivelUsuario && (
               <div style={{ marginTop: 8 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, marginBottom: 4, fontFamily: S.fontMono, letterSpacing: '0.03em' }}>
-                  <span style={{ color: nivelUsuario.cor, fontWeight: 600 }}>{nivelUsuario.titulo}</span>
+                  <span style={{ color: nivelUsuario.cor, fontWeight: 600 }}>{tituloNivel(idioma, nivelUsuario.titulo)}</span>
                   {nivelUsuario.xpSeguinte && (
                     <span style={{ color: S.colorMuted }}>{nivelUsuario.xpSeguinte - xp.total} → {nivelUsuario.tituloSeguinte}</span>
                   )}
@@ -1098,7 +1099,7 @@ function App() {
                   <div style={{ fontSize: 11, color: S.colorGold, marginTop: 4, fontFamily: S.fontMono }}>✦ {xp.total} XP</div>
                   {nivelUsuario && (
                     <div style={{ fontSize: 11, color: nivelUsuario.cor, marginTop: 3, fontFamily: S.fontMono }}>
-                      Nv.{nivelUsuario.nivel} — <span style={{ color: S.colorText }}>{nivelUsuario.titulo}</span>
+                      Nv.{nivelUsuario.nivel} — <span style={{ color: S.colorText }}>{tituloNivel(idioma, nivelUsuario.titulo)}</span>
                     </div>
                   )}
                 </div>

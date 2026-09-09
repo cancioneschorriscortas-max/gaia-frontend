@@ -1,3 +1,4 @@
+import { tituloNivel } from '../niveis'
 import { useState, useEffect } from 'react'
 import { useUser } from '../contexts/UserContext'
 import { useUI }   from '../contexts/UIContext'
@@ -790,7 +791,7 @@ function PanelPerfil({ idioma = 'gl', onPechar }) {
                 letterSpacing: '-0.02em',
                 lineHeight: 1
               }}>
-                {nivelUsuario?.titulo || 'Explorador/a'}
+                {tituloNivel(idioma, nivelUsuario?.titulo) || 'Explorador/a'}
               </div>
             </div>
             <div style={{ textAlign: 'right' }}>
@@ -845,7 +846,7 @@ function PanelPerfil({ idioma = 'gl', onPechar }) {
                 color: 'var(--gaia-text-tertiary)',
                 letterSpacing: '0.025em'
               }}>
-                <span>{nivelUsuario.titulo}</span>
+                <span>{tituloNivel(idioma, nivelUsuario.titulo)}</span>
                 <span>
                   {numeroSeguro(nivelUsuario?.xpSeguinte) - numeroSeguro(xp.total)} XP
                   <span style={{ color: 'var(--gaia-text-disabled)' }}> para </span>

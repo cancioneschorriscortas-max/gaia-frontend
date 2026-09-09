@@ -13,6 +13,7 @@
 //                    onAbrirRuta={(journeyId) => ...}
 //                    onExplorar={() => ...} />
 // ─────────────────────────────────────────────────────────
+import { tituloNivel } from './niveis'
 import { useState, useEffect } from 'react'
 import { useUser } from './contexts/UserContext'
 import { SendaVisual } from './SendaRuta'
@@ -329,7 +330,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
   const diaPar = new Date().getDate() % 2 === 0
   const gancho = usuario?.explorador || misionSemanal ? ''
     : (faltanXP != null && (nivel?.progreso || 0) >= 60 && nivel?.tituloSeguinte)
-      ? fraseLua({ idioma, hora: -1, gancho: 'xp', n: faltanXP, ruta: nivel.tituloSeguinte })
+      ? fraseLua({ idioma, hora: -1, gancho: 'xp', n: faltanXP, ruta: tituloNivel(idioma, nivel.tituloSeguinte) })
       : (cartas.length > 0 && diaPar)
         ? fraseLua({ idioma, hora: -1, gancho: 'cartas', n: cartas.length, total: CARTAS.cartas.length })
         : ''
@@ -374,7 +375,7 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
               {xp?.total || 0} XP
             </div>
             <div style={{ fontSize: 10.5, color: nivel?.cor || C.secundario }}>
-              {nivel?.titulo || '—'}
+              {tituloNivel(idioma, nivel?.titulo) || '—'}
             </div>
           </div>
         </div>
