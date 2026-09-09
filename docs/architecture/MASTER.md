@@ -635,6 +635,11 @@ reto de opción múltiple e reto aberto, e 6 fotos de Commons. **78 paradas con 
 lapse rate, Betz, Joule, diferencial de 30 mA, aw, Q10, F0, HTST/UHT, xenoma hexaploide… todo aguanta.
 Un só retoque: "a conserveira galega naceu en 1836" pasa a "a mediados do século XIX" (data sen fonte firme).
 
+**Rolda 42:** repaso dos 32 retos abertos de secundaria. Os das primeiras rutas ("A luz, por dentro", "A marea, por
+dentro") eran preguntas de explicar sen ningún número, e os novos levan cálculo: nivelados os cinco máis lixeiros
+(vento, xerador, rede, enchufe, Lúa) cun cálculo ou un dato que razoar, e corrixida a premisa "a Lúa case non move a
+terra firme" (móvea uns 30 cm; o que non fai é desprazala).
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

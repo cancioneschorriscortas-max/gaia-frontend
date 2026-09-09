@@ -13,21 +13,21 @@ const TOKEN = (await j('POST', '/auth/login', { nome: CRED.nome, contrasinal: CR
 // Retos de secundaria: abertos, pensados para 12-16 anos. Lúa avalía con criterio de instituto.
 const RETOS_SEC = {
   o_vento: {
-    gl: 'Explica coas túas palabras por que sopra o vento. Que ten que ver o Sol?',
-    es: 'Explica con tus palabras por qué sopla el viento. ¿Qué tiene que ver el Sol?',
-    en: 'Explain in your own words why the wind blows. What does the Sun have to do with it?' },
+    gl: 'Un aeroxerador dá 3 MW cando o vento vai a 12 m/s, e unha casa gasta de media uns 3 kW cando ten todo acendido. Cantas casas alimenta nese momento? Explica por que sopra o vento (que ten que ver o Sol) e por que o muíño non dá sempre eses 3 MW.',
+    es: 'Un aerogenerador da 3 MW cuando el viento va a 12 m/s, y una casa gasta de media unos 3 kW cuando tiene todo encendido. ¿Cuántas casas alimenta en ese momento? Explica por qué sopla el viento (qué tiene que ver el Sol) y por qué el molino no da siempre esos 3 MW.',
+    en: 'A wind turbine gives 3 MW when the wind is 12 m/s, and a house draws about 3 kW with everything on. How many houses does it power at that moment? Explain why the wind blows (what the Sun has to do with it) and why the turbine does not always give those 3 MW.' },
   o_xerador: {
-    gl: 'Un xerador convirte movemento en electricidade. Describe que hai dentro e que descubriu Faraday en 1831.',
-    es: 'Un generador convierte movimiento en electricidad. Describe qué hay dentro y qué descubrió Faraday en 1831.',
-    en: 'A generator turns motion into electricity. Describe what is inside it and what Faraday discovered in 1831.' },
+    gl: 'Un xerador convirte movemento en electricidade. Describe que hai dentro, que descubriu Faraday en 1831 e que pasaría coa corrente se o imán deixase de xirar e quedase quieto pegado ao cable.',
+    es: 'Un generador convierte movimiento en electricidad. Describe qué hay dentro, qué descubrió Faraday en 1831 y qué pasaría con la corriente si el imán dejase de girar y se quedase quieto pegado al cable.',
+    en: 'A generator turns motion into electricity. Describe what is inside it, what Faraday discovered in 1831, and what would happen to the current if the magnet stopped turning and stayed still next to the wire.' },
   a_rede_electrica: {
-    gl: 'Por que a electricidade viaxa en alta tensión polas torres e se lle baixa a forza antes de entrar nas casas?',
-    es: '¿Por qué la electricidad viaja en alta tensión por las torres y se le baja la fuerza antes de entrar en las casas?',
-    en: 'Why does electricity travel at high voltage along the pylons, and why is it stepped down before entering homes?' },
+    gl: 'A potencia é tensión por corrente (P = V·I). Para levar 400 MW, cantos amperios fan falta a 400.000 V e cantos a 230 V? Explica con ese resultado por que a electricidade viaxa en alta tensión polas torres e se lle baixa antes de entrar nas casas.',
+    es: 'La potencia es tensión por corriente (P = V·I). Para llevar 400 MW, ¿cuántos amperios hacen falta a 400.000 V y cuántos a 230 V? Explica con ese resultado por qué la electricidad viaja en alta tensión por las torres y se le baja antes de entrar en las casas.',
+    en: 'Power is voltage times current (P = V·I). To carry 400 MW, how many amps are needed at 400,000 V and how many at 230 V? Use that result to explain why electricity travels at high voltage along the pylons and is stepped down before entering homes.' },
   o_enchufe: {
-    gl: 'Que pasa nun circuíto cando acendes un interruptor? Usa as palabras "camiño", "pechado" e "corrente".',
-    es: '¿Qué pasa en un circuito cuando enciendes un interruptor? Usa las palabras "camino", "cerrado" y "corriente".',
-    en: 'What happens in a circuit when you flip a switch on? Use the words "path", "closed" and "current".' },
+    gl: 'Que pasa nun circuíto cando acendes un interruptor? Usa as palabras "camiño", "pechado" e "corrente". Despois explica por que o diferencial do cadro salta se se escapan 30 mA e por que iso protexe a unha persoa.',
+    es: '¿Qué pasa en un circuito cuando enciendes un interruptor? Usa las palabras "camino", "cerrado" y "corriente". Después explica por qué el diferencial del cuadro salta si se escapan 30 mA y por qué eso protege a una persona.',
+    en: 'What happens in a circuit when you flip a switch on? Use the words "path", "closed" and "current". Then explain why the residual-current device in the fuse box trips if 30 mA leak away, and why that protects a person.' },
   a_lena: {
     gl: 'A enerxía da leña vén do Sol. Explica o camiño que fai esa enerxía desde o Sol ata a chama, paso por paso.',
     es: 'La energía de la leña viene del Sol. Explica el camino que hace esa energía desde el Sol hasta la llama, paso a paso.',
