@@ -580,6 +580,10 @@ modelo resolve a pregunta antes de puntuar, "acertou" só leva o que está ben, 
 (acesas as que xa teñen carta) e, ao ter as sete, a carta "Mestre do Ano" 🏆 e +100 XP unha soa vez
 (`XP_ACCIONS.GRAN_MISION`). **40 cartas.**
 
+**Rolda 30 (9 set 2026):** ruta de primaria "De onde vén a roupa" 👕 (`docs/content/como_funciona_o_mundo_10.seed.mjs`:
+a ovella e o liño galego, o fío que se retorce, o tear (urdime e trama, Jacquard), a tenda (etiqueta, Inditex,
+moda rápida e pegada). **Total: 32 rutas (19 primaria + 8 secundaria + 5 experto), 68 paradas con foto, 41 cartas.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
