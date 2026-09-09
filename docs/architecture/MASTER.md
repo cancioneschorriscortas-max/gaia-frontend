@@ -594,6 +594,14 @@ semanas) e sexto experto "As fibras, a fondo" 🧵🎓 (`docs/content/rutas_expe
 feltrado, torsión e tex, ligamentos e denim, celulosa, kraft e hornificación). **Total: 33 rutas (19 primaria +
 8 secundaria + 6 experto), 68 paradas con foto, 43 cartas, 8 misións.**
 
+**Rolda 33:** revisión visual das 12 fotos novas desde a revisión das 56 (peixe, papel, roupa): todas
+correctas, sen cambios.
+
+**Rolda 34:** ruta de primaria "De onde vén o mel" 🐝 (`docs/content/como_funciona_o_mundo_11.seed.mjs`: a abella
+e a polinización, a colmea de hexágonos e a encima que fai o mel, o apicultor co afumador e a IXP Mel de Galicia,
+o mel que non estraga; portal ao sal). **Total: 34 rutas (20 primaria + 8 secundaria + 6 experto), 72 paradas
+con foto, 44 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
