@@ -589,6 +589,11 @@ contestaba en galego (o prompt enteiro está en galego e a regra "Escribe en ing
 regra de idioma vai na lingua destino, esixe TODOS os campos do JSON e repítese ao final do prompt;
 secundaria non esixe datos que a pregunta non pide.
 
+**Rolda 32:** oitava misión da semana "A semana da casa" 🏠 (roupa, papel, lixo; a gran misión pasa a oito
+semanas) e sexto experto "As fibras, a fondo" 🧵🎓 (`docs/content/rutas_experto_6.seed.mjs`: queratina e
+feltrado, torsión e tex, ligamentos e denim, celulosa, kraft e hornificación). **Total: 33 rutas (19 primaria +
+8 secundaria + 6 experto), 68 paradas con foto, 43 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
