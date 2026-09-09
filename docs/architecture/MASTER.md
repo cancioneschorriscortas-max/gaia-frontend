@@ -606,6 +606,10 @@ con foto, 44 cartas, 8 misións.**
 etiqueta nin descrición en es/en ("Galicia no Prato", "Oficios Do Mar") e catro iconos repetidos entre rutas.
 Arranxado con `docs/content/rutas_fix_catalogo.seed.mjs` (reexecutable en produción).
 
+**Rolda 36:** Arquivo de Rutas con 34 rutas: os módulos van agora en orde fixa (Galicia co tutorial, Natureza,
+Ciencia, Oficios) e dentro de cada un primeiro primaria, logo secundaria e experto, alfabético. Antes
+"Ciencia" (18 rutas) ía primeiro e mesturaba niveis pola orde alfabética global.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

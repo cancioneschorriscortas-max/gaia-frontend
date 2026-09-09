@@ -121,12 +121,27 @@ function ArbolInstitucional({ idioma = 'gl', onPechar, onSeleccionarRuta }) {
 
   const NIVEL_LABEL = { primary: t(idioma, 'primaria'), secondary: t(idioma, 'percorridoSecundaria'), expert: t(idioma, 'experto') }
 
-  const modulos = journeys.reduce((acc, j) => {
+  // Módulos nunha orde fixa (o tutorial do pan está en Galicia; logo o mundo, a ciencia e os oficios)
+  // e, dentro de cada módulo, primeiro primaria, logo secundaria e experto, en orde alfabética.
+  // Con 34 rutas a orde de chegada (alfabética global) mesturaba niveis e poñía "Ciencia" primeiro.
+  const ORDE_MODULOS = ['Galicia', 'Natureza', 'Ciencia', 'Oficios']
+  const ORDE_NIVEL = { primary: 0, secondary: 1, expert: 2 }
+  const modulosSenOrde = journeys.reduce((acc, j) => {
     const mod = j.modulo || t(idioma, 'arquivoXeral')
     if (!acc[mod]) acc[mod] = { rutas: [] }
     acc[mod].rutas.push(j)
     return acc
   }, {})
+  const modulos = Object.fromEntries(
+    Object.entries(modulosSenOrde)
+      .sort(([a], [b]) => {
+        const ia = ORDE_MODULOS.indexOf(a), ib = ORDE_MODULOS.indexOf(b)
+        return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib) || a.localeCompare(b)
+      })
+      .map(([mod, data]) => [mod, { rutas: [...data.rutas].sort((x, y) =>
+        (ORDE_NIVEL[x.level] ?? 0) - (ORDE_NIVEL[y.level] ?? 0)
+        || String(x.label?.[idioma] || x.label?.gl || x.id).localeCompare(String(y.label?.[idioma] || y.label?.gl || y.id))) }])
+  )
 
   const pechar = () => {
     setVisible(false)
