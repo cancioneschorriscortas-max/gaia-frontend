@@ -2,6 +2,7 @@
 // - o_sal: "pagábanlles en sal" é un mito (a etimoloxía de "salario" si vén de sal)
 // - o_leite: a pasteurización leva o nome de Pasteur (1864); o método HTST actual é posterior
 // - a_lonxa: "só un 10 % queda na comarca" non ten fonte → "a maior parte vai a toda España"
+// - a_conserva (experto): "naceu en 1836" sen fonte firme → "a mediados do século XIX"
 // - o_tear: museos do tear sen verificar → "museos etnográficos gardan teares antigos"
 import fs from 'node:fs'
 const API = 'http://localhost:4000'
@@ -25,6 +26,10 @@ export const CAMBIOS = {
     gl: ['Só un 10 % do que se pesca queda na comarca: o resto vai en camión frigorífico a toda España.', 'A maior parte do que se pesca sae o mesmo día en camión frigorífico a toda España.'],
     es: ['Solo un 10 % de lo que se pesca se queda en la comarca: el resto va en camión frigorífico a toda España.', 'La mayor parte de lo que se pesca sale el mismo día en camión frigorífico a toda España.'],
     en: ['Only 10% of the catch stays in the area: the rest goes by refrigerated lorry across Spain.', 'Most of the catch leaves the same day by refrigerated lorry for the whole of Spain.'] } },
+  a_conserva: { expert: {
+    gl: ["A conserveira galega naceu en 1836 e hoxe fai", "A conserveira galega naceu a mediados do século XIX e hoxe fai"],
+    es: ["La conservera gallega nació en 1836 y hoy hace", "La conservera gallega nació a mediados del siglo XIX y hoy hace"],
+    en: ["The Galician canning industry was born in 1836 and today makes", "The Galician canning industry was born in the mid-19th century and today makes"] } },
   o_tear: { secondary: {
     gl: ['e o Museo do Tear de Allariz ou o de Vilardevós gardan a memoria do oficio.', 'e os museos etnográficos gardan teares antigos coa memoria do oficio.'],
     es: ['y museos del telar guardan la memoria del oficio.', 'y los museos etnográficos guardan telares antiguos con la memoria del oficio.'],

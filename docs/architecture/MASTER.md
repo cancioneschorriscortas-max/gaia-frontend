@@ -629,7 +629,11 @@ o de Vilardevós" (sen verificar). Aviso: as 6 paradas dos oficios do mar non te
 percebeiro, redeira, cesteiro, calafate) tiñan só un parágrafo galego de primaria, sen es/en, sen secundaria,
 sen retos nin fotos. Agora: primaria en voz de neno nos tres idiomas, secundaria (títulos e seguridade a bordo,
 confrarías, PERMEX e topes do percebe, malla e pesca fantasma, materiais da cestería, calafateado e BIC 2019),
-reto de opción múltiple e reto aberto, e 6 fotos de Commons. **74 paradas con foto.**
+reto de opción múltiple e reto aberto, e 6 fotos de Commons. **78 paradas con foto.**
+
+**Rolda 41:** repaso de datos das 24 capas de experto (auga, luz, fibras, conservar, lume, pan): calor latente,
+lapse rate, Betz, Joule, diferencial de 30 mA, aw, Q10, F0, HTST/UHT, xenoma hexaploide… todo aguanta.
+Un só retoque: "a conserveira galega naceu en 1836" pasa a "a mediados do século XIX" (data sen fonte firme).
 
 ---
 
