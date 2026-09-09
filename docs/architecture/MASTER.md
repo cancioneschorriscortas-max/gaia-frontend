@@ -660,6 +660,14 @@ propostas co estado e a nota) e zona "As túas propostas" na portada do neno: �
 botón "Ver no mapa" (abre o mapa centrado no nodo que creou) e "Proponllo ao profe" (abre PanelEnvio).
 Pechado o círculo: o alumno propón, o profe decide, o alumno ve o resultado e o seu nodo no mapa co seu nome.
 
+**Rolda 46:** ruta de primaria "A viaxe do viño" 🍇 (`docs/content/como_funciona_o_mundo_12.seed.mjs`, módulo Galicia):
+vide (parras e socalcos, pintado das uvas, filoxera), vendima (tesoiras e caixas, carrís da Ribeira Sacra, mosto, 1,1–1,2 kg
+por botella), adega (lévedos, CO2 e a candea, 14–18 °C brancos, bocois de carballo) e viño (cinco DO, cuncas do Ribeiro,
+furancho; por que é bebida de adultos, dito sen rodeos). Catro fotos de Commons. Carta "Un ano nunha botella".
+No backend, `idDesdeEtiqueta` substitúe a `slugify` strict en todos os sitios (nodo, import, journey e os dous
+resolvers): a ruta chámase `a_viaxe_do_vino` e non `a_viaxe_do_vio`.
+**Total: 36 rutas (21 primaria + 9 secundaria + 6 experto), 82 paradas con foto, 46 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
