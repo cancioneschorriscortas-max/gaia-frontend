@@ -645,6 +645,10 @@ terra firme" (móvea uns 30 cm; o que non fai é desprazala).
 (0,83/0,30 ≈ 2,8), mel vendible nun ano bo e malo, vidas de abella nun tarro. Carta "Tres quilos de néctar".
 **Total: 35 rutas (20 primaria + 9 secundaria + 6 experto), 78 paradas con foto, 45 cartas, 8 misións.**
 
+**Rolda 44:** os cinco retos nivelados de secundaria pasados polo avaliador real con resposta boa e mala:
+boas 85–92, malas 25–50. O avaliador (tras os axustes das roldas 28, 31 e 43) discrimina ben; sen cambios de
+prompt salvo "profundar" na lista de castelanismos.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
