@@ -668,6 +668,16 @@ No backend, `idDesdeEtiqueta` substitúe a `slugify` strict en todos os sitios (
 resolvers): a ruta chámase `a_viaxe_do_vino` e non `a_viaxe_do_vio`.
 **Total: 36 rutas (21 primaria + 9 secundaria + 6 experto), 82 paradas con foto, 46 cartas, 8 misións.**
 
+**Rolda 47:** décima ruta de secundaria "A viña, por dentro" 🍇 (`docs/content/rutas_secundaria_6.seed.mjs`): quilos e
+botellas de media hectárea, graos Brix a graos de alcol (20 °Brix ≈ 218 g/L ≈ 12,8°), quilos de CO2 dun depósito
+(200 kg de azucre × 88/180 ≈ 98 kg) e mL e gramos de alcol nunha copa (18 mL, 14,2 g). Carta "Cen quilos de gas".
+O avaliador, ao probar estes retos, deu ben as notas pero errou nas contas ao corrixir (dicía 17,6 kg de CO2 e
+daba por bo un 12 mL que era 18) e volvía atribuír ideas que a resposta non tiña. Arranxo: en secundaria e
+experto o JSON leva PRIMEIRO un campo "calculo" onde Lúa resolve a pregunta antes de puntuar (cadea de
+razoamento breve); despois diso as catro probas dan cifras correctas e "Nada está ben" cando toca. Ademais o
+parser tolera saltos de liña dentro dos textos (daban 500) e loguea o JSON inválido; max_tokens 900/1100.
+**Total: 37 rutas (21 primaria + 10 secundaria + 6 experto), 82 paradas con foto, 47 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
