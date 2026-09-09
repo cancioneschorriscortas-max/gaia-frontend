@@ -625,6 +625,12 @@ de nodos en produción.
 método actual é posterior), "só un 10 % do peixe queda na comarca" (sen fonte) e "o Museo do Tear de Allariz ou
 o de Vilardevós" (sen verificar). Aviso: as 6 paradas dos oficios do mar non teñen capa de secundaria.
 
+**Rolda 40:** "Oficios do mar" completa (`docs/content/oficios_do_mar.seed.mjs`): as 6 paradas (mariñeiro, patrón,
+percebeiro, redeira, cesteiro, calafate) tiñan só un parágrafo galego de primaria, sen es/en, sen secundaria,
+sen retos nin fotos. Agora: primaria en voz de neno nos tres idiomas, secundaria (títulos e seguridade a bordo,
+confrarías, PERMEX e topes do percebe, malla e pesca fantasma, materiais da cestería, calafateado e BIC 2019),
+reto de opción múltiple e reto aberto, e 6 fotos de Commons. **74 paradas con foto.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
