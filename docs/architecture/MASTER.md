@@ -620,6 +620,11 @@ a afirmación non verificada de que os cables submarinos saen do mar en Sada (ca
 semana do mar fala agora de peixe e non de oficios. `docs/content/nodos_fix_textos.seed.mjs` aplica os cambios
 de nodos en produción.
 
+**Rolda 39:** repaso de datos das 82 paradas de primaria (capa de secundaria). Catro afirmacións retocadas:
+"aos soldados romanos pagábanlles en sal" (mito), "a pasteurización inventouna Pasteur" (leva o seu nome; o
+método actual é posterior), "só un 10 % do peixe queda na comarca" (sen fonte) e "o Museo do Tear de Allariz ou
+o de Vilardevós" (sen verificar). Aviso: as 6 paradas dos oficios do mar non teñen capa de secundaria.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
