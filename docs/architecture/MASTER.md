@@ -689,6 +689,16 @@ unha cita curta «...» da resposta do alumno. Primeira versión mal: citaba o t
 a 35, e á resposta mala de experto dille "Nada.". Ollo nas probas: 20 chamadas/minuto por IP e 25 retos/día por
 alumno; as contas de proba esgótanse rápido (o profesor ten contador propio).
 
+**Rolda 49:** comprobado en pantalla o límite diario (Nova, con 25 retos gastados, ve "Por hoxe xa chegaches ao
+límite de retos. Mañá hai máis!" ao enviar). Ruta de primaria "A viaxe da castaña" 🌰
+(`docs/content/como_funciona_o_mundo_13.seed.mjs`, módulo Galicia): castiñeiro (souto, ourizo, Pumbariños, tinta e
+chancro, avespa do castiñeiro), castaña (o pan de Galicia antes da pataca; metade auga, por iso estoupa se non se
+pica), sequeiro (fume e semanas, actividade de auga, o verme) e magosto (San Martiño, tiznarse, viño novo). O nodo
+"A castaña" xa existía como proposta validada de Nena (rolda 45): o seed complétao por PUT e importa os outros tres
+(comproba antes cales existen, para valer nunha base limpa). Fotos: o castiñeiro de Pumbariños, ourizos abertos,
+sequeiros de Pena Folenche (A Pobra de Trives) e castañas na grella dun magosto. Carta "Pícaa antes de asala".
+**Total: 38 rutas (22 primaria + 10 secundaria + 6 experto), 86 paradas con foto, 48 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
