@@ -614,6 +614,12 @@ Ciencia, Oficios) e dentro de cada un primeiro primaria, logo secundaria e exper
 mándaos en galego ("Viaxeiro", "Cartógrafo") e en es/en saían así na portada, no menú, no panel de XP e no
 perfil; agora `tituloNivel(idioma, titulo)` en `niveis.js`.
 
+**Rolda 38:** repaso das 44 cartas nos tres idiomas. Traducións ben; dous datos corrixidos: a superficie do
+intestino non é "unha pista de tenis" senón 30–40 m² (Helander & Fändriks 2014; carta, seed e nodo), e retirada
+a afirmación non verificada de que os cables submarinos saen do mar en Sada (carta, seed e nodo). A carta da
+semana do mar fala agora de peixe e non de oficios. `docs/content/nodos_fix_textos.seed.mjs` aplica os cambios
+de nodos en produción.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
