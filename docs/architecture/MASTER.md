@@ -640,6 +640,11 @@ dentro") eran preguntas de explicar sen ningún número, e os novos levan cálcu
 (vento, xerador, rede, enchufe, Lúa) cun cálculo ou un dato que razoar, e corrixida a premisa "a Lúa case non move a
 terra firme" (móvea uns 30 cm; o que non fai é desprazala).
 
+**Rolda 43 (9 set 2026, tras o push):** novena ruta de secundaria "A abella, por dentro" 🍯
+(`docs/content/rutas_secundaria_5.seed.mjs`): fracción de obreiras fóra, quilos de néctar por quilo de mel
+(0,83/0,30 ≈ 2,8), mel vendible nun ano bo e malo, vidas de abella nun tarro. Carta "Tres quilos de néctar".
+**Total: 35 rutas (20 primaria + 9 secundaria + 6 experto), 78 paradas con foto, 45 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
