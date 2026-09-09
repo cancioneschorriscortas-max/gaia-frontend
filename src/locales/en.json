@@ -423,5 +423,14 @@
   "granMisionProgreso": "{0} of {1} weeks complete",
   "granMisionPremio": "Complete all eight weeks to earn the Master of the Year card and +100 XP",
   "granMisionFeita": "Great mission complete! Master of the Year.",
-  "cartasComoGranMision": "Complete all eight missions of the week to earn it"
+  "cartasComoGranMision": "Complete all eight missions of the week to earn it",
+  "portadaPropostas": "Your proposals",
+  "propostaPendente": "not seen by the teacher yet",
+  "propostaValidada": "now in GAIA",
+  "propostaRexeitada": "not accepted",
+  "propostaNotaSobre": "Note on",
+  "propostaVerNoMapa": "See on the map",
+  "propostaProfeDi": "The teacher says:",
+  "propostaPrimeira": "Know something that isn't in GAIA yet? Propose it to your teacher",
+  "propostaOutra": "Propose something else"
 }

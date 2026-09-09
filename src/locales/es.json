@@ -423,5 +423,14 @@
   "granMisionProgreso": "{0} de {1} semanas completas",
   "granMisionPremio": "Completa las ocho semanas y gana la carta de Maestro del Año y +100 XP",
   "granMisionFeita": "¡Gran misión completa! Maestro del Año.",
-  "cartasComoGranMision": "Completa las ocho misiones de la semana para conseguirla"
+  "cartasComoGranMision": "Completa las ocho misiones de la semana para conseguirla",
+  "portadaPropostas": "Tus propuestas",
+  "propostaPendente": "el profe aún no la vio",
+  "propostaValidada": "ya está en GAIA",
+  "propostaRexeitada": "no entró",
+  "propostaNotaSobre": "Nota sobre",
+  "propostaVerNoMapa": "Ver en el mapa",
+  "propostaProfeDi": "El profe dice:",
+  "propostaPrimeira": "¿Sabes algo que no está en GAIA? Propónselo al profe",
+  "propostaOutra": "Proponer otra cosa"
 }

@@ -1267,6 +1267,7 @@ function App() {
           setPortadaNeno(null)
         }}
         onTest={() => { setPortadaNeno(null); abrirPanel('oberonTest') }}
+        onEnviar={usuario && !usuario.explorador ? () => { setPortadaNeno(null); abrirPanel('envio') } : null}
       />
     )
   }

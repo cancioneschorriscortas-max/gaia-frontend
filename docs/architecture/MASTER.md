@@ -649,6 +649,17 @@ terra firme" (móvea uns 30 cm; o que non fai é desprazala).
 boas 85–92, malas 25–50. O avaliador (tras os axustes das roldas 28, 31 e 43) discrimina ben; sen cambios de
 prompt salvo "profundar" na lista de castelanismos.
 
+**Rolda 45:** lapela Entrada do profesor probada con propostas reais dunha alumna (nodo novo "A castaña" e nota
+sobre "o_mel"). Dous bugs no backend: `/envios-pendentes` mandaba `created_at` como obxecto DateTime de Neo4j e a
+pantalla pintaba "Invalid Date" (agora vai en ISO como `data`); e ao validar, o slug comía o "ñ" ("a_castaa")
+(agora normalízase con `idDesdeEtiqueta`, tamén sen acentos). Ademais, o resolver que usa o panel do profesor
+(`POST /envio/:id/:accion`) tiraba o motivo do rexeite, non creaba as relacións que propuxera o alumno e usaba
+outro vocabulario de estado ca o resolver antigo: agora garda `nota_profesor`/`resolved_at`, crea as relacións
+(`MERGE (nodo)-[:TIPO]->(destino)`) e marca `validado`/`rexeitado`. Novo `GET /envios/meus` (o alumno ve as súas
+propostas co estado e a nota) e zona "As túas propostas" na portada do neno: ⏳/✅/✋, "O profe di: «…»",
+botón "Ver no mapa" (abre o mapa centrado no nodo que creou) e "Proponllo ao profe" (abre PanelEnvio).
+Pechado o círculo: o alumno propón, o profe decide, o alumno ve o resultado e o seu nodo no mapa co seu nome.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

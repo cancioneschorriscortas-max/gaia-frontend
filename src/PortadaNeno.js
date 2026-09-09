@@ -87,6 +87,10 @@ function LuaMascota({ size = 44 }) {
 // ── FIN: lua_mascota ────────────────────────────────────
 
 // ── INICIO: tarxeta (base común) ────────────────────────
+// O backend garda os textos con escape HTML (express-validator); de volta á pantalla, desfaise.
+const desescapar = (s) => String(s || '').replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&#x2F;/g, '/')
+  .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
+
 function Tarxeta({ titulo, children, onClick, style }) {
   const realzar = (cor) => (e) => { e.currentTarget.style.borderColor = cor }
   return (
@@ -115,7 +119,7 @@ function Tarxeta({ titulo, children, onClick, style }) {
 }
 // ── FIN: tarxeta ────────────────────────────────────────
 
-export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, onEscollerCamino, onTest }) {
+export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, onEscollerCamino, onTest, onEnviar }) {
   const { usuario, xp, nivel, authHeaders, rexistrarXP } = useUser()
 
   // ── INICIO: estado ────────────────────────────────────
@@ -224,6 +228,18 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
       .then(r => r.ok ? r.json() : { test: null })
       .catch(() => ({ test: null }))
       .then(d => { if (vivo) setTest(d.test || null) })
+    return () => { vivo = false }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  // As propostas do alumno (nodos novos ou notas que mandou ao profe) co estado e a nota de volta.
+  const [propostas, setPropostas] = useState([])
+  useEffect(() => {
+    if (!usuario || usuario.explorador) return
+    let vivo = true
+    fetch(`${API}/envios/meus`, { headers: authHeaders() })
+      .then(r => r.ok ? r.json() : { envios: [] })
+      .catch(() => ({ envios: [] }))
+      .then(d => { if (vivo) setPropostas(d.envios || []) })
     return () => { vivo = false }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -647,6 +663,53 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
           </div>
         )}
         {/* ── FIN: zona_misión_semana ────────────────────── */}
+
+        {/* ── INICIO: zona_propostas ─────────────────────── */}
+        {/* O alumno propón nodos ou notas ao profe (PanelEnvio); aquí ve o que pasou con elas. */}
+        {usuario && !usuario.explorador && (propostas.length > 0 || onEnviar) && (
+          <Tarxeta titulo={t(idioma, 'portadaPropostas')} style={{ marginBottom: 14 }}>
+            {propostas.length > 0 && (
+              <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {propostas.slice(0, 3).map(p => {
+                  const cor = p.estado === 'validado' ? '#8fe0b0' : p.estado === 'rexeitado' ? '#f0a86b' : C.secundario
+                  const icona = p.estado === 'validado' ? '✅' : p.estado === 'rexeitado' ? '✋' : '⏳'
+                  const estado = t(idioma, p.estado === 'validado' ? 'propostaValidada' : p.estado === 'rexeitado' ? 'propostaRexeitada' : 'propostaPendente')
+                  return (
+                    <li key={p.id} style={{ background: '#101a30', border: `1px solid ${C.borde}`, borderRadius: 10, padding: '8px 10px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                        <span aria-hidden="true">{icona}</span>
+                        <span style={{ flex: 1, minWidth: 0, fontSize: 13.5, color: C.texto }}>
+                          {p.tipo === 'nota' ? `${t(idioma, 'propostaNotaSobre')} ${p.label_gl}` : p.label_gl}
+                        </span>
+                        <span style={{ fontSize: 11.5, color: cor, fontWeight: 600 }}>{estado}</span>
+                        {p.estado === 'validado' && p.nodo_id && onExplorar && (
+                          <button type="button" onClick={() => onExplorar(p.nodo_id)}
+                            style={{ background: 'none', border: `1px solid ${C.borde}`, color: C.dourado, borderRadius: 8,
+                                     padding: '9px 11px', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', minHeight: 36 }}>
+                            {t(idioma, 'propostaVerNoMapa')} →
+                          </button>
+                        )}
+                      </div>
+                      {p.nota_profesor && (
+                        <div style={{ marginTop: 6, fontSize: 12.5, color: C.secundario, lineHeight: 1.45, fontStyle: 'italic' }}>
+                          {t(idioma, 'propostaProfeDi')} «{desescapar(p.nota_profesor)}»
+                        </div>
+                      )}
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+            {onEnviar && (
+              <button type="button" onClick={onEnviar}
+                style={{ width: '100%', background: 'none', border: `1px dashed ${C.borde}`, color: C.dourado, borderRadius: 12,
+                         padding: '10px', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', marginTop: propostas.length ? 10 : 0 }}>
+                💡 {t(idioma, propostas.length ? 'propostaOutra' : 'propostaPrimeira')}
+              </button>
+            )}
+          </Tarxeta>
+        )}
+        {/* ── FIN: zona_propostas ────────────────────────── */}
 
         {/* ── INICIO: zona_3_tarxetas ────────────────────── */}
         {/* O teu soño — v1 ESTÁTICA (placeholder de Oberón, sen endpoint).
