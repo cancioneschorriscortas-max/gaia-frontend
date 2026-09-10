@@ -754,6 +754,13 @@ diferencial en `o_enchufe`, fotosíntese en `a_lena`, osmose en `o_sal`, Pasteur
 `a_onda_de_radio`): ou se completa o texto ou se afrouxa o enunciado; (3) `o_xeo` (experto) ten unha pregunta
 ambigua ("canto a 10 °C se deixa a caixa ao sol dúas horas").
 
+**Rolda 55 (sen subaxentes, por tokens):** `docs/content/nodos_fix_textos_3.seed.mjs` dá texto de secundaria de verdade
+(gl/es/en, 100-130 palabras) a oito paradas cuxos retos pedían o que a parada non explicaba: a ameixa (filtración,
+zonas da ría, depuradora, toxinas), o marisqueo (recurso renovable, tamaño mínimo, topes, vedas, furtivismo), o
+enchufe (magnetotérmico vs diferencial), a leña (fotosíntese, humidade), o sal (osmose, actividade de auga), a
+conserva (Appert e Pasteur, autoclave, lata abombada), a onda de radio (modulación AM/FM/dixital); e o afumador
+en `o_apicultor`. Queda do backlog: o enunciado ambiguo de `o_xeo` (experto).
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
