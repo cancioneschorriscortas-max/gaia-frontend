@@ -720,6 +720,16 @@ por subaxente e 7-8 minutos cada un, en paralelo. Receita reutilizable: scripts 
 `media_seed_xeral.mjs`, `captura.ps1` e `revisar_seed.mjs` no scratchpad da sesión.
 **Total: 41 rutas (25 primaria + 10 secundaria + 6 experto), 98 paradas con foto, 51 cartas, 8 misións.**
 
+**Rolda 52:** segunda tanda con tres subaxentes: `como_funciona_o_mundo_17` "De onde vén o chocolate" 🍫 (cacao, gran de
+cacao, fábrica, tableta: a primeira ruta que sae de Galicia, con comercio xusto dito con equilibrio), `_18` "Como voa
+un paxaro" 🐦 (pluma, á, o corpo feito para voar, migración: sustentación con Newton e non só Bernoulli, Estaca de
+Bares) e `_19` "De onde vén o vidro" 🫙 (vidro, forno, vidreiro, botella: continúa a ruta da area). Correccións do
+executor: "soplan" → "sopran", "reblandecemento" → "abrandamento"; o subaxente do chocolate escolleu "vaíña" (RAG)
+por conta propia. Nas fotos, un desliz meu: para "o corpo feito para voar" subira un esqueleto de avestruz (non voa);
+substituído por un pombo en voo (`borrar_media.mjs` + resubida). Cartas "Derrete na boca", "Un compás dentro",
+"Area que se ve a través". Tamén: o profesor ve a época do calendario no panel da misión (commit 0b3d802).
+**Total: 44 rutas (28 primaria + 10 secundaria + 6 experto), 110 paradas con foto, 54 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
