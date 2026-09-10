@@ -787,6 +787,12 @@ tonelada", "Catrocentos días nunha hora", "Case dez horas de Sol". Avaliador pr
 correctas. Quedan sen ruta de secundaria: castaña, madeira, aceite e mapa.
 **Total: 53 rutas (31 primaria + 16 secundaria + 6 experto), 122 paradas con foto, 63 cartas, 8 misións.**
 
+**Rolda 59:** sexta tanda con subaxentes, as catro rutas de secundaria que faltaban, con solución de referencia:
+`rutas_secundaria_13` "A castaña, por dentro" 🌰, `_14` "A madeira, por dentro" 🪵, `_15` "O aceite, por dentro" 🫒 e
+`_16` "O mapa, por dentro" 🧭. Con isto, TODAS as rutas de primaria "como funciona o mundo" desde a rolda 43 teñen a
+súa de secundaria. Cartas 🍂 🌲 🏺 🧭. Avaliador probado no GPS: 88 con contas correctas.
+**Total: 57 rutas (31 primaria + 20 secundaria + 6 experto), 122 paradas con foto, 67 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
