@@ -1,0 +1,21 @@
+{
+  "_comentario": "Calendario galego de Lúa: épocas con data fixa (MM-DD, inclusivas; poden cruzar o ano). `ruta` é a ruta que casa coa época: leva chip 'é a época' no catálogo e peso de misión. As frases están en frasesLua.json con `cando.epoca`. O Entroido non está porque cambia de data.",
+  "epocas": [
+    { "id": "maios",    "emoji": "🌸", "desde": "05-01", "ata": "05-03",
+      "titulo": { "gl": "Os Maios", "es": "Los Maios", "en": "The Maios" } },
+    { "id": "letras",   "emoji": "📖", "desde": "05-15", "ata": "05-17",
+      "titulo": { "gl": "Día das Letras Galegas", "es": "Día de las Letras Gallegas", "en": "Galician Literature Day" } },
+    { "id": "san_xoan", "emoji": "🔥", "desde": "06-21", "ata": "06-24", "ruta": "como_arde_o_lume",
+      "titulo": { "gl": "Noite de San Xoán", "es": "Noche de San Juan", "en": "Saint John's Night" } },
+    { "id": "apostolo", "emoji": "⭐", "desde": "07-24", "ata": "07-25",
+      "titulo": { "gl": "Día de Galicia", "es": "Día de Galicia", "en": "Galicia Day" } },
+    { "id": "vendima",  "emoji": "🍇", "desde": "09-01", "ata": "10-10", "ruta": "a_viaxe_do_vino",
+      "titulo": { "gl": "A vendima", "es": "La vendimia", "en": "The grape harvest" } },
+    { "id": "samain",   "emoji": "🎃", "desde": "10-28", "ata": "11-01",
+      "titulo": { "gl": "Samaín", "es": "Samaín", "en": "Samhain" } },
+    { "id": "magosto",  "emoji": "🌰", "desde": "11-02", "ata": "11-11", "ruta": "a_viaxe_da_castana",
+      "titulo": { "gl": "O magosto", "es": "El magosto", "en": "The magosto" } },
+    { "id": "nadal",    "emoji": "🎄", "desde": "12-20", "ata": "01-06",
+      "titulo": { "gl": "Nadal e Reis", "es": "Navidad y Reyes", "en": "Christmas and Epiphany" } }
+  ]
+}

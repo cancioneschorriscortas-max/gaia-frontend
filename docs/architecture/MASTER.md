@@ -699,6 +699,14 @@ pica), sequeiro (fume e semanas, actividade de auga, o verme) e magosto (San Mar
 sequeiros de Pena Folenche (A Pobra de Trives) e castañas na grella dun magosto. Carta "Pícaa antes de asala".
 **Total: 38 rutas (22 primaria + 10 secundaria + 6 experto), 86 paradas con foto, 48 cartas, 8 misións.**
 
+**Rolda 50 (10 set 2026):** calendario galego de Lúa. `src/data/epocas.json` + `src/epocas.js` (`epocaDoAno`): oito
+épocas de data fixa (Maios, Letras Galegas, San Xoán, Día de Galicia, vendima 1 set–10 out, Samaín, magosto 2–11 nov,
+Nadal 20 dec–6 xan; o Entroido non, que cambia de data). Tres delas levan ruta (lume, viño, castaña): no catálogo esa
+ruta sobe co peso da misión e leva chip "🍇 é a época"; e Lúa engade á frase do día unha frase da época (dez frases
+novas en `frasesLua.json` con `cando.epoca`, sen nome para non repetilo tras o saúdo; ese día substitúe o gancho).
+Hoxe, vendima: "Setembro cheira a mosto. Sabes cantas uvas van nunha botella? Está en A viaxe do viño."
+O dono conectou GitHub: desde esta rolda, push ao rematar cada rolda.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria

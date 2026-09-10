@@ -72,6 +72,26 @@
     { "id": "gancho_cartas_2",   "cando": { "gancho": "cartas" },
       "gl": "{n} de {total} cartas. Sabes cal é a seguinte?", "es": "{n} de {total} cartas. ¿Sabes cuál es la siguiente?", "en": "{n} of {total} cards. Do you know which one is next?" },
     { "id": "carta_nova",        "cando": { "evento": "carta_nova" },
-      "gl": "Unha carta nova para a túa colección!", "es": "¡Una carta nueva para tu colección!", "en": "A new card for your collection!" }
+      "gl": "Unha carta nova para a túa colección!", "es": "¡Una carta nueva para tu colección!", "en": "A new card for your collection!" },
+    { "id": "epoca_vendima",     "cando": { "epoca": "vendima" },
+      "gl": "É tempo de vendima{, nome}: por Galicia enteira andan a coller as uvas. O que pasa despois cóntacho {ruta}.", "es": "Es tiempo de vendimia{, nome}: por toda Galicia andan cogiendo las uvas. Lo que pasa después te lo cuenta {ruta}.", "en": "It is harvest time{, nome}: all over Galicia people are picking grapes. What happens next is in {ruta}." },
+    { "id": "epoca_vendima_2",   "cando": { "epoca": "vendima" },
+      "gl": "Setembro cheira a mosto{, nome}. Sabes cantas uvas van nunha botella? Está en {ruta}.", "es": "Septiembre huele a mosto{, nome}. ¿Sabes cuántas uvas van en una botella? Está en {ruta}.", "en": "September smells of grape must{, nome}. Do you know how many grapes go into a bottle? It is in {ruta}." },
+    { "id": "epoca_magosto",     "cando": { "epoca": "magosto" },
+      "gl": "Xa hai castañas no chan{, nome}! Esta semana toca magosto: pícaas antes de asalas, que estoupan. {ruta} explica por que.", "es": "¡Ya hay castañas en el suelo{, nome}! Esta semana toca magosto: pícalas antes de asarlas, que explotan. {ruta} explica por qué.", "en": "The chestnuts are falling{, nome}! This week is magosto week: score them before roasting, or they burst. {ruta} explains why." },
+    { "id": "epoca_magosto_2",   "cando": { "epoca": "magosto" },
+      "gl": "Polo San Martiño, castañas e viño{, nome}. O magosto, coa súa historia, está en {ruta}.", "es": "Por San Martín, castañas y vino{, nome}. El magosto, con su historia, está en {ruta}.", "en": "For Saint Martin, chestnuts and wine{, nome}. The magosto, with its story, is in {ruta}." },
+    { "id": "epoca_samain",      "cando": { "epoca": "samain" },
+      "gl": "Samaín{, nome}: a noite das cabazas e dos contos de medo. Os avós xa a celebraban antes de que chegase o Halloween.", "es": "Samaín{, nome}: la noche de las calabazas y los cuentos de miedo. Los abuelos ya la celebraban antes de que llegara Halloween.", "en": "Samhain{, nome}: the night of pumpkins and scary stories. Grandparents were keeping it long before Halloween arrived." },
+    { "id": "epoca_san_xoan",    "cando": { "epoca": "san_xoan" },
+      "gl": "Noite de San Xoán{, nome}: fogueiras na praia e sardiñas. Sabes por que arde o lume? Mírao en {ruta}.", "es": "Noche de San Juan{, nome}: hogueras en la playa y sardinas. ¿Sabes por qué arde el fuego? Míralo en {ruta}.", "en": "Saint John's Night{, nome}: bonfires on the beach and sardines. Do you know why fire burns? See it in {ruta}." },
+    { "id": "epoca_maios",       "cando": { "epoca": "maios" },
+      "gl": "Maio chegou{, nome}: en moitas vilas visten os Maios de flores e cantan coplas. É a festa da primavera.", "es": "Llegó mayo{, nome}: en muchas villas visten los Maios de flores y cantan coplas. Es la fiesta de la primavera.", "en": "May is here{, nome}: in many towns the Maios are dressed in flowers and people sing verses. It is the spring festival." },
+    { "id": "epoca_letras",      "cando": { "epoca": "letras" },
+      "gl": "Día das Letras Galegas{, nome}: hoxe celebramos a nosa lingua. Explorar en galego tamén conta.", "es": "Día de las Letras Gallegas{, nome}: hoy celebramos nuestra lengua. Explorar en gallego también cuenta.", "en": "Galician Literature Day{, nome}: today we celebrate our language. Exploring in Galician counts too." },
+    { "id": "epoca_apostolo",    "cando": { "epoca": "apostolo" },
+      "gl": "Día de Galicia{, nome}! Hoxe o país está de festa. Bo momento para un anaquiño máis de universo.", "es": "¡Día de Galicia{, nome}! Hoy el país está de fiesta. Buen momento para un trocito más de universo.", "en": "Galicia Day{, nome}! The whole country is celebrating. A good moment for one more piece of the universe." },
+    { "id": "epoca_nadal",       "cando": { "epoca": "nadal" },
+      "gl": "Nadal{, nome}: tempo de estar coa xente que queres. Se sobra unha tarde, o universo agarda.", "es": "Navidad{, nome}: tiempo de estar con la gente que quieres. Si sobra una tarde, el universo espera.", "en": "Christmas{, nome}: time to be with the people you love. If an afternoon is left over, the universe is waiting." }
   ]
 }

@@ -23,6 +23,7 @@ import { fraseLua } from './lua'
 import CARTAS from './data/cartas.json'
 import { misionDaSemana } from './misions'
 import MISIONS from './data/misions.json'
+import { epocaDoAno } from './epocas'
 import { CartaRevelada } from './PercorridoRuta'
 import { sonXP } from './sistemaAudio'
 import ColeccionCartas from './ColeccionCartas'
@@ -174,8 +175,10 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
   const nivelAlumno = /prim/.test(usuario?.curso || '') || !usuario?.curso ? 'primary' : 'secondary'
   // Orde: tutorial → rutas da misión da semana → nivel do alumno → secundaria → experto.
   const rutasMision = new Set(misionDaSemana().rutas)
+  // Calendario galego (src/epocas.js): a ruta da época (vendima, magosto...) sobe co peso da misión.
+  const epoca = epocaDoAno()
   const ordeNivel = { primary: 0, secondary: 1, expert: 2 }
-  const peso = (j) => j.id === TUTORIAL_ID ? 0 : rutasMision.has(j.id) ? 1 : (j.level || 'primary') === nivelAlumno ? 2 : 3 + (ordeNivel[j.level] || 0)
+  const peso = (j) => j.id === TUTORIAL_ID ? 0 : (rutasMision.has(j.id) || j.id === epoca?.ruta) ? 1 : (j.level || 'primary') === nivelAlumno ? 2 : 3 + (ordeNivel[j.level] || 0)
   const porEmpezar  = catalogo.filter(j => !empezadas.has(j.id)).sort((a, b) => peso(a) - peso(b))
   // Con 30 rutas o catálogo era un muro (6.600 px nunha conta nova): por defecto só 5,
   // e "Ver todos" despregа a lista enteira con cabeceiras por nivel.
@@ -350,7 +353,12 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
       : (cartas.length > 0 && diaPar)
         ? fraseLua({ idioma, hora: -1, gancho: 'cartas', n: cartas.length, total: CARTAS.cartas.length })
         : ''
-  const fraseDoDia = [saudo, misionSemanal || mision, gancho].filter(Boolean).join(' ')
+  // Frase da época (vendima, magosto, San Xoán...): substitúe o gancho eses días para non alongar de máis.
+  const rutaEpoca  = epoca?.ruta ? catalogo.find(x => x.id === epoca.ruta) : null
+  const fraseEpoca = epoca && !usuario?.explorador
+    ? fraseLua({ idioma, hora: -1, epoca: epoca.id, ruta: rutaEpoca ? labelCatalogo(rutaEpoca) : (epoca.titulo[idioma] || epoca.titulo.gl) })
+    : ''
+  const fraseDoDia = [saudo, fraseEpoca, misionSemanal || mision, fraseEpoca ? '' : gancho].filter(Boolean).join(' ')
   // ── FIN: frase_do_dia ─────────────────────────────────
   const completada = destacada?.completada === true
   const labelRuta  = destacada
@@ -554,6 +562,11 @@ export default function PortadaNeno({ idioma = 'gl', onAbrirRuta, onExplorar, on
                     {rutasMision.has(j.id) && j.id !== TUTORIAL_ID && (
                       <span title={t(idioma, 'misionSemana')} style={{ fontSize: 11, color: C.secundario }}>
                         {misionSemana.emoji} {t(idioma, 'portadaDaMision')}
+                      </span>
+                    )}
+                    {epoca && j.id === epoca.ruta && (
+                      <span title={epoca.titulo[idioma] || epoca.titulo.gl} style={{ fontSize: 11, color: C.secundario }}>
+                        {epoca.emoji} {t(idioma, 'portadaDaEpoca')}
                       </span>
                     )}
                     <span style={{ marginLeft: 'auto', fontSize: 13, color: C.dourado, fontWeight: 600 }}>
