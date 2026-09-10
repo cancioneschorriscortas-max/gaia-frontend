@@ -730,6 +730,19 @@ substituído por un pombo en voo (`borrar_media.mjs` + resubida). Cartas "Derret
 "Area que se ve a través". Tamén: o profesor ve a época do calendario no panel da misión (commit 0b3d802).
 **Total: 44 rutas (28 primaria + 10 secundaria + 6 experto), 110 paradas con foto, 54 cartas, 8 misións.**
 
+**Rolda 53:** terceira tanda con subaxentes, esta vez tres rutas de SECUNDARIA sobre as de primaria da mañá:
+`rutas_secundaria_7` "O millo, por dentro" 🌽, `_8` "A area, por dentro" 🏖️ e `_9` "O voo, por dentro" 🐦 (retos de
+cálculo + concepto, cartas "Secar sen tocar", "Cen veces máis", "Contar lixeiro"). Os redactores corrixiron dúas
+cifras incoherentes do meu brief (0,5 g por pluma daban 2,5 kg de plumas nunha ave de 1 kg) e entregaron as solucións.
+O avaliador fallou nun reto ben resolto: no do hórreo tomou "30 % de humidade" por 30 % de materia seca e deu 35 a
+unha resposta correcta. Arranxo estrutural no backend (0e227d7): **solución de referencia do autor**
+(`solucion_<nivel>` no nodo, só se garda cando vén no PUT) que `/avaliar-reto` mete no prompt como cifras fiables.
+Coa referencia: 90 á resposta boa, 25 á mala. Os tres seeds levan agora `SOLUCIONS` e gárdanas; as 12 solucións
+quedaron na base. Pendente: os retos de secundaria e experto anteriores (roldas 3-47) non teñen solución de
+referencia aínda. Ollo probas: o login ten límite de 10 intentos/15 min por IP; os scripts levan reserva co token
+gardado en `test_user.json`.
+**Total: 47 rutas (28 primaria + 13 secundaria + 6 experto), 110 paradas con foto, 57 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
