@@ -743,6 +743,17 @@ referencia aínda. Ollo probas: o login ten límite de 10 intentos/15 min por IP
 gardado en `test_user.json`.
 **Total: 47 rutas (28 primaria + 13 secundaria + 6 experto), 110 paradas con foto, 57 cartas, 8 misións.**
 
+**Rolda 54:** solucións de referencia para os 64 retos anteriores (40 de secundaria, 24 de experto), escritas por catro
+subaxentes en paralelo (a primeira tentativa morreu polo límite de sesión; relanzados). Cada solución leva cifras
+con operacións e intervalo aceptable, regras de crédito parcial ("3,3 kg é só parcialmente correcto") e os
+conceptos cos termos exactos do texto. Fonte de verdade: `docs/content/solucions_referencia.seed.mjs` (autocontido,
+49 nodos). Probas: a resposta co atallo 1/0,3 no néctar baixa a 55 con explicación do porqué; a de experto no xeo, 75.
+Achados dos redactores para o backlog: (1) `a_ameixa` e `o_marisqueo` teñen como "texto de secundaria" un texto de
+primaria; (2) varios enunciados piden conceptos que o texto da parada non explica (afumador en `o_apicultor`,
+diferencial en `o_enchufe`, fotosíntese en `a_lena`, osmose en `o_sal`, Pasteur en `a_conserva`, modulación en
+`a_onda_de_radio`): ou se completa o texto ou se afrouxa o enunciado; (3) `o_xeo` (experto) ten unha pregunta
+ambigua ("canto a 10 °C se deixa a caixa ao sol dúas horas").
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
