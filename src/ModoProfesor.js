@@ -9,6 +9,7 @@ import ConstructorRutas from './ConstructorRutas'
 import ConstructorRelacions from './ConstructorRelacions'
 import { API } from './config/api';
 import { misionDaSemana } from './misions'
+import { epocaDoAno } from './epocas'
 
 // ═══════════════════════════════════════════════════════════
 // ModoProfesor — Modo de xestión docente e validación
@@ -1533,6 +1534,7 @@ function ModoProfesor({
     // O mesmo tema que ve o alumnado (src/misions.js). Con rutasFeitas de cada
     // alumno calcúlase cantos a levan completa, a medias ou sen empezar.
     const mision = misionDaSemana()
+    const epoca  = epocaDoAno()   // calendario galego (src/epocas.js): o mesmo que ve o alumnado na portada
     const feitasDe = (a) => mision.rutas.filter(id => (a.rutasFeitas || []).includes(id)).length
     const misionStats = alumnosFiltrados.reduce((s, a) => {
       const n = feitasDe(a)
@@ -1680,6 +1682,11 @@ function ModoProfesor({
               <div style={{ fontSize: 12, color: 'var(--gaia-text-secondary)' }}>
                 {mision.texto[idioma] || mision.texto.gl}
               </div>
+              {epoca && (
+                <div style={{ fontSize: 12, color: 'var(--gaia-accent)', marginTop: 4 }}>
+                  {epoca.emoji} {t(idioma, 'profEpoca')}: {epoca.titulo[idioma] || epoca.titulo.gl}{epoca.ruta ? ` · ${t(idioma, 'profEpocaRuta')}` : ''}
+                </div>
+              )}
             </div>
             <div style={{ display: 'flex', gap: 14, fontSize: 12, fontFamily: 'var(--gaia-font-mono)' }}>
               <span style={{ color: 'var(--gaia-constellation)' }}>✅ {t(idioma, 'profMisionCompleta', misionStats.completa)}</span>
