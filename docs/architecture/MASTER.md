@@ -768,6 +768,16 @@ mundo") pasan de draft a validated, para distinguilos dos borradores vellos; os 
 autores non se tocan. No mesmo seed, o reto de experto de `o_xeo` reescrito sen a ambigüidade (pide as horas de vida
 útil que consome o descoido) coa súa solución de referencia.
 
+**Rolda 57:** cuarta tanda con subaxentes (tres rutas de primaria): `como_funciona_o_mundo_20` "De onde vén o
+aceite" 🫒 (oliveira de Quiroga e Valdeorras, almazara, o aceite que flota e arde, o pan con aceite), `_21` "Como se
+fai un mapa" 🗺️ (escala e Fontán, satélite e teodolito, GPS por tempo de sinal, o mapa do móbil e OpenStreetMap)
+e `_22` "Como funciona un reloxo" ⏰ (sombra, péndulo, cuarzo a 32.768 Hz, fusos horarios e o solpor galego). Os
+redactores corrixiron dous erros do meu brief: o rendemento da almazara (uns 5 kg de olivas por litro, non 15-20)
+e a diferenza de mediodía solar Galicia-Madrid (uns 20 minutos, non 40). 12 fotos (a oliveira de Lun de 1.600
+anos, o reloxo de sol da igrexa de Santiago de Allariz, un módulo de cuarzo aberto, o mapa de fusos), cartas
+"Zume de oliva", "O mundo encollido", "32.768 veces por segundo".
+**Total: 50 rutas (31 primaria + 13 secundaria + 6 experto), 122 paradas con foto, 60 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
