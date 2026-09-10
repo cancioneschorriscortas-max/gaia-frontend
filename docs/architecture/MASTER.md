@@ -778,6 +778,15 @@ anos, o reloxo de sol da igrexa de Santiago de Allariz, un módulo de cuarzo abe
 "Zume de oliva", "O mundo encollido", "32.768 veces por segundo".
 **Total: 50 rutas (31 primaria + 13 secundaria + 6 experto), 122 paradas con foto, 60 cartas, 8 misións.**
 
+**Rolda 58:** quinta tanda con subaxentes, tres rutas de secundaria con solución de referencia desde o principio:
+`rutas_secundaria_10` "O chocolate, por dentro" 🍫, `_11` "O vidro, por dentro" 🫙 e `_12` "O reloxo, por dentro" ⏰
+(cálculos: gran seco por árbore e árbores por tonelada, humidade 55 → 7 %, manteiga nunha tableta, azucre e a OMS;
+mestura do vidro, horas de forno e recocido, botellas por turno fronte ao vidreiro, aforro do casco; graos por hora,
+período e raíz cadrada, 32.768 por minuto e hora, A Coruña-Tokio en graos e horas). Cartas "Mil árbores nunha
+tonelada", "Catrocentos días nunha hora", "Case dez horas de Sol". Avaliador probado no forno de vidro: 88 con contas
+correctas. Quedan sen ruta de secundaria: castaña, madeira, aceite e mapa.
+**Total: 53 rutas (31 primaria + 16 secundaria + 6 experto), 122 paradas con foto, 63 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
