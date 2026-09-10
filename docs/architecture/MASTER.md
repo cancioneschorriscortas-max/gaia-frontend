@@ -707,6 +707,19 @@ novas en `frasesLua.json` con `cando.epoca`, sen nome para non repetilo tras o s
 Hoxe, vendima: "Setembro cheira a mosto. Sabes cantas uvas van nunha botella? Está en A viaxe do viño."
 O dono conectou GitHub: desde esta rolda, push ao rematar cada rolda.
 
+**Rolda 51 (10 set 2026): primeira rolda con subaxentes.** O dono pediu probar se se pode ir máis rápido con axudantes
+en paralelo. Tres subaxentes (mesmo modelo, mesma conta) escribiron á vez tres rutas de primaria completas, cada un
+cun brief pechado: modelo a copiar (`_12`), ids de nodos libres e ids de destino existentes para as relacións, regras
+de galego normativo, tamaños dos textos, retos coa correcta en posicións distintas, e un informe final coa lista de
+cifras e a súa confianza. Resultado: `como_funciona_o_mundo_14` "A viaxe do millo" 🌽 (millo, muíño, broa, hórreo),
+`_15` "De onde vén a madeira" 🪵 (piñeiro, serradoiro, carpinteiro, moble) e `_16` "De onde vén a area" 🏖️ (rocha,
+viaxe polo río, onda, duna). Calidade alta: só houbo que cambiar un castelanismo ("apillar" → "amorear") e unha
+etiqueta ("O transporte" → "A viaxe polo río"); os tres seeds correron á primeira (12 nodos, 39 relacións). Fotos,
+cartas ("Os tornarratos", "Feita de aire", "Un gran de cuarzo") e integración fíxoas o executor. Custo: uns 110k tokens
+por subaxente e 7-8 minutos cada un, en paralelo. Receita reutilizable: scripts xenéricos `media_buscar_xeral.mjs`,
+`media_seed_xeral.mjs`, `captura.ps1` e `revisar_seed.mjs` no scratchpad da sesión.
+**Total: 41 rutas (25 primaria + 10 secundaria + 6 experto), 98 paradas con foto, 51 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
