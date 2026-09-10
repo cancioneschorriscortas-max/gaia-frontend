@@ -761,6 +761,13 @@ enchufe (magnetotérmico vs diferencial), a leña (fotosíntese, humidade), o sa
 conserva (Appert e Pasteur, autoclave, lata abombada), a onda de radio (modulación AM/FM/dixital); e o afumador
 en `o_apicultor`. Queda do backlog: o enunciado ambiguo de `o_xeo` (experto).
 
+**Rolda 56:** o dono preguntou se os nodos novos saen no mapa. Saen nos dous modos: "Os meus camiños" pinta as paradas
+das rutas publicadas (114, con relacións) e "Todo o universo" non filtra por estado (1.901 nodos, 1.761 borradores).
+`docs/content/validar_nodos_rutas.seed.mjs`: os 103 nodos escritos para as rutas (autor "GAIA — como funciona o
+mundo") pasan de draft a validated, para distinguilos dos borradores vellos; os 11 que xa o estaban e os doutros
+autores non se tocan. No mesmo seed, o reto de experto de `o_xeo` reescrito sen a ambigüidade (pide as horas de vida
+útil que consome o descoido) coa súa solución de referencia.
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
