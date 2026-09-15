@@ -805,6 +805,16 @@ tope (502-557): devolvía 400 sen explicación, é dicir, os retos máis difíci
 responder. Tope subido a 1.500 (backend 4921dec). Despois: péndulo 88, á 88, con todas as contas correctas.
 **Total: 60 rutas (31 primaria + 20 secundaria + 9 experto), 122 paradas con foto, 70 cartas, 8 misións.**
 
+**Rolda 61:** tres rutas de experto máis, con subaxentes: `rutas_experto_10` "O chocolate, a fondo" 🍫 (sucesión
+microbiana da fermentación, tamaño de partícula e reoloxía do conchado, e sobre todo o POLIMORFISMO da manteiga de
+cacao: seis formas cristalinas e a curva de temperado), `_11` "O viño, a fondo" 🍇 (integral térmica e terroir,
+madurez tecnolóxica fronte a fenólica, ecuación de Gay-Lussac e a calor de fermentación, maloláctica, e a
+farmacocinética do etanol co marco de bebida de adultos) e `_12` "A madeira, a fondo" 🪵 (parede celular e
+microfibrilas, punto de saturación da fibra e anisotropía da contracción, resistencia paralela fronte a
+perpendicular, madeira como sumidoiro de carbono). Cartas 🎓. Probas co avaliador: adega 92, serradoiro 92,
+temperado 75 (as contas correctas nos tres; no temperado esixiu matices que o enunciado non pedía).
+**Total: 63 rutas (31 primaria + 20 secundaria + 12 experto), 122 paradas con foto, 73 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
