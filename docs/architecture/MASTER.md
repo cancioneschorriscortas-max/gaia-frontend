@@ -793,6 +793,18 @@ correctas. Quedan sen ruta de secundaria: castaña, madeira, aceite e mapa.
 súa de secundaria. Cartas 🍂 🌲 🏺 🧭. Avaliador probado no GPS: 88 con contas correctas.
 **Total: 57 rutas (31 primaria + 20 secundaria + 6 experto), 122 paradas con foto, 67 cartas, 8 misións.**
 
+**Rolda 60:** tres rutas de EXPERTO novas con subaxentes (as primeiras desde a sesión 5): `rutas_experto_7` "A area,
+a fondo" 🏖️ (mineraloxía e meteorización, diagrama de Hjulström, enerxía da onda con H², saltación e ángulo de
+repouso), `_8` "O voo, a fondo" 🐦 (beta-queratina e cor estrutural, L = ½ρv²S·CL, sacos aéreos e custo enerxético,
+magnetorrecepción e reservas de graxa) e `_9` "O reloxo, a fondo" ⏰ (gnomon e ecuación do tempo, T = 2π√(L/g) e
+compensación térmica, piezoelectricidade e cesio, UTC e segundos intercalares). Levan text_expert, reto_expert e
+solucion_expert desde o seed. Cartas 🎓 (area, voo, reloxo).
+
+**Bug atopado ao probalos:** `/avaliar-reto` limitaba a pregunta a 500 caracteres e os retos de experto pasan dese
+tope (502-557): devolvía 400 sen explicación, é dicir, os retos máis difíciles eran os únicos que non se podían
+responder. Tope subido a 1.500 (backend 4921dec). Despois: péndulo 88, á 88, con todas as contas correctas.
+**Total: 60 rutas (31 primaria + 20 secundaria + 9 experto), 122 paradas con foto, 70 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
