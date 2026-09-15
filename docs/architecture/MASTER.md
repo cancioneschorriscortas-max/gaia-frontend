@@ -815,6 +815,21 @@ perpendicular, madeira como sumidoiro de carbono). Cartas 🎓. Probas co avalia
 temperado 75 (as contas correctas nos tres; no temperado esixiu matices que o enunciado non pedía).
 **Total: 63 rutas (31 primaria + 20 secundaria + 12 experto), 122 paradas con foto, 73 cartas, 8 misións.**
 
+**Rolda 62:** tres rutas de experto máis (`rutas_experto_13` "O millo, a fondo" 🌽 con fotosíntese C4 e anatomía
+Kranz, hidráulica do muíño, zeínas e pelagra, isotermas de sorción; `_14` "O vidro, a fondo" 🫙 con rede de
+Zachariasen, temperatura de transición vítrea, puntos fixos de viscosidade e o CO2 de proceso dos carbonatos; `_15`
+"A castaña, a fondo" 🌰 con protandria, hipovirulencia do chancro, presión de vapor e a lei da cuarta potencia na
+radiación das brasas). Cartas 🎓.
+
+**Avaliador (backend 118860c):** arranxado o que se vira na rolda 61. Os retos de experto perdían puntos por matices
+que o enunciado non pedía, agora que hai texto de experto longo e solución de referencia: Lúa comparaba a resposta
+con TODO o que sabía. Tres regras novas: (1) o alcance da nota é o enunciado, non a parada enteira; unha resposta que
+contesta todas as partes con cifras correctas é 90 ou máis; (2) o que engadiría Lúa vai en "mellorar" como
+curiosidade e nunca baixa a nota; (3) antes de reprochar algo ten que comprobar que a resposta non o di (estaba a
+sinalar como ausente cousas que si estaban escritas). Probas: temperado do chocolate 75 → 88 coa mesma resposta e
+"a resposta está completa" en mellorar; a resposta mala do mesmo reto segue en 28; magosto 92.
+**Total: 66 rutas (31 primaria + 20 secundaria + 15 experto), 122 paradas con foto, 76 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
