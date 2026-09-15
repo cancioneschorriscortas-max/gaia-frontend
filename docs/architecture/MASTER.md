@@ -830,6 +830,22 @@ sinalar como ausente cousas que si estaban escritas). Probas: temperado do choco
 "a resposta está completa" en mellorar; a resposta mala do mesmo reto segue en 28; magosto 92.
 **Total: 66 rutas (31 primaria + 20 secundaria + 15 experto), 122 paradas con foto, 76 cartas, 8 misións.**
 
+**Rolda 63:** as dúas rutas de experto que faltaban. `rutas_experto_16` "O aceite, a fondo" 🫒 (folla esclerófila e
+vecería, o malaxado como rotura de emulsión e a lei de Stokes no decánter, autooxidación en cadea e polifenois,
+compostos polares na fritura e transesterificación a biodiésel) e `_17` "O mapa, a fondo" 🧭 (elipsoide e xeoide,
+datum e o salto ED50→ETRS89, factor de escala do UTM, GSD e órbitas heliosíncronas, pseudodistancias e DOP, os dous
+termos relativistas do GPS, e o mosaico de teselas do Web Mercator). Cartas 🎓.
+
+Con isto, **todas as rutas da serie "como funciona o mundo" desde a rolda 43 teñen os tres niveis**: primaria,
+secundaria e experto, e todos os retos de secundaria e experto teñen solución de referencia.
+
+**Dous erros meus que pillaron os redactores** (van na conta da receita: o brief do executor tamén se revisa):
+no aceite pedín "canto gaña ao regularizar a 22 kg" cando a media con vecería era 25 kg, é dicir, perdía; o redactor
+reformulou a pregunta como "gaña ou perde?" e explicou por que compensa igual. E no mapa, o redactor executou sen
+querer o seed contra o backend cun `import()` de comprobación (ESM de nivel superior: execútase enteiro), creando a
+ruta coa versión previa aos retoques; avisou en vez de agochalo. Borrada a ruta e reexecutado o seed final.
+**Total: 68 rutas (31 primaria + 20 secundaria + 17 experto), 122 paradas con foto, 78 cartas, 8 misións.**
+
 ---
 
 ### Sesión 5 (peche) — Claude Code como executor + Portada diaria
